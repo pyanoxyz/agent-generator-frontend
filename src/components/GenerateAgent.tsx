@@ -1,14 +1,5 @@
-import React, { useState } from "react";
-import { FaChevronRight as ChevronRight } from "react-icons/fa";
-import {
-  FaRobot,
-  FaUserEdit,
-  FaGlobe,
-  FaTwitter,
-  FaDiscord,
-  FaGithub,
-  FaLinkedin,
-} from "react-icons/fa";
+import { useState } from "react";
+import { FaRobot, FaUserEdit, FaGlobe } from "react-icons/fa";
 import FormPage from "./CreateAgentForm";
 
 const SAMPLE_AGENTS = [
