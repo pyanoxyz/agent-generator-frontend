@@ -183,7 +183,7 @@ export default function FormPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 max-w-2xl font-mono">
+    <div className="container mx-auto px-4 py-16 max-w-2xl font-mono z-10">
       <form onSubmit={handleSubmit} className="mb-8 space-y-4">
         <div className="relative">
           <input

@@ -55,7 +55,7 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <header className="h-screen flex flex-col items-center justify-center relative">
+      <header className="h-[70vh] flex flex-col items-center justify-center relative">
         {/* Vertical Lines */}
         <div className="absolute inset-0 flex justify-center items-center">
           {[0, 1, 2, 3, 4].map((i) => (
@@ -150,8 +150,8 @@ const LandingPage = () => {
             <div className="text-2xl font-bold">15.3K</div>
           </div>
         </div>
-        <FormPage />
       </header>
+      <FormPage />
 
       {/* Phases Section */}
       <section className="py-32 relative overflow-hidden">
