@@ -95,7 +95,7 @@ const LandingPage = () => {
 
         <h1 className="text-5xl font-bold mb-4 relative z-10">pyano.network</h1>
         <p className="text-2xl text-gray-400 mb-8 tracking-wider z-10">
-          THE OPERATING LAYER OF AI AGENTS
+          THE ORCHESTRATION LAYER OF AI AGENTS
         </p>
 
         {/* Integration Status Bar */}
@@ -150,6 +150,7 @@ const LandingPage = () => {
             <div className="text-2xl font-bold">15.3K</div>
           </div>
         </div>
+        <FormPage />
       </header>
 
       {/* Phases Section */}
@@ -204,10 +205,9 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 relative">
+      {/* <section className="py-32 relative">
         <div className="container mx-auto px-6 text-center">
-          <FormPage />
-          {/* <Link to="/generate">
+          <Link to="/generate">
             <button className="bg-transparent border border-gray-700 hover:border-white px-8 py-4 rounded-none flex items-center gap-2 mx-auto group transition-colors duration-300">
               <span className="text-gray-400 group-hover:text-white transition-colors duration-300">
                 Create Agents
@@ -217,9 +217,9 @@ const LandingPage = () => {
                 size={20}
               />
             </button>
-          </Link> */}
+          </Link>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <footer className="py-8 border-t border-gray-900">
