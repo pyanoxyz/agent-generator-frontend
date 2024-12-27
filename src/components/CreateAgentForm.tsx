@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaCopy } from "react-icons/fa";
+import { FaCopy, FaDownload } from "react-icons/fa";
 
 // Mock function to simulate API call
 const generateAgent = async (prompt) => {
@@ -138,26 +138,188 @@ const generateAgent = async (prompt) => {
 }`;
 
   return JSON.parse(json);
-  // Generate a mock agent JSON based on the prompt
-  return {
-    name: `Agent derived from: ${prompt}`,
-    description: `An AI agent created with the prompt: "${prompt}"`,
-    personality: {
-      traits: ["adaptive", "intelligent", "creative"],
-      communication_style: "informative and engaging",
-    },
-    knowledge_domains: ["general", "context-specific"],
-    generation_details: {
-      prompt: prompt,
-      timestamp: new Date().toISOString(),
-    },
+};
+
+const EditableConfigForm = ({ initialConfig }) => {
+  const [config, setConfig] = useState(initialConfig);
+
+  const updateConfig = (path, value) => {
+    const newConfig = { ...config };
+    const keys = path.split(".");
+    let current = newConfig;
+    for (let i = 0; i < keys.length - 1; i++) {
+      current = current[keys[i]];
+    }
+    current[keys[keys.length - 1]] = value;
+    setConfig(newConfig);
   };
+
+  const handleArrayChange = (path, value, index) => {
+    const newConfig = { ...config };
+    const keys = path.split(".");
+    let current = newConfig;
+    for (const key of keys) {
+      current = current[key];
+    }
+    current[index] = value;
+    setConfig(newConfig);
+  };
+
+  const addArrayItem = (path) => {
+    const newConfig = { ...config };
+    const keys = path.split(".");
+    let current = newConfig;
+    for (const key of keys) {
+      current = current[key];
+    }
+    current.push("");
+    setConfig(newConfig);
+  };
+
+  const removeArrayItem = (path, index) => {
+    const newConfig = { ...config };
+    const keys = path.split(".");
+    let current = newConfig;
+    for (const key of keys) {
+      current = current[key];
+    }
+    current.splice(index, 1);
+    setConfig(newConfig);
+  };
+
+  const handleDownload = () => {
+    const dataStr = JSON.stringify(config, null, 2);
+    const dataBlob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement("a");
+    link.download = "agent-config.json";
+    link.href = url;
+    link.click();
+  };
+
+  const renderField = (key, value, path = "") => {
+    const currentPath = path ? `${path}.${key}` : key;
+
+    if (Array.isArray(value)) {
+      return (
+        <div key={key} className="mb-6">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            {key}
+          </label>
+          <div className="space-y-2">
+            {value.map((item, index) => (
+              <div key={index} className="flex gap-2">
+                {typeof item === "string" ? (
+                  <>
+                    <input
+                      type="text"
+                      value={item}
+                      onChange={(e) =>
+                        handleArrayChange(currentPath, e.target.value, index)
+                      }
+                      className="flex-1 px-3 py-2 bg-black border border-gray-800 focus:border-blue-500 text-white transition-colors duration-300"
+                    />
+                    <button
+                      onClick={() => removeArrayItem(currentPath, index)}
+                      className="px-2 border border-gray-800 hover:border-red-500 text-gray-400 hover:text-red-500 transition-colors duration-300"
+                    >
+                      ×
+                    </button>
+                  </>
+                ) : (
+                  <div className="w-full">
+                    {renderField(`${index}`, item, currentPath)}
+                  </div>
+                )}
+              </div>
+            ))}
+            {typeof value[0] === "string" && (
+              <button
+                onClick={() => addArrayItem(currentPath)}
+                className="text-sm text-blue-500 hover:text-blue-400 transition-colors duration-300"
+              >
+                + Add Item
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    } else if (typeof value === "object" && value !== null) {
+      return (
+        <div key={key} className="mb-6">
+          <h4 className="text-lg font-medium text-gray-300 mb-4">{key}</h4>
+          <div className="space-y-4 pl-4 border-l border-gray-800">
+            {Object.entries(value).map(([k, v]) =>
+              renderField(k, v, currentPath)
+            )}
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div key={key} className="mb-4">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            {key}
+          </label>
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => updateConfig(currentPath, e.target.value)}
+            className="w-full px-3 py-2 bg-black border border-gray-800 focus:border-blue-500 text-white transition-colors duration-300"
+          />
+        </div>
+      );
+    }
+  };
+
+  return (
+    <div className="border border-gray-800 bg-black/30 backdrop-blur-sm p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-bold text-gray-300">Edit Configuration</h3>
+        <div className="flex gap-4 z-10">
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText(JSON.stringify(config, null, 2));
+              const el = document.getElementById("copyFeedback");
+              if (el) {
+                el.classList.remove("opacity-0");
+                setTimeout(() => el.classList.add("opacity-0"), 2000);
+              }
+            }}
+            className="text-gray-400 hover:text-gray-300 transition-colors duration-300"
+            title="Copy to clipboard"
+          >
+            <FaCopy size={20} />
+          </button>
+          <button
+            onClick={handleDownload}
+            className="text-gray-400 hover:text-gray-300 transition-colors duration-300"
+            title="Download JSON"
+          >
+            <FaDownload size={20} />
+          </button>
+        </div>
+      </div>
+
+      <div className="max-h-[60vh] overflow-y-auto pr-4">
+        {Object.entries(config).map(([key, value]) => renderField(key, value))}
+      </div>
+
+      <div
+        id="copyFeedback"
+        className="fixed top-16 right-4 text-sm text-blue-500 opacity-0 transition-opacity duration-300 bg-black/90 px-4 py-2 border border-blue-500"
+      >
+        Copied to clipboard
+      </div>
+    </div>
+  );
 };
 
 export default function FormPage() {
   const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [agentJson, setAgentJson] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -165,16 +327,19 @@ export default function FormPage() {
     if (agentJson) {
       setAgentJson(null);
       setPrompt("");
+      setShowEditForm(false);
       return;
     }
     // Reset previous state
     setAgentJson(null);
     setIsLoading(true);
+    setShowEditForm(false);
 
     try {
       // Generate agent
       const agent = await generateAgent(prompt);
       setAgentJson(agent);
+      setShowEditForm(true);
     } catch (error) {
       console.error("Agent generation failed", error);
     } finally {
@@ -183,7 +348,7 @@ export default function FormPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 max-w-2xl font-mono z-10">
+    <div className="container mx-auto px-4 py-16 max-w-4xl font-mono z-10">
       <form onSubmit={handleSubmit} className="mb-8 space-y-4">
         <div className="relative">
           <input
@@ -212,38 +377,8 @@ export default function FormPage() {
         </button>
       </form>
 
-      {agentJson && (
-        <div className="border border-gray-800 bg-black/30 backdrop-blur-sm p-6 text-start">
-          <h3 className="text-xl font-bold mb-6 text-gray-300">
-            Generated Agent Configuration
-          </h3>
-          <div className="bg-black border border-gray-800 p-4 relative group">
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(
-                  JSON.stringify(agentJson, null, 2)
-                );
-                const el = document.getElementById("copyFeedback");
-                if (el) {
-                  el.classList.remove("opacity-0");
-                  setTimeout(() => el.classList.add("opacity-0"), 2000);
-                }
-              }}
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-300 transition-colors duration-300"
-            >
-              <FaCopy size={20} />
-              <div
-                id="copyFeedback"
-                className="absolute top-full right-0 mt-2 text-sm text-blue-500 opacity-0 transition-opacity duration-300 whitespace-nowrap"
-              >
-                Copied to clipboard
-              </div>
-            </button>
-            <pre className="text-sm text-gray-300 overflow-x-auto whitespace-pre-wrap font-mono">
-              {JSON.stringify(agentJson, null, 2)}
-            </pre>
-          </div>
-        </div>
+      {showEditForm && agentJson && (
+        <EditableConfigForm initialConfig={agentJson} />
       )}
 
       {isLoading && (
@@ -255,7 +390,6 @@ export default function FormPage() {
       )}
     </div>
   );
-
   //   return (
   //     <div className="container mx-auto px-4 py-16 max-w-2xl">
   //       <form onSubmit={handleSubmit} className="mb-8">
