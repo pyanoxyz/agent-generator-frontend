@@ -213,7 +213,7 @@ export default function FormPage() {
       </form>
 
       {agentJson && (
-        <div className="border border-gray-800 bg-black/30 backdrop-blur-sm p-6">
+        <div className="border border-gray-800 bg-black/30 backdrop-blur-sm p-6 text-start">
           <h3 className="text-xl font-bold mb-6 text-gray-300">
             Generated Agent Configuration
           </h3>

@@ -1,6 +1,7 @@
 import React from "react";
 import { FaChevronRight as ChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import FormPage from "./CreateAgentForm";
 
 const LandingPage = () => {
   return (
@@ -205,7 +206,8 @@ const LandingPage = () => {
       {/* CTA Section */}
       <section className="py-32 relative">
         <div className="container mx-auto px-6 text-center">
-          <Link to="/generate">
+          <FormPage />
+          {/* <Link to="/generate">
             <button className="bg-transparent border border-gray-700 hover:border-white px-8 py-4 rounded-none flex items-center gap-2 mx-auto group transition-colors duration-300">
               <span className="text-gray-400 group-hover:text-white transition-colors duration-300">
                 Create Agents
@@ -215,7 +217,7 @@ const LandingPage = () => {
                 size={20}
               />
             </button>
-          </Link>
+          </Link> */}
         </div>
       </section>
 
