@@ -27,35 +27,37 @@ const LandingPage = () => {
           ))}
         </div>
 
-        <h1 className="text-5xl font-bold mb-4 relative z-10">pyano.network</h1>
-        <p className="text-2xl text-gray-400 mb-8 tracking-wider z-10">
+        <h1 className="text-3xl lg:text-5xl font-bold mb-4 relative z-10">
+          pyano.network
+        </h1>
+        <p className="text-lg text-center lg:text-2xl text-gray-400 mb-8 tracking-wider z-10">
           THE ORCHESTRATION LAYER OF AI AGENTS
         </p>
 
         {/* Integration Status Bar */}
-        <div className="flex gap-4 z-10 mb-16">
-          <div className="bg-opacity-10 bg-blue-900 border border-blue-800 rounded px-4 py-2 flex items-center gap-2">
+        <div className="flex gap-2 flex-col lg:flex-row lg:gap-4 z-10 mb-16">
+          <div className="bg-opacity-10 bg-blue-900 border border-blue-800 rounded px-4 py-2 flex justify-between items-center gap-2">
             <span className="text-white">AlizaOS</span>
             <span className="text-blue-500 text-sm">
               ✓ Integration completed
             </span>
           </div>
-          <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex items-center gap-2">
+          <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">
             <span className="text-white">GAME</span>
             <span className="text-gray-500 text-sm">○ Coming soon</span>
           </div>
-          <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex items-center gap-2">
+          <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">
             <span className="text-white">SendAI</span>
             <span className="text-gray-500 text-sm">○ Coming soon</span>
           </div>
-          <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex items-center gap-2">
+          <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">
             <span className="text-white">Gnon</span>
             <span className="text-gray-500 text-sm">○ Coming soon</span>
           </div>
         </div>
 
         {/* Statistics */}
-        <div className="flex gap-16 z-10">
+        <div className="flex flex-col lg:flex-row gap-2 lg:gap-16 z-10">
           <div className="text-center">
             <div className="flex items-center gap-2 mb-2">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -63,7 +65,7 @@ const LandingPage = () => {
               </svg>
               <span>Twitter Agents</span>
             </div>
-            <div className="text-2xl font-bold">100+</div>
+            <div className="lg:text-2xl font-bold">100+</div>
           </div>
           <div className="text-center">
             <div className="flex items-center gap-2 mb-2">
@@ -72,7 +74,7 @@ const LandingPage = () => {
               </svg>
               <span>Telegram Agents</span>
             </div>
-            <div className="text-2xl font-bold">100+</div>
+            <div className="lg:text-2xl font-bold">100+</div>
           </div>
           <div className="text-center">
             <div className="flex items-center gap-2 mb-2">
@@ -81,7 +83,7 @@ const LandingPage = () => {
               </svg>
               <span>Discord Agents</span>
             </div>
-            <div className="text-2xl font-bold">100+</div>
+            <div className="lg:text-2xl font-bold">100+</div>
           </div>
         </div>
       </header>

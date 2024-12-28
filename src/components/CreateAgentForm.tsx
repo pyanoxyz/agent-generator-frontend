@@ -4,7 +4,7 @@ import BrainVisualisation from "./BrainVisualisation";
 import NavBar from "./NavBar";
 
 // API endpoint
-const API_URL = "http://0.0.0.0:8000/generate_character";
+const API_URL = "http://3.89.77.91:8000/generate_character";
 
 // Toast types and interface
 type ToastType = "error" | "success";
@@ -125,12 +125,12 @@ const CreateAgentForm = () => {
   return (
     <>
       <NavBar />
-      <div className="flex bg-black text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto">
+      <div className="flex flex-col-reverse lg:flex-row bg-black text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto">
         {/* Left Sidebar */}
-        <div className="p-4 border-x border-zinc-800 justify-center flex flex-col h-screen sticky top-0 max-w-80">
-          <div className="space-y-12 flex flex-col justify-evenly">
+        <div className="p-4 border-x border-zinc-800 justify-center flex flex-col lg:h-screen lg:sticky top-0 lg:max-w-80">
+          <div className="gap-5 lg:gap-10 flex flex-col justify-evenly">
             {/* Generate Section */}
-            <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            <h1 className="text-lg lg:text-2xl font-bold lg:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
               Create Your Eliza Agent with AI
             </h1>
             <div>
