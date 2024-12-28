@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import RoadMap from "./RoadMap";
 import NavBar from "./NavBar";
+// import VSCodeStatsButton from "./ExtensionButton";
 
 const LandingPage = () => {
   return (
@@ -27,7 +28,7 @@ const LandingPage = () => {
           ))}
         </div>
 
-        <h1 className="text-3xl lg:text-5xl font-bold mb-4 relative z-10">
+        <h1 className="text-3xl lg:text-5xl font-bold mb-8 relative z-10">
           pyano.network
         </h1>
         <p className="text-lg text-center lg:text-2xl text-gray-400 mb-8 tracking-wider z-10">
@@ -104,7 +105,6 @@ const LandingPage = () => {
       <section className="mt-40 relative overflow-hidden max-w-screen-2xl mx-auto">
         <RoadMap />
       </section>
-
       {/* Footer */}
       <footer className="py-8 border-t border-gray-900">
         <div className="container mx-auto px-6">
