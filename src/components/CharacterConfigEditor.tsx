@@ -183,20 +183,20 @@ const CharacterConfigEditor = ({
 
   return (
     <div className="mx-auto space-y-6  rounded-lg">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center sticky top-0 border-b border-gray-800 p-4 bg-black z-10">
         <h2 className="text-xl font-bold text-white">
           Character Configuration
         </h2>
         <div className="flex gap-4">
           <button
             onClick={handleCopyConfig}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
+            className="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-500"
           >
             Copy JSON
           </button>
           <button
             onClick={handleDownloadConfig}
-            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500"
+            className="px-4 py-2 bg-green-800 text-white rounded hover:bg-green-500"
           >
             Download JSON
           </button>

@@ -1,17 +1,17 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-// import FormPage from "./components/FormPage";
-import FormPage from "./components/GenerateAgent";
+import CreateAgentForm from "./components/CreateAgentForm";
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-brand-dark">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/generate" element={<FormPage />} />
-        </Routes>
+      <div className="bg-black">
+        <div className="min-h-screen bg-gradient-to-br from-blue-900/20  to-purple-900/20 ">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/generate" element={<CreateAgentForm />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );

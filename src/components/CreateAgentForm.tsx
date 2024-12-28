@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import CharacterConfigEditor from "./CharacterConfigEditor";
+import BrainVisualisation from "./BrainVisualisation";
+import NavBar from "./NavBar";
 
 // API endpoint
 const API_URL = "http://0.0.0.0:8000/generate_character";
@@ -121,99 +123,124 @@ const CreateAgentForm = () => {
   };
 
   return (
-    <div className="flex h-screen bg-black text-white font-mono overflow-hidden justify-center gap-4">
-      {/* Left Sidebar */}
-      <div className="w-80 bg-zinc-900 p-4 border-r border-zinc-800">
-        <div className="space-y-6">
-          {/* Generate Section */}
-          <div>
-            <h2 className="text-sm font-medium mb-2">Generate Character</h2>
-            <form onSubmit={handleSubmit}>
-              <textarea
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Describe your character in detail..."
-                className="w-full h-32 bg-black border border-zinc-800 p-3 text-sm resize-none mb-2"
-              />
-              {agentJson ? (
-                <div className="flex gap-2">
+    <>
+      <NavBar />
+      <div className="flex bg-black text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto">
+        {/* Left Sidebar */}
+        <div className="p-4 border-x border-zinc-800 justify-center flex flex-col h-screen sticky top-0 max-w-80">
+          <div className="space-y-12 flex flex-col justify-evenly">
+            {/* Generate Section */}
+            <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Create Your Eliza Agent with AI
+            </h1>
+            <div>
+              <h2 className="text-sm font-medium mb-2">
+                Generate Agent Character
+              </h2>
+              <form onSubmit={handleSubmit}>
+                <textarea
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  placeholder="Describe your character in detail..."
+                  className="w-full h-32 bg-black border border-zinc-800 p-3 text-sm resize-none mb-2"
+                />
+                {agentJson ? (
+                  <div className="flex gap-2">
+                    <button
+                      disabled={isLoading}
+                      onClick={handleReset}
+                      className="flex-1 bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm transition-colors disabled:opacity-50"
+                    >
+                      Create New
+                    </button>
+                  </div>
+                ) : (
                   <button
+                    type="submit"
                     disabled={isLoading}
-                    onClick={handleReset}
-                    className="flex-1 bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm transition-colors disabled:opacity-50"
+                    // className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 px-4 py-2 w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-12"
+                    className="w-full bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm transition-colors disabled:opacity-50"
                   >
-                    Create New
+                    {isLoading ? "Generating..." : "Generate Character"}
                   </button>
-                </div>
-              ) : (
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm transition-colors disabled:opacity-50"
-                >
-                  {isLoading ? "Generating..." : "Generate Character"}
-                </button>
-              )}
-            </form>
-          </div>
+                )}
+              </form>
+            </div>
 
-          {/* Load Character Section */}
-          <div>
-            <h2 className="text-sm font-medium mb-2">Load Character</h2>
-            <div
-              className="border border-dashed border-zinc-700 rounded p-4 text-center text-sm text-zinc-400 cursor-pointer hover:border-zinc-600 transition-colors"
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={handleDrop}
-            >
-              Drop and drop a character JSON file here
-              <span className="block text-zinc-500 mt-1">or</span>
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                accept="application/json"
-                className="hidden"
-              />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className="mt-2 text-blue-500 hover:text-blue-400"
+            {/* Load Character Section */}
+            <div>
+              <h2 className="text-sm font-medium mb-2">Load Character</h2>
+              <div
+                className="border border-dashed border-zinc-700 rounded p-4 text-center text-sm text-zinc-400 cursor-pointer hover:border-zinc-600 transition-colors"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={handleDrop}
               >
-                Browse Files
-              </button>
+                Drop and drop a character JSON file here
+                <span className="block text-zinc-500 mt-1">or</span>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  accept="application/json"
+                  className="hidden"
+                />
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="mt-2 text-blue-500 hover:text-blue-400"
+                >
+                  Browse Files
+                </button>
+              </div>
+            </div>
+            <div className="mt-8 p-4 border border-zinc-700 rounded bg-zinc-900">
+              <h2 className="text-lg font-semibold mb-2 text-blue-400">
+                Coming Soon!
+              </h2>
+              <p className="text-sm text-zinc-400">
+                Exciting news! We are working on a desktop app that will allow
+                you to run Eliza on your machine with just one click. Stay tuned
+                for more updates!
+              </p>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      {agentJson ? (
-        <div className="flex-1 overflow-auto max-w-4xl">
-          <CharacterConfigEditor initialConfig={agentJson} />
-        </div>
-      ) : (
-        <div className="max-w-4xl flex-1 flex items-center justify-center text-zinc-500">
-          {isLoading ? (
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 border-t-2 border-blue-500 rounded-full animate-spin" />
-              <span>Generating character configuration...</span>
+        {/* Main Content */}
+        <div className="w-full bg-gradient-to-br from-blue-900/20  to-purple-900/20 pl-4">
+          {agentJson ? (
+            <div className="flex-1  mt-4">
+              <CharacterConfigEditor initialConfig={agentJson} />
             </div>
           ) : (
-            <span>Enter a prompt to generate a character</span>
+            <div className="flex-1 flex items-center justify-center text-zinc-500 h-full">
+              {isLoading ? (
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 border-t-2 border-blue-500 rounded-full animate-spin" />
+                  <span>Generating character configuration...</span>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-4 items-center relative justify-center">
+                  <div className="w-64 h-64">
+                    <BrainVisualisation />
+                  </div>
+                  <span>Enter a prompt to generate a character</span>
+                </div>
+              )}
+            </div>
           )}
         </div>
-      )}
-
-      {/* Toast Messages */}
-      {toast && (
-        <div
-          className={`fixed bottom-4 right-4 px-4 py-2 rounded shadow-lg transition-all ${
-            toast.type === "error" ? "bg-red-600" : "bg-green-600"
-          } text-white`}
-        >
-          {toast.message}
-        </div>
-      )}
-    </div>
+        {/* Toast Messages */}
+        {toast && (
+          <div
+            className={`fixed bottom-4 right-4 px-4 py-2 rounded shadow-lg transition-all ${
+              toast.type === "error" ? "bg-red-600" : "bg-green-600"
+            } text-white`}
+          >
+            {toast.message}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
