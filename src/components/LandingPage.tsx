@@ -28,7 +28,7 @@ const LandingPage = () => {
           ))}
         </div>
 
-        <h1 className="text-3xl lg:text-5xl font-bold mb-8 relative z-10">
+        <h1 className="text-3xl lg:text-7xl font-bold mb-8 relative z-10">
           pyano.network
         </h1>
         <p className="text-lg text-center lg:text-2xl text-gray-400 mb-8 tracking-wider z-10">
