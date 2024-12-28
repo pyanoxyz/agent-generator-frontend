@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { FaRobot, FaUserEdit, FaGlobe } from "react-icons/fa";
 import FormPage from "./CreateAgentForm";
 
@@ -46,7 +46,7 @@ const FEATURES = [
 ];
 
 const FormPageMain = () => {
-  const [showForm, setShowForm] = useState(false);
+  // const [showForm, setShowForm] = useState(false);
 
   return (
     <div className="min-h-screen bg-black text-white font-mono">
