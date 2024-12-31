@@ -143,8 +143,18 @@ const CreateAgentForm = () => {
                 <textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      if (e.metaKey || e.ctrlKey) {
+                        setPrompt(prev => prev + '\n');
+                      } else {
+                        e.preventDefault();
+                        handleSubmit(e);
+                      }
+                    }
+                  }}
                   placeholder="Describe your character in detail..."
-                  className="w-full h-32 bg-black border border-zinc-800 p-3 text-sm resize-none mb-2"
+                  className="w-full h-32 bg-black border border-zinc-800 p-3 text-sm resize-none mb-2 outline-none"
                 />
                 {agentJson ? (
                   <div className="flex gap-2">
@@ -225,7 +235,6 @@ const CreateAgentForm = () => {
                   <div className="w-64 h-64">
                     <BrainVisualisation />
                   </div>
-                  <span>Enter a prompt to generate a character</span>
                 </div>
               )}
             </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import cn from "classnames";
+import DeployButton from "./DeployButton";
 
 const MODEL_PROVIDERS = [
   "openai",
@@ -28,16 +29,7 @@ const MODEL_PROVIDERS = [
   "akash_chat_api",
 ];
 
-const CLIENT_TYPES = [
-  "discord",
-  "direct",
-  "twitter",
-  "telegram",
-  "farcaster",
-  "lens",
-  "auto",
-  "slack",
-];
+const CLIENT_TYPES = ["twitter", "discord", "telegram"];
 
 const Tooltip = ({
   tooltip,
@@ -168,115 +160,110 @@ const CharacterConfigEditor = ({
     path: string,
     array: string[],
     tooltip?: React.ReactNode
-  ) => (
-    <div className="space-y-2">
-      <label className="flex gap-1 text-lg font-medium text-blue-500">
+   ) => (
+    <div className="bg-black/30 p-6 rounded-lg border border-gray-800">
+      <label className="flex gap-1 text-lg font-medium text-blue-500 mb-4">
         {label}
         {tooltip && <Tooltip tooltip={tooltip} />}
       </label>
-      {array.map((item, index) => (
-        <div key={index} className="flex gap-2">
-          <input
-            type="text"
-            value={item}
-            onChange={(e) =>
-              handleStringArrayChange(path, index, e.target.value)
-            }
-            className="flex-1 px-3 py-2 bg-black border border-gray-800 rounded text-white"
-            placeholder={`Enter ${label.toLowerCase()} item`}
-          />
-          <button
-            onClick={() => removeStringArrayItem(path, index)}
-            className="px-2 py-1 text-red-500 hover:text-red-400 border border-gray-800 rounded"
-          >
-            ×
-          </button>
-        </div>
-      ))}
-      <button
-        onClick={() => addStringArrayItem(path)}
-        className="text-sm text-blue-500 hover:text-blue-400"
-      >
-        + Add {label} Item
-      </button>
+      <div className="space-y-3">
+        {array.map((item, index) => (
+          <div key={index} className="group relative">
+            <textarea
+              value={item}
+              onChange={(e) => handleStringArrayChange(path, index, e.target.value)}
+              className="w-full px-4 py-2 bg-black/50 border border-gray-800 rounded-lg text-gray-200 min-h-[60px] resize-y text-sm leading-relaxed focus:border-blue-500/50 outline-none transition-colors pr-12"
+              placeholder={`Enter ${label.toLowerCase()} item`}
+            />
+            <button
+              onClick={() => removeStringArrayItem(path, index)}
+              className="absolute top-1/2 -translate-y-1/2 right-3 h-8 w-8 flex items-center justify-center text-red-500 hover:text-red-400 border border-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-black/50"
+            >
+              ×
+            </button>
+          </div>
+        ))}
+        <button
+          onClick={() => addStringArrayItem(path)}
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm text-blue-500 hover:text-blue-400 border border-blue-500/20 hover:border-blue-500/40 rounded-lg transition-colors"
+        >
+          + Add {label} Item
+        </button>
+      </div>
     </div>
-  );
+   );
 
   return (
     <div className="mx-auto space-y-6 mb-10 rounded-lg">
-      <div className="flex justify-between items-center sticky top-0 border-b border-gray-800 p-4 bg-black z-10">
-        <h2 className="text-xl font-bold text-white">
+      <div className="flex justify-between items-center sticky top-0 border-b border-gray-800 p-4 bg-black/80 backdrop-blur-sm z-10">
+        <h2 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
           Character Configuration
         </h2>
-        <div className="flex gap-4">
+        <div className="flex gap-2">
+          <DeployButton />
           <button
             onClick={handleCopyConfig}
-            className="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-500"
+            className="px-4 py-2 bg-blue-600/80 hover:bg-blue-500 text-white rounded transition-colors"
           >
             Copy JSON
           </button>
           <button
             onClick={handleDownloadConfig}
-            className="px-4 py-2 bg-green-800 text-white rounded hover:bg-green-500"
+            className="px-4 py-2 bg-green-600/80 hover:bg-green-500 text-white rounded transition-colors"
           >
-            Download JSON
+            Download
           </button>
         </div>
       </div>
 
       <div className="space-y-6">
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="flex gap-1 text-lg font-medium text-blue-500">
-              Name <Tooltip tooltip="Name of your agent" />
-            </label>
-            <input
-              type="text"
-              value={config.name}
-              onChange={(e) => updateField("name", e.target.value)}
-              className="w-full px-3 py-2 bg-black border border-gray-800 rounded text-white"
-            />
-          </div>
-          <div>
-            <label className="flex gap-1 text-lg font-medium text-blue-500">
-              Model Provider{" "}
-              <Tooltip tooltip="AI model your character will use" />
-            </label>
-            <select
-              value={config.modelProvider}
-              onChange={(e) => updateField("modelProvider", e.target.value)}
-              className="w-full px-3 py-2 bg-black border border-gray-800 rounded text-white"
-            >
-              {MODEL_PROVIDERS.map((provider) => (
-                <option key={provider} value={provider}>
-                  {provider}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
+   <label className="flex gap-1 text-lg font-medium bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">
+     Name <Tooltip tooltip="Name of your agent" />
+   </label>
+   <input
+     type="text"
+     value={config.name}
+     onChange={(e) => updateField("name", e.target.value)}
+     className="w-full px-4 py-2 bg-black/50 border border-gray-800 rounded-lg text-white focus:border-blue-500/50 outline-none transition-colors"
+     placeholder="Enter agent name..."
+   />
+ </div>
+ <div className="bg-black/30 p-4 rounded-lg border border-gray-800 opacity-75">
+   <label className="flex gap-1 text-lg font-medium bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">
+     Model Provider <Tooltip tooltip="Default model is Together AI" />
+   </label>
+   <select
+     value={config.modelProvider}
+     disabled
+     className="w-full px-4 py-2 bg-black/50 border border-gray-800 rounded-lg text-white cursor-not-allowed"
+   >
+     <option value="together">together</option>
+   </select>
+ </div>
         </div>
 
         <div>
-          <label className="flex gap-1 text-lg font-medium text-gray-300">
-            Clients
-            <Tooltip tooltip="Available clients for agent" />
+          <label className="flex gap-1 text-lg font-medium text-blue-500">
+            Client
+            <Tooltip tooltip="Select a client for your agent" />
           </label>
-          <select
-            multiple
-            value={config.clients}
-            onChange={handleClientChange}
-            className="w-full px-3 py-2 bg-black border border-gray-800 rounded text-white"
-            size={4}
-          >
+          <div className="flex flex-wrap gap-2 mt-2">
             {CLIENT_TYPES.map((client) => (
-              <option key={client} value={client}>
+              <button
+                key={client}
+                onClick={() => updateField("clients", [client])}
+                className={`px-4 py-2 rounded-full border transition-colors ${
+                  config.clients[0] === client
+                    ? "border-blue-500 bg-blue-500/20 text-blue-400"
+                    : "border-gray-700 bg-black/50 text-gray-400 hover:border-blue-500/50"
+                }`}
+              >
                 {client}
-              </option>
+              </button>
             ))}
-          </select>
-          <p className="text-xs text-gray-500 mt-1">
-            Hold Ctrl/Cmd to select multiple clients
-          </p>
+          </div>
         </div>
 
         {renderStringArrayField(
