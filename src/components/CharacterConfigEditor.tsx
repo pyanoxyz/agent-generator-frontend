@@ -47,7 +47,7 @@ const Tooltip = ({
     </div>
   );
 };
-interface CharacterConfig {
+export interface CharacterConfig {
   name: string;
   modelProvider: string;
   clients: string[];
@@ -200,7 +200,7 @@ const CharacterConfigEditor = ({
           Character Configuration
         </h2>
         <div className="flex gap-2">
-          <DeployButton />
+          <DeployButton config={config} />
           <button
             onClick={handleCopyConfig}
             className="px-4 py-2 bg-blue-600/80 hover:bg-blue-500 text-white rounded transition-colors"

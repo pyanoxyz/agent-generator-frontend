@@ -5,7 +5,7 @@ import NavBar from "./NavBar";
 
 // API endpoint
 const API_URL = import.meta.env.DEV
-  ? "http://localhost:8000/generate_character"
+  ? "https://api.pyano.network/generate_character"
   : "https://api.pyano.network/generate_character";
 
 // Toast types and interface

@@ -1,9 +1,9 @@
 import { getDefaultWallets } from '@rainbow-me/rainbowkit'
 import { createConfig, http } from 'wagmi'
-import { mainnet, polygon, goerli, polygonMumbai } from 'wagmi/chains'
+import { base } from 'wagmi/chains'
 
-// forom https://cloud.reown.com/
-const projectId = 'PROJECT_ID'
+
+const projectId = 'b31d81470d564d07116f3d0893a387b0'
 
 const { connectors } = getDefaultWallets({
  appName: 'My RainbowKit App',
@@ -11,12 +11,9 @@ const { connectors } = getDefaultWallets({
 })
 
 export const config = createConfig({
- chains: [mainnet, polygon, goerli, polygonMumbai],
- transports: {
-   [mainnet.id]: http(),
-   [polygon.id]: http(),
-   [goerli.id]: http(),
-   [polygonMumbai.id]: http()
- },
+  chains: [base],
+  transports: {
+    [base.id]: http()
+  },
  connectors
 })
