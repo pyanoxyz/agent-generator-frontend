@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaTelegram as TelegramIcon } from "react-icons/fa";
 import GitHubButton from "react-github-btn";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const NavBar = ({ sticky }: { sticky?: boolean }) => {
   return (
@@ -56,6 +57,7 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
               Star
             </GitHubButton>
           </div>
+          <ConnectButton />
         </div>
       </div>
     </nav>
