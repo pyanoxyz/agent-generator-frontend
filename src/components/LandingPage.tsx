@@ -16,7 +16,7 @@ const LandingPage = () => {
       {/* Top Navigation Bar */}
       <NavBar sticky />
       {/* Hero Section */}
-      <header className="h-[70vh] flex flex-col items-center justify-center relative">
+      <header className="h-[60vh] flex flex-col items-center justify-center relative">
         {/* Vertical Lines */}
         <div className="absolute inset-0 flex justify-center items-center">
           {[0, 1, 2, 3, 4].map((i) => (
@@ -96,7 +96,7 @@ const LandingPage = () => {
         </div>
       </header>
 
-      <section className=" relative">
+      <section className="relative">
         <div className="container mx-auto px-6 text-center">
           {/* <Link to="/generate"> */}
           <textarea
