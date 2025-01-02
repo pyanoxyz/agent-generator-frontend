@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import CharacterConfigEditor from "./CharacterConfigEditor";
 import BrainVisualisation from "./BrainVisualisation";
 import NavBar from "./NavBar";
+import { useLocation } from "react-router-dom";
 
 // API endpoint
 const API_URL = import.meta.env.DEV
@@ -33,11 +34,13 @@ const generateAgent = async (prompt: string) => {
 };
 
 const CreateAgentForm = () => {
-  const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [agentJson, setAgentJson] = useState(null);
   const [toast, setToast] = useState<Toast | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const location = useLocation();
+  const initialPrompt = location.state?.initialPrompt || "";
+  const [prompt, setPrompt] = useState(initialPrompt);
 
   const showToast = (message: string, type: ToastType) => {
     setToast({ message, type });
@@ -161,9 +164,11 @@ const CreateAgentForm = () => {
                     type="submit"
                     disabled={isLoading}
                     // className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 px-4 py-2 w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-12"
-                    className="w-full bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm transition-colors disabled:opacity-50"
+                    className="w-full inline-block animate-border rounded-md rounded-m bg-gradient-to-r from-red-500 via-purple-500 to-blue-500 bg-[length:400%_400%]  text-white px-0.5 py-0.5 text-sm transition-colors disabled:opacity-50"
                   >
-                    {isLoading ? "Generating..." : "Generate Character"}
+                    <span className="block w-full rounded-md bg-slate-900 px-5 py-3 font-bold text-white">
+                      {isLoading ? "Generating..." : "Generate Character"}{" "}
+                    </span>
                   </button>
                 )}
               </form>

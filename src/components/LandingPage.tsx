@@ -1,15 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RoadMap from "./RoadMap";
 import NavBar from "./NavBar";
+import { useState } from "react";
 // import VSCodeStatsButton from "./ExtensionButton";
 
 const LandingPage = () => {
+  const [prompt, setPrompt] = useState("");
+  const navigate = useNavigate();
+
+  const handleCreateAgent = () => {
+    navigate("/generate", { state: { initialPrompt: prompt } });
+  };
   return (
     <div className="min-h-screen  text-white font-mono">
       {/* Top Navigation Bar */}
       <NavBar sticky />
       {/* Hero Section */}
-      <header className="h-[70vh] flex flex-col items-center justify-center relative">
+      <header className="h-[60vh] flex flex-col items-center justify-center relative">
         {/* Vertical Lines */}
         <div className="absolute inset-0 flex justify-center items-center">
           {[0, 1, 2, 3, 4].map((i) => (
@@ -38,7 +45,7 @@ const LandingPage = () => {
         {/* Integration Status Bar */}
         <div className="flex gap-2 flex-col lg:flex-row lg:gap-4 z-10 mb-16">
           <div className="bg-opacity-10 bg-blue-900 border border-blue-800 rounded px-4 py-2 flex justify-between items-center gap-2">
-            <span className="text-white">AlizaOS</span>
+            <span className="text-white">ElizaOS</span>
             <span className="text-blue-500 text-sm">
               ✓ Integration completed
             </span>
@@ -89,15 +96,24 @@ const LandingPage = () => {
         </div>
       </header>
 
-      <section className="py-10 relative">
+      <section className="relative">
         <div className="container mx-auto px-6 text-center">
-          <Link to="/generate">
-            <button className="bg-black border border-gray-400 hover:border-white px-8 py-4 rounded-none flex items-center gap-2 mx-auto group transition-colors duration-300 animate-pulse">
-              <span className="text-gray-400 group-hover:text-white transition-colors duration-300">
-                Create Agent 🚀
-              </span>
-            </button>
-          </Link>
+          {/* <Link to="/generate"> */}
+          <textarea
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            placeholder="Describe your AI agent in detail..."
+            className="w-full h-32 max-w-3xl mx-auto bg-black/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700 focus:border-blue-500/50 p-4 rounded-md text-white placeholder-gray-500 focus:outline-none transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] resize-none mb-11 font-mono text-sm"
+          />
+          <button
+            onClick={handleCreateAgent}
+            className="bg-black border border-gray-400 hover:border-white px-8 py-4 rounded-none flex items-center gap-2 mx-auto group transition-colors duration-300 animate-pulse"
+          >
+            <span className="text-gray-400 group-hover:text-white transition-colors duration-300">
+              Create Agent 🚀
+            </span>
+          </button>
+          {/* </Link> */}
         </div>
       </section>
 
