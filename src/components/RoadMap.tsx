@@ -1,5 +1,5 @@
 import React from "react";
-import { LuBot as Bot, LuCloud as Cloud, LuCpu as Cpu } from "react-icons/lu";
+import { LuBot as Bot, LuCloud as Cloud, LuCpu as Cpu,LuLock as Shield } from "react-icons/lu";
 import { MarlinLogo } from "./MarlinLogo";
 
 interface RoadmapPhaseProps {
@@ -51,13 +51,13 @@ function RoadmapPhase({
             <h3 className="text-xl font-bold text-white">{title}</h3>
           </div>
         </div>
-        <p className="text-gray-400">{description}</p>
+        <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
         {partnership && (
           <a
             href={partnership.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 pt-2 mt-2 border-t border-gray-800"
+            className="inline-flex items-center gap-2 pt-2 mt-2 border-t border-gray-800 hover:opacity-80 transition-opacity"
           >
             <span className="text-xs text-gray-500">Powered by</span>
             {partnership.logo}
@@ -77,14 +77,14 @@ const RoadMap = () => {
       icon: <Bot className="h-6 w-6" />,
       phase: "Phase 1",
       title: "Agent creation and deployment",
-      description:"Create, customize, and deploy AI agents with custom knowledge bases on cloud",
+      description: "Create, customize, and deploy AI agents with custom knowledge bases on cloud",
       isActive: true,
     },
     {
       icon: <Cloud className="h-6 w-6" />,
       phase: "Phase 2",
       title: "Actions inside TEE",
-      description:"Include prebuilt or custom actions that an agent can execute inside TEE, such as on-chain transactions and swaps",
+      description: "Include prebuilt or custom actions that an agent can execute inside TEE, such as on-chain transactions and swaps",
       isActive: false,
       partnership: {
         name: "Marlin",
@@ -93,21 +93,27 @@ const RoadMap = () => {
       },
     },
     {
-      icon: <Cpu className="h-6 w-6" />,
+      icon: <Shield className="h-6 w-6" />,
       phase: "Phase 3",
+      title: "Agent communication",
+      description: "Private, encrypted Agent to agent communication",
+      isActive: false,
+    },
+    {
+      icon: <Cpu className="h-6 w-6" />,
+      phase: "Phase 4",
       title: "Edge AI",
-      description:
-        "Run agents locally with open-source models using our Rust runtime",
+      description: "Run agents locally with open-source models using our Rust runtime",
       isActive: false,
     },
   ];
 
   return (
-    <div className="p-8 space-y-8">
-      <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+    <div className="py-16 sm:py-20 space-y-12">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent px-4">
         Development Roadmap
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4 max-w-7xl mx-auto">
         {phases.map((phase, index) => (
           <RoadmapPhase key={index} {...phase} />
         ))}

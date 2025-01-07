@@ -65,3 +65,31 @@ interface LogsResponse {
   message: string;
   logs: string;
 }
+
+export const startAgent = async (agentId: string, signature: string, message: string) => {
+  try {
+    const apiUrl = `${API_BASE_URL}/agent/start`;
+    const requestBody = {
+      agent_id: agentId,
+      signature,
+      message,
+    };
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to start agent: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+

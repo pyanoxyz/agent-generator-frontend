@@ -72,7 +72,7 @@ export const AgentDetails: React.FC<AgentDetailsProps> = ({
               <div className="flex items-center gap-2 mt-1">
                 <GoDotFill className={isRunning ? "text-green-400" : "text-gray-500"} />
                 <span className={`text-sm ${isRunning ? 'text-green-400' : 'text-gray-500'}`}>
-                  {isRunning ? 'Running' : 'Discontinued'}
+                  {isRunning ? 'Running' : 'Stopped'}
                 </span>
               </div>
             </div>

@@ -90,7 +90,6 @@ const CreateAgentForm = () => {
     try {
       const agent = await generateAgent(prompt);
       const processedAgent = validateAndProcessAgent(agent);
-      console.log("Generated agent:", processedAgent);
       setAgentJson(processedAgent);
     } catch (error) {
       console.error("Failed to generate agent:", error);

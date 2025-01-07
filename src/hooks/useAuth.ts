@@ -1,6 +1,11 @@
 
 import { create } from 'zustand'
 import { useSignMessage,useAccount } from 'wagmi'
+import { verifyMessage } from 'ethers'
+
+export const AUTH_MESSAGE = `Welcome to pyano.fun, Sign this message for server authentication`
+
+
 
 interface AuthState {
  isAuthenticated: boolean
@@ -26,9 +31,15 @@ export function useAuth() {
 
  const signIn = async (): Promise<string> => {
    try {
-    console.log("accessing sign in",account.address)
-     const message = `Welcome to pyano.fun, Sign this message for server authentication`
-     const signature = await signMessageAsync({ message })
+    
+     const signature = await signMessageAsync({ 
+      message: AUTH_MESSAGE 
+    })     
+    const recoveredAddress = verifyMessage(AUTH_MESSAGE, signature)
+      
+     if (recoveredAddress.toLowerCase() !== account.address?.toLowerCase()) {
+       throw new Error('Signature verification failed')
+     }
      setAuth(signature)
      return signature
    } catch (error) {

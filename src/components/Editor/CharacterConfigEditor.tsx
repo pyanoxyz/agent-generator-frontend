@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useToast } from "../../hooks/useToast";
 import { useAccount } from "wagmi";
-import { useAuth } from "../../hooks/useAuth";
+import { AUTH_MESSAGE, useAuth } from "../../hooks/useAuth";
 import { base } from "wagmi/chains";
 import ClientCredentialsForm from "./ClientCredentialsForm";
 import KnowledgeProcessor from "./KnowledgeUpload";
@@ -120,10 +120,8 @@ const CharacterConfigEditor = ({
       }
       // Add authentication data
       formData.append("signature", deploymentSignature);
-      formData.append(
-        "message",
-        `Welcome to pyano, Sign this message for server authentication`
-      );
+      formData.append("message", AUTH_MESSAGE);
+
 
       // In handleCredentialsSubmit:
       if (credentials.client_twitter) {

@@ -1,4 +1,3 @@
-// AgentsDisplay.tsx
 import React, { useEffect, useState } from "react";
 import { AgentCard } from "./AgentCard";
 import { AgentDetails } from "./AgentDetails";
@@ -44,6 +43,40 @@ export const AgentsDisplay: React.FC = () => {
 
   const handleCloseDetails = () => {
     setSelectedAgent(null);
+  };
+
+  const handleStatusChange = (agentId: string, newStatus: "running" | "stopped") => {
+    // Update agents list
+    setAgents(prev => {
+      if (!prev) return prev;
+      
+      return {
+        ...prev,
+        agents: prev.agents.map(agent => {
+          if (agent.agent_id === agentId) {
+            return {
+              ...agent,
+              status: newStatus
+            };
+          }
+          return agent;
+        })
+      };
+    });
+
+    // Update selected agent if it's the one being modified
+    setSelectedAgent(prev => {
+      if (prev?.agent_id === agentId) {
+        return {
+          ...prev,
+          status: newStatus
+        };
+      }
+      return prev;
+    });
+
+    // Refresh the agents list to get updated data
+    loadAgents();
   };
 
   useEffect(() => {
@@ -129,6 +162,7 @@ export const AgentsDisplay: React.FC = () => {
                     agent={agent}
                     isSelected={selectedAgent?.agent_id === agent.agent_id}
                     onClick={() => setSelectedAgent(agent)}
+                    onStatusChange={handleStatusChange}
                   />
                 ))}
               </div>

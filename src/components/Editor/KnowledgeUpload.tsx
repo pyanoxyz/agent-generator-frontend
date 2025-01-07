@@ -7,7 +7,6 @@ interface KnowledgeProcessorProps {
   onFileRemove: (index: number) => void;
   files: File[];
 }
-
 const MAX_FILE_SIZE = 4 * 1024 * 1024;
 
 const KnowledgeProcessor: React.FC<KnowledgeProcessorProps> = ({ onFileAdd, onFileRemove, files = [] }) => {
@@ -20,37 +19,18 @@ const KnowledgeProcessor: React.FC<KnowledgeProcessorProps> = ({ onFileAdd, onFi
       setError('File size must be less than 4MB');
       return false;
     }
-    const validTypes = ['application/pdf', 'text/plain', 'text/markdown'];
-    if (!validTypes.includes(file.type)) {
-      setError('Only PDF and TXT files are supported');
-      return false;
-    }
     return true;
   };
 
   const handleFileAdd = (file: File) => {
-    console.log('Validating file:', {
-      name: file.name,
-      size: file.size,
-      type: file.type
-    });
-  
     if (validateFile(file)) {
-      console.log('File validation passed, adding to state');
       onFileAdd(file);
-    } else {
-      console.log('File validation failed');
-    }
+    } 
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError('');
     if (e.target.files) {
-      console.log('Files selected:', Array.from(e.target.files).map(file => ({
-        name: file.name,
-        size: file.size,
-        type: file.type
-      })));
       Array.from(e.target.files).forEach(handleFileAdd);
     }
   };
@@ -68,7 +48,7 @@ const KnowledgeProcessor: React.FC<KnowledgeProcessorProps> = ({ onFileAdd, onFi
         <div className="relative group">
           <FaInfoCircle className="text-gray-400 group-hover:text-gray-200 size-3.5" />
           <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity hidden group-hover:flex">
-            Upload PDF or TXT files to add to knowledge base
+          Upload PDF, TXT, or MD files to add to knowledge base
           </span>
         </div>
       </div>
@@ -105,7 +85,7 @@ const KnowledgeProcessor: React.FC<KnowledgeProcessorProps> = ({ onFileAdd, onFi
           type="file"
           ref={fileInputRef}
           onChange={handleFileChange}
-          accept=".pdf,.txt"
+          accept=".pdf,.txt,.md"
           className="hidden"
           multiple
         />

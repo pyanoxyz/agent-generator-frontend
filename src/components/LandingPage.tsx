@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import RoadMap from "./RoadMap";
 import NavBar from "./layout/NavBar";
 import { useState } from "react";
+import Footer from "./Footer";
 // import VSCodeStatsButton from "./ExtensionButton";
 
 const LandingPage = () => {
@@ -140,14 +141,9 @@ const LandingPage = () => {
       <section className="mt-10 relative overflow-hidden max-w-screen-2xl mx-auto">
         <RoadMap />
       </section>
+      
       {/* Footer */}
-      <footer className="py-8 border-t border-gray-900">
-        <div className="container mx-auto px-6">
-          <div className="text-center text-gray-600 font-mono text-sm">
-            PYANO.FUN ©️ 2024
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

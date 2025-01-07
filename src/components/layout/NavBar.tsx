@@ -18,13 +18,13 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
           </div>
         </Link>
         <div className="flex justify-end items-center gap-2 md:gap-6">
-          {/* <Link
+          <Link
             to="/agents"
             className="flex items-center gap-1.5 px-2.5 py-1.5 md:gap-2 md:px-4 md:py-2 text-gray-400 hover:text-white transition-colors rounded-lg border border-gray-800 hover:border-gray-700 text-sm md:text-base"
           >
             <FaRobot className="size-3.5 md:size-4" />
             <span className="hidden sm:inline">Agents</span>
-          </Link> */}
+          </Link>
           
           {/* Social links - only visible on md screens and up */}
           <div className="hidden md:flex items-center gap-6">
@@ -70,9 +70,9 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
           </div>
 
           {/* Custom styles wrapper for ConnectButton to make it smaller on mobile */}
-          {/* <div className="scale-90 md:scale-100 origin-right">
+          <div className="scale-90 md:scale-100 origin-right">
             <ConnectButton />
-          </div> */}
+          </div>
         </div>
       </div>
     </nav>

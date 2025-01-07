@@ -1,17 +1,17 @@
 import React from 'react';
 import { FaTwitter, FaDiscord, FaTelegram } from 'react-icons/fa';
-import { TbPlugConnectedX } from "react-icons/tb";
+import { TbPlayerStop, TbPlayerPlay } from "react-icons/tb";
 import { GoDotFill } from "react-icons/go";
-import { shutdownAgent } from '../api/agents';
+import { shutdownAgent, startAgent } from '../api/agents';
 import { Agent } from './agents';
 import { useToast } from '../../hooks/useToast';
-import { useAuth } from '../../hooks/useAuth';
+import { AUTH_MESSAGE, useAuth } from '../../hooks/useAuth';
 
 interface AgentCardProps {
   agent: Agent;
   isSelected: boolean;
   onClick: () => void;
-  onShutdown?: (agentId: string) => void;
+  onStatusChange?: (agentId: string, status: "running" | "stopped") => void;
 }
 
 const getClientIcon = (client: string) => {
@@ -31,23 +31,38 @@ export const AgentCard: React.FC<AgentCardProps> = ({
   agent, 
   isSelected, 
   onClick,
+  onStatusChange 
 }) => {
   const showToast = useToast((state) => state.showToast);
   const { signIn } = useAuth();
   const isRunning = agent.status === "running";
 
-  const handleShutdown = async (e: React.MouseEvent) => {
+  const handleStop = async (e: React.MouseEvent) => {
     e.stopPropagation();
     
     try {
       const signature = await signIn();
-      const message = "Welcome to pyano, Sign this message for server authentication";
       
-      await shutdownAgent(agent.agent_id, signature, message);
-      showToast('Agent shutdown successfully', 'success');
+      await shutdownAgent(agent.agent_id, signature, AUTH_MESSAGE);
+      showToast('Agent stopped successfully', 'success');
+      onStatusChange?.(agent.agent_id, "stopped");
     } catch (error) {
-      console.error('Failed to shutdown agent:', error);
-      showToast('Failed to shutdown agent', 'error');
+      console.error('Failed to stop agent:', error);
+      showToast('Failed to stop agent', 'error');
+    }
+  };
+
+  const handleStart = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      const signature = await signIn();
+      
+      await startAgent(agent.agent_id, signature, AUTH_MESSAGE);
+      showToast('Agent started successfully', 'success');
+      onStatusChange?.(agent.agent_id, "running");
+    } catch (error) {
+      console.error('Failed to start agent:', error);
+      showToast('Failed to start agent', 'error');
     }
   };
 
@@ -99,7 +114,7 @@ export const AgentCard: React.FC<AgentCardProps> = ({
           <GoDotFill className={isRunning ? "text-green-400" : "text-gray-500"} />
           <span className="text-gray-400">
             Status: <span className={isRunning ? 'text-green-400' : 'text-gray-500'}>
-              {isRunning ? 'Running' : 'Removed'}
+              {isRunning ? 'Running' : 'Stopped'}
             </span>
           </span>
         </div>
@@ -107,17 +122,22 @@ export const AgentCard: React.FC<AgentCardProps> = ({
         {/* Action Button */}
         {isRunning ? (
           <button
-            onClick={handleShutdown}
+            onClick={handleStop}
             className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-colors
               bg-red-500/10 text-red-400 hover:bg-red-500/20 text-xs sm:text-sm"
           >
-            <TbPlugConnectedX className="size-3.5 sm:size-4" />
-            Shutdown
+            <TbPlayerStop className="size-3.5 sm:size-4" />
+            Stop
           </button>
         ) : (
-          <div className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-gray-800/50 text-gray-500 text-xs sm:text-sm">
-            Agent Removed
-          </div>
+          <button
+            onClick={handleStart}
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-colors
+              bg-green-500/10 text-green-400 hover:bg-green-500/20 text-xs sm:text-sm"
+          >
+            <TbPlayerPlay className="size-3.5 sm:size-4" />
+            Start
+          </button>
         )}
       </div>
     </div>
