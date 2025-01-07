@@ -2,10 +2,37 @@ import { Link } from "react-router-dom";
 import { FaRobot, FaTelegram as TelegramIcon } from "react-icons/fa";
 import GitHubButton from "react-github-btn";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import logo from "../../assets/logo.png"; 
-
+import logo from "../../assets/logo.png";
+import { useAccount, useDisconnect } from "wagmi";
+// import { disconnect } from "@wagmi/core";
+import { useEffect } from "react";
+import { checkRegister, registerUser, useAuth } from "../../hooks/useAuth";
 
 const NavBar = ({ sticky }: { sticky?: boolean }) => {
+  const { isConnected, address } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  const { signIn } = useAuth();
+
+  useEffect(() => {
+    if (isConnected && address) {
+      checkRegister(address).then(async (registered) => {
+        if (!registered) {
+          const signature = await signIn().catch(async (error) => {
+            console.log("Failed to sign in:", error);
+            disconnect();
+          });
+          if (signature) {
+            await registerUser(signature).catch(async (error) => {
+              console.log("Failed to register user:", error);
+              disconnect();
+            });
+          }
+        }
+      });
+    }
+  }, [isConnected]);
+
   return (
     <nav
       className={
@@ -20,9 +47,9 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
           </div>
         </Link> */}
         <Link to={"/"} className="flex items-center gap-2 h-full">
-          <img 
-            src={logo} 
-            alt="Pyano Logo" 
+          <img
+            src={logo}
+            alt="Pyano Logo"
             className="h-12 md:h-10 w-auto object-contain "
           />
           <div className="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
@@ -37,7 +64,7 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
             <FaRobot className="size-3.5 md:size-4" />
             <span className="hidden sm:inline">Agents</span>
           </Link>
-          
+
           {/* Social links - only visible on md screens and up */}
           <div className="hidden md:flex items-center gap-6">
             <a

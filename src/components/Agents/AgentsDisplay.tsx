@@ -3,9 +3,10 @@ import { AgentCard } from "./AgentCard";
 import { AgentDetails } from "./AgentDetails";
 import Loader from "../common/Loader";
 import { ErrorState } from "../common/ErrorState";
-import { fetchAgents } from "../api/agents";
-import { useAccount } from 'wagmi';
+import { fetchAgents } from "../../api/agents";
+import { useAccount } from "wagmi";
 import { Agent, AgentListResponse } from "./agents";
+import { Link } from "react-router-dom";
 
 export const AgentsDisplay: React.FC = () => {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
@@ -18,19 +19,21 @@ export const AgentsDisplay: React.FC = () => {
     try {
       setIsLoading(true);
       setError(null);
-      
+
       if (!address) {
         setError("Please connect your wallet");
         return;
       }
-      
+
       const data = await fetchAgents(address);
       setAgents(data);
     } catch (error) {
       setError(
-        typeof error === 'string' ? error : 
-        error instanceof Error ? error.message : 
-        "Failed to fetch agents"
+        typeof error === "string"
+          ? error
+          : error instanceof Error
+          ? error.message
+          : "Failed to fetch agents"
       );
     } finally {
       setIsLoading(false);
@@ -45,31 +48,34 @@ export const AgentsDisplay: React.FC = () => {
     setSelectedAgent(null);
   };
 
-  const handleStatusChange = (agentId: string, newStatus: "running" | "stopped") => {
+  const handleStatusChange = (
+    agentId: string,
+    newStatus: "running" | "stopped"
+  ) => {
     // Update agents list
-    setAgents(prev => {
+    setAgents((prev) => {
       if (!prev) return prev;
-      
+
       return {
         ...prev,
-        agents: prev.agents.map(agent => {
+        agents: prev.agents.map((agent) => {
           if (agent.agent_id === agentId) {
             return {
               ...agent,
-              status: newStatus
+              status: newStatus,
             };
           }
           return agent;
-        })
+        }),
       };
     });
 
     // Update selected agent if it's the one being modified
-    setSelectedAgent(prev => {
+    setSelectedAgent((prev) => {
       if (prev?.agent_id === agentId) {
         return {
           ...prev,
-          status: newStatus
+          status: newStatus,
         };
       }
       return prev;
@@ -91,12 +97,12 @@ export const AgentsDisplay: React.FC = () => {
   // Lock body scroll when details are open on mobile
   useEffect(() => {
     if (selectedAgent && window.innerWidth < 768) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [selectedAgent]);
 
@@ -104,8 +110,12 @@ export const AgentsDisplay: React.FC = () => {
     return (
       <div className="container mx-auto p-4 sm:p-6 h-[calc(100vh-64px)] flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Connect Wallet</h2>
-          <p className="text-gray-400">Please connect your wallet to view your agents</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">
+            Connect Wallet
+          </h2>
+          <p className="text-gray-400">
+            Please connect your wallet to view your agents
+          </p>
         </div>
       </div>
     );
@@ -118,7 +128,9 @@ export const AgentsDisplay: React.FC = () => {
           <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             My Agents
           </h2>
-          <p className="text-sm sm:text-base text-gray-400 mt-1">Manage your deployed AI agents</p>
+          <p className="text-sm sm:text-base text-gray-400 mt-1">
+            Manage your deployed AI agents
+          </p>
         </div>
       </div>
 
@@ -130,7 +142,11 @@ export const AgentsDisplay: React.FC = () => {
         <ErrorState message={error} onRetry={handleRetry} />
       ) : agents?.agents.length === 0 ? (
         <div className="flex items-center justify-center h-64 text-gray-400">
-          No agents found. Deploy one to get started!
+          No agents found.
+          <Link to="/generate" className="text-blue-400 hover:underline">
+          &nbsp;Deploy&nbsp;
+          </Link>
+          one to get started!
         </div>
       ) : (
         <>
@@ -151,9 +167,11 @@ export const AgentsDisplay: React.FC = () => {
             >
               <div
                 className={`grid gap-4 sm:gap-6
-                  ${selectedAgent 
-                    ? "grid-cols-1" 
-                    : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"}
+                  ${
+                    selectedAgent
+                      ? "grid-cols-1"
+                      : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                  }
                 `}
               >
                 {agents?.agents.map((agent) => (
@@ -170,7 +188,7 @@ export const AgentsDisplay: React.FC = () => {
 
             {/* Agent Details Section - Mobile: Full screen overlay, Desktop: Side panel */}
             {selectedAgent && (
-              <div 
+              <div
                 className={`
                   fixed md:relative inset-0 md:inset-auto
                   md:col-span-2 bg-black md:bg-black/30 

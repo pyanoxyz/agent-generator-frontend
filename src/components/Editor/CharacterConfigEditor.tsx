@@ -11,6 +11,7 @@ import { Tooltip } from "../common/Tooltip";
 import { ClientSelector } from "./ClientSelector";
 import { BasicInfo } from "./BasicInfo";
 import DeploymentStatus from "./DeploymentStatus";
+import { API_BASE_URL } from "../../api/agents";
 
 export interface TwitterCredentials {
   username: string;
@@ -166,9 +167,9 @@ const CharacterConfigEditor = ({
       }
 
       setDeploymentStatus("loading");
-
+    
       const response = await fetch(
-        "https://verbally-busy-polliwog.ngrok-free.app/api/v1/agent/deploy",
+        `${API_BASE_URL}/agent/deploy`,
         {
           method: "POST",
           body: formData,

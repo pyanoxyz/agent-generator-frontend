@@ -1,7 +1,7 @@
-import { AgentListResponse } from "../Agents/agents";
+import { AgentListResponse } from "../components/Agents/agents";
 
 
-export const API_BASE_URL = 'https://verbally-busy-polliwog.ngrok-free.app/api/v1';
+export const API_BASE_URL = 'https://api.pyano.fun/api/v1';
 
 export const fetchAgents = async (address: string): Promise<AgentListResponse> => {
   const response = await fetch(`${API_BASE_URL}/agent/all`, {

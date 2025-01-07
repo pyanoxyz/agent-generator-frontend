@@ -6,7 +6,7 @@ import { Agent } from "./agents";
 import { FaBrain, FaRobot, FaTag, FaTerminal } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import { IoRefreshOutline } from "react-icons/io5";
-import { fetchAgentLogs } from "../api/agents";
+import { fetchAgentLogs } from "../../api/agents";
 import { useToast } from "../../hooks/useToast";
 
 interface AgentDetailsProps {

@@ -2,7 +2,7 @@ import React from 'react';
 import { FaTwitter, FaDiscord, FaTelegram } from 'react-icons/fa';
 import { TbPlayerStop, TbPlayerPlay } from "react-icons/tb";
 import { GoDotFill } from "react-icons/go";
-import { shutdownAgent, startAgent } from '../api/agents';
+import { shutdownAgent, startAgent } from '../../api/agents';
 import { Agent } from './agents';
 import { useToast } from '../../hooks/useToast';
 import { AUTH_MESSAGE, useAuth } from '../../hooks/useAuth';
