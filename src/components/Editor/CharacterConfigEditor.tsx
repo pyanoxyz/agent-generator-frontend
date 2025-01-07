@@ -177,9 +177,9 @@ const CharacterConfigEditor = ({
       );
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Server response:", errorText);
-        throw new Error(errorText);
+        const errorData = await response.json();
+        console.error("Server response:", errorData);
+        throw new Error(errorData.detail || "Failed to deploy agent");
       }
 
       const result = await response.json();
