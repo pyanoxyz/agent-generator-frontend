@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { FaRobot, FaTelegram as TelegramIcon } from "react-icons/fa";
 import GitHubButton from "react-github-btn";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import logo from "../../assets/logo.png"; 
+
 
 const NavBar = ({ sticky }: { sticky?: boolean }) => {
   return (
@@ -12,9 +14,19 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
       }
     >
       <div className="xl:max-w-[1440px] mx-auto px-3 md:px-6 flex w-full justify-between items-center h-full">
-        <Link to={"/"} className="flex items-center h-full">
+        {/* <Link to={"/"} className="flex items-center h-full">
           <div className="flex h-full items-center">
             <div className="text-lg md:text-2xl font-bold">pyano.fun</div>
+          </div>
+        </Link> */}
+        <Link to={"/"} className="flex items-center gap-2 h-full">
+          <img 
+            src={logo} 
+            alt="Pyano Logo" 
+            className="h-12 md:h-10 w-auto object-contain "
+          />
+          <div className="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            pyano.fun
           </div>
         </Link>
         <div className="flex justify-end items-center gap-2 md:gap-6">
@@ -29,7 +41,7 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
           {/* Social links - only visible on md screens and up */}
           <div className="hidden md:flex items-center gap-6">
             <a
-              href="https://twitter.com/pyano_network"
+              href="https://x.com/pyano_fun"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"

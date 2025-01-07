@@ -43,7 +43,7 @@ const LandingPage = () => {
         Your Ideas → AI Agents, Instantly
         </p> */}
         <p className="text-sm sm:text-base md:text-lg text-center text-gray-300 mb-12 sm:mb-16 tracking-wide z-10 max-w-3xl px-4">
-          No code platform to create, run, and manage AI agents
+          No-code platform to create, run, and manage AI agents
         </p>
 
         <div className="w-full max-w-3xl mx-auto px-4 mb-8 z-10">
@@ -92,7 +92,7 @@ const LandingPage = () => {
             </span>
           </div>
           <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">
-            <span className="text-white">Game</span>
+            <span className="text-white">GAME</span>
             <span className="text-gray-500 text-sm">○ Coming soon</span>
           </div>
           <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">

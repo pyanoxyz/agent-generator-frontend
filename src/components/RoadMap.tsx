@@ -1,5 +1,10 @@
 import React from "react";
-import { LuBot as Bot, LuCloud as Cloud, LuCpu as Cpu,LuLock as Shield } from "react-icons/lu";
+import {
+  LuBot as Bot,
+  LuCloud as Cloud,
+  LuCpu as Cpu,
+  LuLock as Shield,
+} from "react-icons/lu";
 import { MarlinLogo } from "./MarlinLogo";
 
 interface RoadmapPhaseProps {
@@ -60,7 +65,9 @@ function RoadmapPhase({
             className="inline-flex items-center gap-2 pt-2 mt-2 border-t border-gray-800 hover:opacity-80 transition-opacity"
           >
             <span className="text-xs text-gray-500">Powered by</span>
-            {partnership.logo}
+            <div className="w-24 sm:w-32">
+              {partnership.logo}
+            </div>
           </a>
         )}
       </div>
@@ -77,14 +84,16 @@ const RoadMap = () => {
       icon: <Bot className="h-6 w-6" />,
       phase: "Phase 1",
       title: "Agent creation and deployment",
-      description: "Create, customize, and deploy AI agents with custom knowledge bases on cloud",
+      description:
+        "Create, customize, and deploy AI agents with custom knowledge bases on cloud",
       isActive: true,
     },
     {
       icon: <Cloud className="h-6 w-6" />,
       phase: "Phase 2",
       title: "Actions inside TEE",
-      description: "Include prebuilt or custom actions that an agent can execute inside TEE, such as on-chain transactions and swaps",
+      description:
+        "Include actions that an agent can execute inside TEE such as on-chain txs and swaps",
       isActive: false,
       partnership: {
         name: "Marlin",
@@ -103,7 +112,8 @@ const RoadMap = () => {
       icon: <Cpu className="h-6 w-6" />,
       phase: "Phase 4",
       title: "Edge AI",
-      description: "Run agents locally with open-source models using our Rust runtime",
+      description:
+        "Run agents locally with open-source models using our Rust runtime",
       isActive: false,
     },
   ];
