@@ -39,29 +39,31 @@ const REQUIRED_AGENT_KEYS = [
   "clients",
   "bio",
   "lore",
-  "style"
+  "style",
 ];
 
 const validateAgentData = (data: any) => {
-  const missingKeys = REQUIRED_AGENT_KEYS.filter(key => !(key in data));
+  const missingKeys = REQUIRED_AGENT_KEYS.filter((key) => !(key in data));
   return {
     isValid: missingKeys.length === 0,
-    missingKeys
+    missingKeys,
   };
 };
 
 const validateAndProcessAgent = (agentData: any) => {
   const validation = validateAgentData(agentData);
-  
+
   if (!validation.isValid) {
-    throw new Error(`Missing required fields: ${validation.missingKeys.join(", ")}`);
+    throw new Error(
+      `Missing required fields: ${validation.missingKeys.join(", ")}`
+    );
   }
 
   // Add default values
   return {
     ...agentData,
-    modelProvider:  "together",
-    plugins: []
+    modelProvider: "together",
+    plugins: [],
   };
 };
 
@@ -72,41 +74,54 @@ const CreateAgentForm = () => {
   const [toast, setToast] = useState<Toast | null>(null);
   const [validationError, setValidationError] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setUrlSearchParams] = useSearchParams();
 
   const showToast = (message: string, type: ToastType) => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3000);
   };
 
-  
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    if (!prompt) return;
-  
+  const handleSubmit = async (e?: any, parsedPrompt?: string) => {
+    if (e) {
+      e.preventDefault();
+    }
+    if (!parsedPrompt) {
+      if (!prompt) {
+        return;
+      }
+    }
+
+    const agentPrompt = parsedPrompt || prompt;
+
     setIsLoading(true);
     setValidationError([]);
-    
+
     try {
-      const agent = await generateAgent(prompt);
+      const agent = await generateAgent(agentPrompt);
       const processedAgent = validateAndProcessAgent(agent);
       setAgentJson(processedAgent);
     } catch (error) {
       console.error("Failed to generate agent:", error);
-      if (error instanceof Error && error.message.includes("Missing required fields")) {
+      if (
+        error instanceof Error &&
+        error.message.includes("Missing required fields")
+      ) {
         const missingKeys = error.message.split(": ")[1].split(", ");
         setValidationError(missingKeys);
       }
-      showToast(error instanceof Error ? error.message : "Failed to generate character", "error");
+      showToast(
+        error instanceof Error ? error.message : "Failed to generate character",
+        "error"
+      );
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-  
+
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
@@ -155,12 +170,18 @@ const CreateAgentForm = () => {
   };
 
   useEffect(() => {
-    const promptParam = searchParams.get('prompt');
-    if (promptParam) {
-      setPrompt(decodeURIComponent(promptParam));
+    const promptParam = searchParams.get("prompt");
+    if (promptParam && promptParam.length > 0) {
+      const prompt = decodeURIComponent(promptParam);
+      setPrompt(prompt);
+      searchParams.delete("prompt");
+      setUrlSearchParams(searchParams);
+
+      setTimeout(() => {
+        handleSubmit(null, prompt);
+      }, 1000);
     }
   }, [searchParams]);
-
 
   return (
     <>
@@ -182,9 +203,9 @@ const CreateAgentForm = () => {
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === "Enter") {
                       if (e.metaKey || e.ctrlKey) {
-                        setPrompt(prev => prev + '\n');
+                        setPrompt((prev) => prev + "\n");
                       } else {
                         e.preventDefault();
                         handleSubmit(e);
@@ -196,9 +217,11 @@ const CreateAgentForm = () => {
                 />
                 {validationError.length > 0 && (
                   <div className="mb-4 p-3 border border-red-500 rounded bg-red-500/10 text-sm">
-                    <p className="text-red-400 mb-2">Missing required fields:</p>
+                    <p className="text-red-400 mb-2">
+                      Missing required fields:
+                    </p>
                     <ul className="list-disc list-inside text-red-300">
-                      {validationError.map(key => (
+                      {validationError.map((key) => (
                         <li key={key}>{key}</li>
                       ))}
                     </ul>
