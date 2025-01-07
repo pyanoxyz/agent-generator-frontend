@@ -86,7 +86,7 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
               <TelegramIcon className="size-5" />
             </a>
             <a
-              href="https://calendly.com/pyano-network/60min"
+              href="https://calendly.com/pyano-fun/15min"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
