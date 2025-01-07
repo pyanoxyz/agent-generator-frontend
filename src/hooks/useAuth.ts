@@ -1,6 +1,6 @@
 
 import { create } from 'zustand'
-import { useSignMessage, useAccount } from 'wagmi'
+import { useSignMessage,useAccount } from 'wagmi'
 
 interface AuthState {
  isAuthenticated: boolean
@@ -18,14 +18,17 @@ export const useAuthStore = create<AuthState>((set: any) => ({
 
 export function useAuth() {
  const { signMessageAsync } = useSignMessage()
- const { address } = useAccount()
  const setAuth = useAuthStore((state: AuthState) => state.setAuth)
+ const clearAuth = useAuthStore((state) => state.clearAuth)
+ const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+ const account = useAccount()
+
 
  const signIn = async (): Promise<string> => {
    try {
-     const message = `Sign in to Pyano\nAddress: ${address}\nNonce: ${Date.now()}`
+    console.log("accessing sign in",account.address)
+     const message = `Welcome to pyano.fun, Sign this message for server authentication`
      const signature = await signMessageAsync({ message })
-     console.log('Signature:', signature)
      setAuth(signature)
      return signature
    } catch (error) {
@@ -34,5 +37,5 @@ export function useAuth() {
    }
  }
 
- return { signIn }
+ return { signIn,isAuthenticated ,clearAuth}
 }

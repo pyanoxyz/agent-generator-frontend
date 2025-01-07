@@ -97,7 +97,7 @@ const FormPageMain = () => {
       <footer className="py-8 border-t border-gray-900">
         <div className="container mx-auto px-6">
           <div className="text-center text-gray-600 font-mono text-sm">
-            PYANO.NETWORK ©️ 2024
+            PYANO.FUN ©️ 2024
           </div>
         </div>
       </footer>

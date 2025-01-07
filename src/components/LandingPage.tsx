@@ -1,17 +1,20 @@
 import { Link } from "react-router-dom";
 import RoadMap from "./RoadMap";
-import NavBar from "./NavBar";
+import NavBar from "./layout/NavBar";
+import { useState } from "react";
 // import VSCodeStatsButton from "./ExtensionButton";
 
 const LandingPage = () => {
+  const [agentDescription, setAgentDescription] = useState("");
+
   return (
     <div className="min-h-screen  text-white font-mono">
       {/* Top Navigation Bar */}
       <NavBar sticky />
       {/* Hero Section */}
-      <header className="h-[70vh] flex flex-col items-center justify-center relative">
+      <header className="min-h-[70vh] py-20 sm:py-28 flex flex-col items-center justify-center relative px-4">
         {/* Vertical Lines */}
-        <div className="absolute inset-0 flex justify-center items-center">
+        {/* <div className="absolute inset-0 flex justify-center items-center">
           {[0, 1, 2, 3, 4].map((i) => (
             <div
               key={i}
@@ -26,25 +29,69 @@ const LandingPage = () => {
               `}
             />
           ))}
+        </div> */}
+        {/* Hero Content */}
+        {/* <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold mb-8 sm:mb-12 relative z-10 text-center bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 text-transparent bg-clip-text">
+          pyano.fun
+          Your Ideas → AI Agents, Instantly
+        </h1> */}
+        <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 relative z-10 text-center bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 text-transparent bg-clip-text leading-tight">
+          Your Ideas → AI Agents, Instantly
+        </h1>
+        {/* <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-center text-gray-200 mb-6 sm:mb-10 tracking-wider z-10 px-4">
+        Your Ideas → AI Agents, Instantly
+        </p> */}
+        <p className="text-sm sm:text-base md:text-lg text-center text-gray-300 mb-12 sm:mb-16 tracking-wide z-10 max-w-3xl px-4">
+          No code platform to create, run, and manage AI agents
+        </p>
+
+        <div className="w-full max-w-3xl mx-auto px-4 mb-8 z-10">
+          <div className="bg-opacity-10 bg-gray-900 border border-gray-700 rounded-lg p-4">
+            <label
+              htmlFor="agent-description"
+              className="block text-sm sm:text-base text-gray-200 mb-2"
+            >
+              Describe your AI agent's purpose
+            </label>
+            <textarea
+              id="agent-description"
+              value={agentDescription}
+              onChange={(e) => setAgentDescription(e.target.value)}
+              style={{ outline: "none" }}
+              className="w-full min-h-[100px] sm:min-h-[120px] bg-black bg-opacity-50 border border-gray-700 rounded 
+    text-gray-200 placeholder-gray-400 p-3  
+    transition-colors duration-200 text-sm sm:text-base resize-y"
+              placeholder="Example: I want an AI agent that can help me manage my social media posts and engage with followers..."
+            />
+            <div className="flex justify-between items-center mt-2"></div>
+          </div>
         </div>
 
-        <h1 className="text-3xl lg:text-7xl font-bold mb-8 relative z-10">
-          pyano.network
-        </h1>
-        <p className="text-lg text-center lg:text-2xl text-gray-400 mb-8 tracking-wider z-10">
-          THE ORCHESTRATION LAYER OF AI AGENTS
-        </p>
+        <section className="w-full max-w-3xl mx-auto px-4 relative mb-24 mt-4">
+          <div className="text-center">
+            <Link
+              to={`/generate?prompt=${encodeURIComponent(agentDescription)}`}
+              className="w-full block"
+            >
+              <button className="w-full bg-black border border-gray-400 hover:border-white px-8 py-4 rounded-lg flex items-center justify-center gap-2 group transition-colors duration-300 animate-pulse">
+                <span className="text-gray-400 group-hover:text-white transition-colors duration-300">
+                  Create Agent 🚀
+                </span>
+              </button>
+            </Link>
+          </div>
+        </section>
 
         {/* Integration Status Bar */}
         <div className="flex gap-2 flex-col lg:flex-row lg:gap-4 z-10 mb-16">
           <div className="bg-opacity-10 bg-blue-900 border border-blue-800 rounded px-4 py-2 flex justify-between items-center gap-2">
-            <span className="text-white">AlizaOS</span>
+            <span className="text-white">ElizaOS</span>
             <span className="text-blue-500 text-sm">
               ✓ Integration completed
             </span>
           </div>
           <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">
-            <span className="text-white">GAME</span>
+            <span className="text-white">Game</span>
             <span className="text-gray-500 text-sm">○ Coming soon</span>
           </div>
           <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">
@@ -89,27 +136,15 @@ const LandingPage = () => {
         </div>
       </header>
 
-      <section className="py-10 relative">
-        <div className="container mx-auto px-6 text-center">
-          <Link to="/generate">
-            <button className="bg-black border border-gray-400 hover:border-white px-8 py-4 rounded-none flex items-center gap-2 mx-auto group transition-colors duration-300 animate-pulse">
-              <span className="text-gray-400 group-hover:text-white transition-colors duration-300">
-                Create Agent 🚀
-              </span>
-            </button>
-          </Link>
-        </div>
-      </section>
-
       {/* Phases Section */}
-      <section className="mt-40 relative overflow-hidden max-w-screen-2xl mx-auto">
+      <section className="mt-10 relative overflow-hidden max-w-screen-2xl mx-auto">
         <RoadMap />
       </section>
       {/* Footer */}
       <footer className="py-8 border-t border-gray-900">
         <div className="container mx-auto px-6">
           <div className="text-center text-gray-600 font-mono text-sm">
-            PYANO.NETWORK ©️ 2024
+            PYANO.FUN ©️ 2024
           </div>
         </div>
       </footer>

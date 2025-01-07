@@ -1,12 +1,13 @@
-import React, { useState, useRef } from "react";
-import CharacterConfigEditor from "./CharacterConfigEditor";
+import React, { useState, useRef, useEffect } from "react";
+import CharacterConfigEditor from "./Editor/CharacterConfigEditor";
 import BrainVisualisation from "./BrainVisualisation";
-import NavBar from "./NavBar";
+import NavBar from "./layout/NavBar";
+import { useSearchParams } from "react-router-dom";
 
 // API endpoint
 const API_URL = import.meta.env.DEV
-  ? "https://api.pyano.network/generate_character"
-  : "https://api.pyano.network/generate_character";
+  ? "https://api.pyano.fun/generate_character"
+  : "https://api.pyano.fun/generate_character";
 
 // Toast types and interface
 type ToastType = "error" | "success";
@@ -32,63 +33,93 @@ const generateAgent = async (prompt: string) => {
   return data.character_json;
 };
 
+const REQUIRED_AGENT_KEYS = [
+  "name",
+  "modelProvider",
+  "clients",
+  "bio",
+  "lore",
+  "style"
+];
+
+const validateAgentData = (data: any) => {
+  const missingKeys = REQUIRED_AGENT_KEYS.filter(key => !(key in data));
+  return {
+    isValid: missingKeys.length === 0,
+    missingKeys
+  };
+};
+
+const validateAndProcessAgent = (agentData: any) => {
+  const validation = validateAgentData(agentData);
+  
+  if (!validation.isValid) {
+    throw new Error(`Missing required fields: ${validation.missingKeys.join(", ")}`);
+  }
+
+  // Add default values
+  return {
+    ...agentData,
+    modelProvider:  "together",
+    plugins: []
+  };
+};
+
 const CreateAgentForm = () => {
   const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [agentJson, setAgentJson] = useState(null);
   const [toast, setToast] = useState<Toast | null>(null);
+  const [validationError, setValidationError] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [searchParams] = useSearchParams();
 
   const showToast = (message: string, type: ToastType) => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3000);
   };
 
+  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!prompt) return;
-
+  
     setIsLoading(true);
+    setValidationError([]);
+    
     try {
       const agent = await generateAgent(prompt);
-      setAgentJson(agent);
+      const processedAgent = validateAndProcessAgent(agent);
+      console.log("Generated agent:", processedAgent);
+      setAgentJson(processedAgent);
     } catch (error) {
       console.error("Failed to generate agent:", error);
-      showToast(
-        "Failed to generate character. Please try again later.",
-        "error"
-      );
+      if (error instanceof Error && error.message.includes("Missing required fields")) {
+        const missingKeys = error.message.split(": ")[1].split(", ");
+        setValidationError(missingKeys);
+      }
+      showToast(error instanceof Error ? error.message : "Failed to generate character", "error");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
-
+  
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
+  
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
         const json = JSON.parse(event.target?.result as string);
-        // Validate required keys
-        const requiredKeys = [
-          "name",
-          "modelProvider",
-          "clients",
-          "bio",
-          "lore",
-          "style",
-        ];
-        const hasAllKeys = requiredKeys.every((key) => key in json);
-
-        if (!hasAllKeys) {
-          throw new Error("Invalid character configuration format");
-        }
-
-        setAgentJson(json);
+        const processedAgent = validateAndProcessAgent(json);
+        setAgentJson(processedAgent);
         showToast("Character loaded successfully!", "success");
       } catch (error) {
-        showToast("Invalid JSON file format. Please check the file.", "error");
+        showToast(
+          error instanceof Error ? error.message : "Invalid JSON file format",
+          "error"
+        );
       }
     };
     reader.readAsText(file);
@@ -124,12 +155,20 @@ const CreateAgentForm = () => {
     }
   };
 
+  useEffect(() => {
+    const promptParam = searchParams.get('prompt');
+    if (promptParam) {
+      setPrompt(decodeURIComponent(promptParam));
+    }
+  }, [searchParams]);
+
+
   return (
     <>
       <NavBar />
       <div className="flex flex-col-reverse lg:flex-row bg-black text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto">
         {/* Left Sidebar */}
-        <div className="p-4 border-x border-zinc-800 justify-center flex flex-col lg:h-screen lg:sticky top-0 lg:max-w-80">
+        <div className="p-4 border-x border-zinc-800 justify-start flex flex-col lg:h-screen lg:sticky top-0 lg:max-w-80">
           <div className="gap-5 lg:gap-10 flex flex-col justify-evenly">
             {/* Generate Section */}
             <h1 className="text-lg lg:text-2xl font-bold lg:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
@@ -156,6 +195,26 @@ const CreateAgentForm = () => {
                   placeholder="Describe your character in detail..."
                   className="w-full h-32 bg-black border border-zinc-800 p-3 text-sm resize-none mb-2 outline-none"
                 />
+                {validationError.length > 0 && (
+                  <div className="mb-4 p-3 border border-red-500 rounded bg-red-500/10 text-sm">
+                    <p className="text-red-400 mb-2">Missing required fields:</p>
+                    <ul className="list-disc list-inside text-red-300">
+                      {validationError.map(key => (
+                        <li key={key}>{key}</li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setValidationError([]);
+                        handleSubmit(e);
+                      }}
+                      className="mt-3 w-full bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white text-sm transition-colors"
+                    >
+                      Retry Generation
+                    </button>
+                  </div>
+                )}
                 {agentJson ? (
                   <div className="flex gap-2">
                     <button
@@ -204,7 +263,7 @@ const CreateAgentForm = () => {
                 </button>
               </div>
             </div>
-            <div className="mt-8 p-4 border border-zinc-700 rounded bg-zinc-900">
+            {/* <div className="mt-8 p-4 border border-zinc-700 rounded bg-zinc-900">
               <h2 className="text-lg font-semibold mb-2 text-blue-400">
                 Coming Soon!
               </h2>
@@ -213,7 +272,7 @@ const CreateAgentForm = () => {
                 you to run Eliza on your machine with just one click. Stay tuned
                 for more updates!
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
 

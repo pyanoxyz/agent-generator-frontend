@@ -1,6 +1,6 @@
 import React from "react";
-
 import { LuBot as Bot, LuCloud as Cloud, LuCpu as Cpu } from "react-icons/lu";
+import { MarlinLogo } from "./MarlinLogo";
 
 interface RoadmapPhaseProps {
   icon: React.ReactNode;
@@ -8,6 +8,11 @@ interface RoadmapPhaseProps {
   title: string;
   description: string;
   isActive: boolean;
+  partnership?: {
+    name: string;
+    logo: React.ReactNode;
+    url: string;
+  };
 }
 
 function RoadmapPhase({
@@ -16,6 +21,7 @@ function RoadmapPhase({
   title,
   description,
   isActive,
+  partnership,
 }: RoadmapPhaseProps) {
   return (
     <div
@@ -46,6 +52,17 @@ function RoadmapPhase({
           </div>
         </div>
         <p className="text-gray-400">{description}</p>
+        {partnership && (
+          <a
+            href={partnership.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 pt-2 mt-2 border-t border-gray-800"
+          >
+            <span className="text-xs text-gray-500">Powered by</span>
+            {partnership.logo}
+          </a>
+        )}
       </div>
       {isActive && (
         <div className="absolute -top-0.5 -right-0.5 z-10 w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
@@ -59,24 +76,28 @@ const RoadMap = () => {
     {
       icon: <Bot className="h-6 w-6" />,
       phase: "Phase 1",
-      title: "Agent Creation",
-      description:
-        "Create and customize your AI agents with our intuitive interface",
+      title: "Agent creation and deployment",
+      description:"Create, customize, and deploy AI agents with custom knowledge bases on cloud",
       isActive: true,
     },
     {
       icon: <Cloud className="h-6 w-6" />,
       phase: "Phase 2",
-      title: "Cloud Integration",
-      description: "Run your bots on the cloud with integrated payment systems",
+      title: "Actions inside TEE",
+      description:"Include prebuilt or custom actions that an agent can execute inside TEE, such as on-chain transactions and swaps",
       isActive: false,
+      partnership: {
+        name: "Marlin",
+        logo: <MarlinLogo />,
+        url: "https://www.marlin.org/",
+      },
     },
     {
       icon: <Cpu className="h-6 w-6" />,
       phase: "Phase 3",
       title: "Edge AI",
       description:
-        "Run agents locally with opensource models using our Rust runtime",
+        "Run agents locally with open-source models using our Rust runtime",
       isActive: false,
     },
   ];
