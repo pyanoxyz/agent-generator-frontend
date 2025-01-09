@@ -119,7 +119,7 @@ const RoadMap = () => {
   ];
 
   return (
-    <div className="py-16 sm:py-20 space-y-12">
+    <div className="pb-16 sm:pb-20 space-y-12">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent px-4">
         Development Roadmap
       </h2>

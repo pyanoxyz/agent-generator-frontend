@@ -4,9 +4,9 @@ import GitHubButton from "react-github-btn";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import logo from "../../assets/logo.png";
 import { useAccount, useDisconnect } from "wagmi";
-// import { disconnect } from "@wagmi/core";
 import { useEffect } from "react";
-import { checkRegister, registerUser, useAuth } from "../../hooks/useAuth";
+import { checkRegister, registerUser } from "../../api/register";
+import { useAuth } from "../../hooks/useAuth";
 
 const NavBar = ({ sticky }: { sticky?: boolean }) => {
   const { isConnected, address } = useAccount();
@@ -40,28 +40,30 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
         (sticky ? " sticky" : "")
       }
     >
-      <div className="xl:max-w-[1440px] mx-auto px-3 md:px-6 flex w-full justify-between items-center h-full">
+      <div className="xl:max-w-[1440px] mx-auto px-1 sm:px-3 md:px-6 flex w-full justify-between items-center h-full">
         {/* <Link to={"/"} className="flex items-center h-full">
           <div className="flex h-full items-center">
             <div className="text-lg md:text-2xl font-bold">pyano.fun</div>
           </div>
         </Link> */}
-        <Link to={"/"} className="flex items-center gap-2 h-full">
+        <Link to={"/"} className="shrink-0 flex items-center gap-1 sm:gap-1.5 h-full">
           <img
             src={logo}
             alt="Pyano Logo"
-            className="h-12 md:h-10 w-auto object-contain "
+            className="h-6 sm:h-8 md:h-10 w-auto object-contain"
           />
-          <div className="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+          <div className="text-xs sm:text-base md:text-2xl font-bold bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap">
             pyano.fun
           </div>
         </Link>
-        <div className="flex justify-end items-center gap-2 md:gap-6">
+        {/* Right Side Navigation */}
+        <div className="flex justify-end items-center gap-1 sm:gap-3 md:gap-6 pl-1">
+          {/* Agents Link */}
           <Link
             to="/agents"
-            className="flex items-center gap-1.5 px-2.5 py-1.5 md:gap-2 md:px-4 md:py-2 text-gray-400 hover:text-white transition-colors rounded-lg border border-gray-800 hover:border-gray-700 text-sm md:text-base"
+            className="flex shrink-0 items-center gap-1 px-1.5 py-1 sm:px-3 sm:py-1.5 text-gray-400 hover:text-white transition-colors rounded-lg border border-gray-800 hover:border-gray-700 text-[10px] sm:text-sm"
           >
-            <FaRobot className="size-3.5 md:size-4" />
+            <FaRobot className="w-4 h-4 sm:w-4 sm:h-4" />
             <span className="hidden sm:inline">Agents</span>
           </Link>
 
@@ -83,7 +85,7 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
             >
-              <TelegramIcon className="size-5" />
+              <TelegramIcon className="w-5 h-5" />
             </a>
             <a
               href="https://calendly.com/pyano-fun/15min"
@@ -109,7 +111,7 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
           </div>
 
           {/* Custom styles wrapper for ConnectButton to make it smaller on mobile */}
-          <div className="scale-90 md:scale-100 origin-right">
+          <div className="scale-[0.80] sm:scale-90 md:scale-100 origin-right">
             <ConnectButton />
           </div>
         </div>

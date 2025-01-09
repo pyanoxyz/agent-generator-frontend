@@ -1,27 +1,5 @@
 import React, { useState } from 'react';
-
-// Define specific credential interfaces for each platform
-export interface TwitterCredentials {
-  username: string;
-  password: string;
-  email: string;
-}
-
-export interface DiscordCredentials {
-  DISCORD_APPLICATION_ID: string;
-  DISCORD_API_TOKEN: string;
-}
-
-export interface TelegramCredentials {
-  TELEGRAM_BOT_TOKEN: string;
-}
-
-// Combined interface for all client credentials
-export interface ClientCredentials {
-  client_twitter?: TwitterCredentials;
-  client_discord?: DiscordCredentials;
-  client_telegram?: TelegramCredentials;
-}
+import { ClientCredentials } from './types';
 
 interface ClientCredentialsFormProps {
   onSubmit: (credentials: ClientCredentials) => void;

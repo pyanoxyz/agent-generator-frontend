@@ -3,6 +3,7 @@ import CharacterConfigEditor from "./Editor/CharacterConfigEditor";
 import BrainVisualisation from "./BrainVisualisation";
 import NavBar from "./layout/NavBar";
 import { useSearchParams } from "react-router-dom";
+import BalanceNotice from "./BalanceNotice";
 
 // API endpoint
 const API_URL = import.meta.env.DEV
@@ -184,7 +185,7 @@ const CreateAgentForm = () => {
   }, [searchParams]);
 
   return (
-    <>
+    <div className="min-h-screen  text-white font-mono">
       <NavBar />
       <div className="flex flex-col-reverse lg:flex-row bg-black text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto">
         {/* Left Sidebar */}
@@ -295,6 +296,7 @@ const CreateAgentForm = () => {
                 for more updates!
               </p>
             </div> */}
+            <BalanceNotice />
           </div>
         </div>
 
@@ -332,7 +334,7 @@ const CreateAgentForm = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
