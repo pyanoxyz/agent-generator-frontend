@@ -1,99 +1,81 @@
+import { create } from "zustand";
+import { useSignMessage, useAccount } from "wagmi";
+import { verifyMessage } from "ethers";
+import secureLocalStorage from "react-secure-storage";
+import { base, mainnet } from 'wagmi/chains';
 
-import { create } from 'zustand'
-import { useSignMessage,useAccount } from 'wagmi'
-import { verifyMessage } from 'ethers'
-import { API_BASE_URL } from '../api/agents'
 
-export const AUTH_MESSAGE = `Welcome to pyano.fun, Sign this message for server authentication`
+export const AUTH_MESSAGE = `Welcome to pyano.fun, Sign this message for server authentication`;
 
+const STORAGE_KEY = "auth_signature";
+const SUPPORTED_NETWORKS = [base.id, mainnet.id] as const; // Make this a readonly tuple
 
 
 interface AuthState {
- isAuthenticated: boolean
- signature: string | null
- setAuth: (signature: string) => void
- clearAuth: () => void
+  signature: string | null;
+  setAuth: (signature: string) => void;
 }
 
-export const useAuthStore = create<AuthState>((set: any) => ({
- isAuthenticated: false,
- signature: null,
- setAuth: (signature: string) => set({ isAuthenticated: true, signature }),
- clearAuth: () => set({ isAuthenticated: false, signature: null })
-}))
+const getInitialState = () => {
+  const storedSignature = secureLocalStorage.getItem(STORAGE_KEY) as
+    | string
+    | null;
+  return {
+    signature: storedSignature,
+  };
+};
 
-export async function registerUser(signature: string,) {
-  try {
-    const response = await fetch(`${API_BASE_URL}/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ 
-        signature,
-        message: AUTH_MESSAGE,
-      }),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Registration failed: ${response.statusText}`);
-    }
-    
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Failed to register user:', error);
-    throw error;
+export const useAuthStore = create<AuthState>((set) => ({
+  ...getInitialState(),
+  setAuth: (signature: string) => {
+    secureLocalStorage.setItem(STORAGE_KEY, signature);
+    set({  signature });
   }
-}
-
-export async function checkRegister(address: string) {
-  try {
-    const response = await fetch(`${API_BASE_URL}/check_registered`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ 
-        address,
-      }),
-    });
-    
-    if (!response.ok) {
-      return false  
-    }
-    return true;
-  } catch (error) {
-    throw false;
-  }
-}
+}));
 
 export function useAuth() {
- const { signMessageAsync } = useSignMessage()
- const setAuth = useAuthStore((state: AuthState) => state.setAuth)
- const clearAuth = useAuthStore((state) => state.clearAuth)
- const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
- const account = useAccount()
+  const { signMessageAsync } = useSignMessage();
+  const setAuth = useAuthStore((state: AuthState) => state.setAuth);
+  const account = useAccount();
+  const { chain } = useAccount();
 
 
- const signIn = async (): Promise<string> => {
-   try {
-    
-     const signature = await signMessageAsync({ 
-      message: AUTH_MESSAGE 
-    })     
-    const recoveredAddress = verifyMessage(AUTH_MESSAGE, signature)
-      
-     if (recoveredAddress.toLowerCase() !== account.address?.toLowerCase()) {
-       throw new Error('Signature verification failed')
-     }
-     setAuth(signature)
-     return signature
-   } catch (error) {
-     console.error('Failed to sign:', error)
-     throw error
-   }
- }
+  const isNetworkSupported = (): boolean => {
+    if (!chain) return false;
+    return SUPPORTED_NETWORKS.includes(chain.id as typeof SUPPORTED_NETWORKS[number]);
+  };
 
- return { signIn,isAuthenticated ,clearAuth}
+  const signIn = async (): Promise<string> => {
+    try {
+      const storedSignature = secureLocalStorage.getItem(STORAGE_KEY) as
+        | string
+        | null;
+
+      if (storedSignature) {
+        try {
+          const recoveredAddress = verifyMessage(AUTH_MESSAGE, storedSignature);
+          if (
+            recoveredAddress.toLowerCase() === account.address?.toLowerCase()
+          ) {
+            setAuth(storedSignature);
+            return storedSignature;
+          }
+        } catch (error) {
+          console.warn("Stored signature invalid, requesting new signature");
+          secureLocalStorage.removeItem(STORAGE_KEY);
+        }
+      }
+
+      const signature = await signMessageAsync({
+        message: AUTH_MESSAGE,
+      });
+      setAuth(signature);
+      return signature;
+    } catch (error) {
+      console.error("Failed to sign:", error);
+      throw error;
+    }
+  };
+
+  return { signIn,isNetworkSupported };
 }

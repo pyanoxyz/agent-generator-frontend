@@ -12,7 +12,7 @@ interface BasicInfoProps {
     // modelProvider,
     onNameChange,
   }) => (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
         <label className="flex gap-1 text-lg font-medium bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">
           Name <Tooltip tooltip="Name of your agent" />

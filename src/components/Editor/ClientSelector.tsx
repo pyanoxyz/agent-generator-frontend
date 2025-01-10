@@ -9,7 +9,7 @@ interface ClientSelectorProps {
   }
   
   export const ClientSelector: React.FC<ClientSelectorProps> = ({
-    selectedClient,
+    selectedClient = CLIENT_TYPES[0],
     onClientChange,
   }) => (
     <div>
