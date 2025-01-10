@@ -68,7 +68,7 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
           </Link>
 
           {/* Social links - only visible on md screens and up */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6">
             <a
               href="https://x.com/pyano_fun"
               target="_blank"

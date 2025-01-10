@@ -3,6 +3,8 @@ import RoadMap from "./RoadMap";
 import NavBar from "./layout/NavBar";
 import { useState } from "react";
 import Footer from "./Footer";
+import ProductFeatures from "./ProductFeatures";
+import PlatformIntegrations from "./PlatformIntegrations";
 // import VSCodeStatsButton from "./ExtensionButton";
 
 const LandingPage = () => {
@@ -32,18 +34,36 @@ const LandingPage = () => {
           ))}
         </div> */}
         {/* Hero Content */}
-        {/* <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold mb-8 sm:mb-12 relative z-10 text-center bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 text-transparent bg-clip-text">
-          pyano.fun
-          Your Ideas → AI Agents, Instantly
+        {/* <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 relative z-10 text-center bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 text-transparent bg-clip-text leading-tight">
+          Automate DevRel with AI Agents
         </h1> */}
-        <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 relative z-10 text-center bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 text-transparent bg-clip-text leading-tight">
-          Your Ideas → AI Agents, Instantly
+        <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 relative z-10 text-center leading-tight">
+          <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent">
+            Automate{" "}
+          </span>
+          <span className="relative inline-block">
+            <span className="bg-gradient-to-r from-rose-500 via-pink-500 to-[#e68ea7] bg-clip-text text-transparent">
+              DevRel
+            </span>
+          </span>
+          <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent">
+            {" "}
+            with{" "}
+          </span>
+          <span className="relative inline-block">
+            <span className="bg-gradient-to-r from-rose-500 via-pink-500 to-[#e68ea7] bg-clip-text text-transparent">
+              AI Agents
+            </span>
+          </span>
         </h1>
+
         {/* <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-center text-gray-200 mb-6 sm:mb-10 tracking-wider z-10 px-4">
         Your Ideas → AI Agents, Instantly
         </p> */}
         <p className="text-sm sm:text-base md:text-lg text-center text-gray-300 mb-12 sm:mb-16 tracking-wide z-10 max-w-3xl px-4">
-          No-code platform to create, run, and manage AI agents
+          Turn your DevRel chaos into harmony. Meet your AI-powered team that
+          replies to GitHub issues in seconds, reviews PRs like a pro, and keeps
+          your docs pitch-perfect.
         </p>
 
         <div className="w-full max-w-3xl mx-auto px-4 mb-8 z-10">
@@ -52,7 +72,7 @@ const LandingPage = () => {
               htmlFor="agent-description"
               className="block text-sm sm:text-base text-gray-200 mb-2"
             >
-              Describe your AI agent's purpose
+              Compose Your Perfect DevRel Maestro
             </label>
             <textarea
               id="agent-description"
@@ -62,7 +82,7 @@ const LandingPage = () => {
               className="w-full min-h-[100px] sm:min-h-[120px] bg-black bg-opacity-50 border border-gray-700 rounded 
     text-gray-200 placeholder-gray-400 p-3  
     transition-colors duration-200 text-sm sm:text-base resize-y"
-              placeholder="Example: I want an AI agent that can help me manage my social media posts and engage with followers..."
+              placeholder="Example: I want an AI Agent with a quirky sense of humor for code issues on Telegram and a no-nonsense attitude for tackling GitHub queries. Think Mozart meets Linus Torvalds"
             />
             <div className="flex justify-between items-center mt-2"></div>
           </div>
@@ -83,8 +103,9 @@ const LandingPage = () => {
           </div>
         </section>
 
+        <ProductFeatures />
         {/* Integration Status Bar */}
-        <div className="flex gap-2 flex-col lg:flex-row lg:gap-4 z-10 mb-16">
+        {/* <div className="flex gap-2 flex-col lg:flex-row lg:gap-4 z-10 mb-16">
           <div className="bg-opacity-10 bg-blue-900 border border-blue-800 rounded px-4 py-2 flex justify-between items-center gap-2">
             <span className="text-white">ElizaOS</span>
             <span className="text-blue-500 text-sm">
@@ -95,16 +116,17 @@ const LandingPage = () => {
             <span className="text-white">GAME</span>
             <span className="text-gray-500 text-sm">○ Coming soon</span>
           </div>
-          {/* <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">
+          <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">
             <span className="text-white">SendAI</span>
             <span className="text-gray-500 text-sm">○ Coming soon</span>
-          </div> */}
+          </div>
           <div className="bg-opacity-10 bg-gray-900 border border-gray-800 rounded px-4 py-2 flex justify-between items-center gap-2">
             <span className="text-white">Gnon</span>
             <span className="text-gray-500 text-sm">○ Coming soon</span>
           </div>
-        </div>
+        </div> */}
 
+        <PlatformIntegrations />
         {/* Statistics */}
         {/* <div className="flex flex-col lg:flex-row gap-2 lg:gap-16 z-10">
           <div className="text-center">
@@ -141,7 +163,7 @@ const LandingPage = () => {
       <section className="mt-10 relative overflow-hidden max-w-screen-2xl mx-auto">
         <RoadMap />
       </section>
-      
+
       {/* Footer */}
       <Footer />
     </div>
