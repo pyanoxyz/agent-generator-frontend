@@ -4,11 +4,12 @@ import BrainVisualisation from "./BrainVisualisation";
 import NavBar from "./layout/NavBar";
 import { useSearchParams } from "react-router-dom";
 import BalanceNotice from "./BalanceNotice";
+import { API_BASE_URL } from "../api/agents";
 
 // API endpoint
 const API_URL = import.meta.env.DEV
-  ? "https://api.pyano.fun/generate_character"
-  : "https://api.pyano.fun/generate_character";
+  ? `${API_BASE_URL}/generate_character`
+  : `${API_BASE_URL}/generate_character`;
 
 // Toast types and interface
 type ToastType = "error" | "success";
@@ -31,13 +32,16 @@ const generateAgent = async (prompt: string) => {
   }
 
   const data = await response.json();
+  data.modelProvider="together";
+  data.plugins= [];
+  data.clients=["twitter"];
   return data.character_json;
 };
 
 const REQUIRED_AGENT_KEYS = [
   "name",
-  "modelProvider",
-  "clients",
+  // "modelProvider",
+  // "clients",
   "bio",
   "lore",
   "style",

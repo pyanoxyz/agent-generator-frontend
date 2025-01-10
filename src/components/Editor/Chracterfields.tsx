@@ -89,7 +89,8 @@ const CharacterFields = ({ config, setConfig }: CharacterFieldsProps) => {
     path: string,
     array: string[],
     tooltip?: React.ReactNode
-  ) => (
+  ) => {
+    return (
     <div className="bg-black/30 p-6 rounded-lg border border-gray-800 ">
       <div className="flex justify-between items-center mb-4 relative">
         <label className="flex gap-1 text-lg font-medium text-blue-500">
@@ -142,11 +143,11 @@ const CharacterFields = ({ config, setConfig }: CharacterFieldsProps) => {
         </button>
       </div>
     </div>
-  );
+  );}
 
   return (
     <>
-      <div>
+      <div className="space-y-6">
         {renderStringArrayField(
           "Bio",
           "bio",

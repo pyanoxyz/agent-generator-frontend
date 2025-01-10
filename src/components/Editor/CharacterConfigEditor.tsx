@@ -237,7 +237,7 @@ const CharacterConfigEditor = ({
             onNameChange={(value) => updateField("name", value)}
           />
           <ClientSelector
-            selectedClient={config.clients[0]}
+            selectedClient={config.clients?.[0]}
             onClientChange={(client) => updateField("clients", [client])}
           />
           <CharacterFields config={config} setConfig={setConfig} />
