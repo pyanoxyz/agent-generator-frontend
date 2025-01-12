@@ -43,8 +43,7 @@ Pyano.fun is a modern DevRel automation platform that leverages AI to streamline
 - React 18+
 - TypeScript 4.9+
 - Vite
-- Marlin AI (for agent creation and deployment)
-
+- 
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -89,7 +88,7 @@ yarn dev
 ### Phase 1: Agent Creation and Deployment
 
 - Cloud-based AI agents with custom knowledge bases
-- Powered by Marlin AI
+- Agents running and execution in secured TEE
 
 ### Phase 2: Edge AI
 
