@@ -197,7 +197,7 @@ const CreateAgentForm = () => {
           <div className="gap-5 lg:gap-10 flex flex-col justify-evenly">
             {/* Generate Section */}
             <h1 className="text-lg lg:text-2xl font-bold lg:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-              Create Your Eliza Agent with AI
+              Create your DevRel Agent with AI
             </h1>
             <div>
               <h2 className="text-sm font-medium mb-2">
