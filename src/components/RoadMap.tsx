@@ -83,7 +83,7 @@ const RoadMap = () => {
       phase: "Phase 1",
       title: "Agent creation and deployment",
       description:
-        "Create, customize, and deploy AI agents with custom knowledge bases on cloud",
+        "Create, customize, and deploy your AI DevRel agents with custom documentation and codebases in the cloud.",
       isActive: true,
       partnership: {
         name: "Marlin",
