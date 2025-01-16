@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 interface DynamicPromptOverlayProps {
   isOpen: boolean;
@@ -7,20 +7,20 @@ interface DynamicPromptOverlayProps {
   isLoading: boolean;
 }
 
-const DynamicPromptOverlay = ({ 
-  isOpen, 
-  onClose, 
-  onSubmit, 
-  isLoading
+const DynamicPromptOverlay = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  isLoading,
 }: DynamicPromptOverlayProps) => {
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       inputRef.current?.focus();
     } else {
-      setPrompt('');
+      setPrompt("");
     }
   }, [isOpen]);
 
@@ -33,7 +33,7 @@ const DynamicPromptOverlay = ({
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = e.target;
     setPrompt(textarea.value);
-    textarea.style.height = 'auto';
+    textarea.style.height = "auto";
     textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
   };
 
@@ -41,24 +41,21 @@ const DynamicPromptOverlay = ({
 
   return (
     <>
-      <div 
-        className="fixed inset-0 z-40"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 z-40" onClick={onClose} />
       <div className="absolute top-full right-0 mt-2 z-50 max-w-[90vw] w-96">
-        <div className="bg-gray-900/95 rounded-lg border border-gray-800 shadow-xl p-2 flex flex-col gap-2">
+        <div className="bg-secondary rounded-lg border border-primary shadow-xl p-2 flex flex-col gap-2">
           <textarea
             ref={inputRef}
             value={prompt}
             onChange={handleInput}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
+              if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 handleSubmit();
               }
             }}
             placeholder="Enter prompt..."
-            className="w-full px-4 py-3 bg-black/50 border border-gray-800 rounded-lg text-gray-200 text-sm focus:border-blue-500/50 outline-none resize-none min-h-[44px] leading-relaxed"
+            className="w-full px-4 py-3 bg-secondary border border-primary rounded-lg text-black text-sm focus:border-blue-500/50 outline-none resize-none min-h-[44px] leading-relaxed"
             disabled={isLoading}
             rows={1}
           />
@@ -68,7 +65,7 @@ const DynamicPromptOverlay = ({
               <button
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="flex items-center gap-1 px-3 py-1.5 text-sm text-green-500 hover:text-green-400 border border-green-500/20 hover:border-green-500/40 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-black/50"
+                className="flex items-center gap-1 px-3 py-1.5 text-sm text-white hover:text-green-400 border border-primary hover:border-green-500/40 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-primary"
               >
                 <span>Enter</span>
                 <span className="text-xs opacity-50">↵</span>

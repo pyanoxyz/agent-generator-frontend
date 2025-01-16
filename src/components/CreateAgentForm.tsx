@@ -336,7 +336,7 @@ const CreateAgentForm = () => {
         {/* Main Content */}
         <div className="w-full bg-secondary from-blue-900/20 relative  to-purple-900/20 pl-4">
           {agentJson ? (
-            <div className="flex-1  mt-4">
+            <div className="flex-1">
               <CharacterConfigEditor initialConfig={agentJson} />
             </div>
           ) : (

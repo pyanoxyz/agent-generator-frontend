@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useToast } from "../../hooks/useToast";
 import { useAccount } from "wagmi";
 import { AUTH_MESSAGE, useAuth } from "../../hooks/useAuth";
@@ -13,23 +13,17 @@ import { API_BASE_URL } from "../../api/agents";
 import { ClientCredentials } from "./types";
 import CharacterFields from "./Chracterfields";
 
-const CharacterConfigEditor = ({
-  initialConfig,
-}: {
-  initialConfig: Character;
-}) => {
+const CharacterConfigEditor = ({ initialConfig }: { initialConfig: Character }) => {
   const [config, setConfig] = useState<Character>(initialConfig);
   const showToast = useToast((state) => state.showToast);
   const { isConnected } = useAccount();
-  const { signIn ,isNetworkSupported} = useAuth();
+  const { signIn, isNetworkSupported } = useAuth();
   const [showClientCredentials, setShowClientCredentials] = useState(false);
   const [isDeploying, setIsDeploying] = useState(false);
-  const [deploymentSignature, setDeploymentSignature] = useState<string | null>(
+  const [deploymentSignature, setDeploymentSignature] = useState<string | null>(null);
+  const [deploymentStatus, setDeploymentStatus] = useState<"loading" | "success" | "error" | null>(
     null
   );
-  const [deploymentStatus, setDeploymentStatus] = useState<
-    "loading" | "success" | "error" | null
-  >(null);
   const [deploymentError, setDeploymentError] = useState<string | undefined>();
   const [knowledgeFiles, setKnowledgeFiles] = useState<File[]>([]);
 
@@ -41,11 +35,10 @@ const CharacterConfigEditor = ({
     setKnowledgeFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
-
   const handleDeploy = async () => {
     if (isDeploying) return;
 
-    if (!isConnected ) {
+    if (!isConnected) {
       showToast("Connect wallet and switch to Base network", "error");
       return;
     }
@@ -80,11 +73,9 @@ const CharacterConfigEditor = ({
       const formData = new FormData();
 
       // Create character file from config
-      const characterFile = new File(
-        [JSON.stringify(config)],
-        "character.json",
-        { type: "application/json" }
-      );
+      const characterFile = new File([JSON.stringify(config)], "character.json", {
+        type: "application/json",
+      });
       formData.append("character", characterFile);
 
       if (knowledgeFiles.length > 0) {
@@ -95,7 +86,6 @@ const CharacterConfigEditor = ({
       // Add authentication data
       formData.append("signature", deploymentSignature);
       formData.append("message", AUTH_MESSAGE);
-
 
       // In handleCredentialsSubmit:
       if (credentials.client_twitter) {
@@ -110,9 +100,7 @@ const CharacterConfigEditor = ({
           );
         } catch (error) {
           showToast(
-            error instanceof Error
-              ? error.message
-              : "Invalid Twitter credentials",
+            error instanceof Error ? error.message : "Invalid Twitter credentials",
             "error"
           );
           return;
@@ -123,8 +111,7 @@ const CharacterConfigEditor = ({
         formData.append(
           "client_discord",
           JSON.stringify({
-            discord_application_id:
-              credentials.client_discord.DISCORD_APPLICATION_ID,
+            discord_application_id: credentials.client_discord.DISCORD_APPLICATION_ID,
             discord_api_token: credentials.client_discord.DISCORD_API_TOKEN,
           })
         );
@@ -141,13 +128,10 @@ const CharacterConfigEditor = ({
 
       setDeploymentStatus("loading");
 
-      const response = await fetch(
-        `${API_BASE_URL}/agent/deploy`,
-        {
+      const response = await fetch(`${API_BASE_URL}/agent/deploy`, {
         method: "POST",
         body: formData,
-      }
-    );
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -165,9 +149,7 @@ const CharacterConfigEditor = ({
     } catch (error) {
       console.error("Deployment failed:", error);
       setDeploymentStatus("error");
-      setDeploymentError(
-        error instanceof Error ? error.message : "Failed to deploy agent"
-      );
+      setDeploymentError(error instanceof Error ? error.message : "Failed to deploy agent");
       showToast("Failed to deploy agent", "error");
     } finally {
       setIsDeploying(false);
