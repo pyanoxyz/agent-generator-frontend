@@ -34,16 +34,20 @@ export const AgentCard: React.FC<AgentCardProps> = ({
   onStatusChange,
 }) => {
   const showToast = useToast((state) => state.showToast);
-  const { signIn } = useAuth();
+  const { signIn, publicKey } = useAuth();
   const isRunning = agent.status === "running";
 
   const handleStop = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (!publicKey) {
+      showToast("Wallet not connected", "error");
+      return;
+    }
 
     try {
       const signature = await signIn();
 
-      await shutdownAgent(agent.agent_id, signature, AUTH_MESSAGE);
+      await shutdownAgent(agent.agent_id, signature, AUTH_MESSAGE, publicKey.toString());
       showToast("Agent stopped successfully", "success");
       onStatusChange?.(agent.agent_id, "stopped");
     } catch (error) {
@@ -54,10 +58,14 @@ export const AgentCard: React.FC<AgentCardProps> = ({
 
   const handleStart = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (!publicKey) {
+      showToast("Wallet not connected", "error");
+      return;
+    }
     try {
       const signature = await signIn();
 
-      await startAgent(agent.agent_id, signature, AUTH_MESSAGE);
+      await startAgent(agent.agent_id, signature, AUTH_MESSAGE, publicKey.toString());
       showToast("Agent started successfully", "success");
       onStatusChange?.(agent.agent_id, "running");
     } catch (error) {
@@ -111,10 +119,10 @@ export const AgentCard: React.FC<AgentCardProps> = ({
       <div className=" p-3 sm:p-4 flex justify-between items-center bg-bg-bgCards flex-wrap gap-2">
         {/* Status Indicator */}
         <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm">
-          <GoDotFill className={isRunning ? "text-green-400" : "text-gray-500"} />
+          <GoDotFill className={isRunning ? "text-primary" : "text-gray-500"} />
           <span className="text-black">
             Status:{" "}
-            <span className={isRunning ? "text-green-400" : "text-gray-500"}>
+            <span className={isRunning ? "text-primary  " : "text-gray-500"}>
               {isRunning ? "Running" : "Stopped"}
             </span>
           </span>

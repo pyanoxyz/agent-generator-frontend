@@ -60,7 +60,7 @@ const WelcomeScreen = ({ onClick, clientType }: WelcomeScreenProps) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-full p-4">
-      <h1 className="text-3xl font-semibold mb-8 text-gray-700 text-center">{message}</h1>
+      <h1 className="text-3xl font-semibold mb-8 text-primary text-center">{message}</h1>
 
       <div className="flex flex-wrap justify-center gap-3 max-w-2xl">
         {sampleQuestions.map((question: string, index: number) => (

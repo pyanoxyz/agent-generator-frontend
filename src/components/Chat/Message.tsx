@@ -11,7 +11,7 @@ export const Message: React.FC<MessageProps> = ({ message }) => {
 
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
-      <div className={`max-w-[80%] rounded-3xl p-3 ${"bg-[#e8e8e880] text-black"}`}>
+      <div className={`max-w-[80%] rounded-3xl p-3 bg-bgCards text-black`}>
         <div className="whitespace-pre-wrap markdown-content">
           <MarkdownRenderer content={message.content}></MarkdownRenderer>
         </div>

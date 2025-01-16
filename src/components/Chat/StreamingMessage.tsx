@@ -56,7 +56,7 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = ({
 
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
-      <div className={`max-w-[80%] rounded-3xl p-3 bg-[#e8e8e880] text-black`}>
+      <div className={`max-w-[80%] rounded-3xl p-3 bg-bgCards text-black`}>
         {isLoading && !streamedContent && (
           <div className="flex justify-center items-center min-h-[40px]">
             <LoadingDots />

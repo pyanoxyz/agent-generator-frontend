@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import RoadMap from "./RoadMap";
 import NavBar from "./layout/NavBar";
-import { useState } from "react";
+import { memo, useMemo, useState } from "react";
 import Footer from "./Footer";
 import ProductFeatures from "./ProductFeatures";
 import PlatformIntegrations from "./PlatformIntegrations";
@@ -68,9 +68,11 @@ export const FadeBorder = ({ className = "", height = "" }) => {
     </div>
   );
 };
+const MemoizedVerticalBars = memo(VerticalBars);
 
 const LandingPage = () => {
   const [agentDescription, setAgentDescription] = useState("");
+  const verticalBars = useMemo(() => <MemoizedVerticalBars key="vertical" />, []);
 
   return (
     <div className="min-h-screen  text-white font-mono">
@@ -79,7 +81,7 @@ const LandingPage = () => {
       </div>
       <div className="w-full h-full flex flex-col items-center justify-center relative ">
         <div className="h-[calc(100vh-5rem)] flex w-full flex-col items-center justify-center relative ">
-          <div className="relative">
+          <div className="relative mt-16 2xl:mt-0">
             <CrossSvg className="absolute -top-3 -left-3" />
             <CrossSvg className="absolute -bottom-3 -right-3" />
             <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 relative z-10 text-center leading-tight text-primary">
@@ -107,7 +109,7 @@ const LandingPage = () => {
               ))}
             </div>
 
-            <div className="w-full max-w-3xl mx-auto px-4 z-10">
+            <div className="w-full max-w-3xl mx-auto px-4 z-20 bg-secondary">
               <div className=" bg-secondary h-64 flex items-center p-4 relative">
                 <CrossSvg className="absolute -top-3 -left-3" />
                 <CrossSvg className="absolute -top-3 -right-3" />
@@ -144,7 +146,8 @@ const LandingPage = () => {
             </section>
           </div>
           <div className="flex justify-self-end align-bottom w-full absolute bottom-0">
-            <VerticalBars />
+            {/* <VerticalBars /> */}
+            {verticalBars}
           </div>
         </div>
         <div className="w-full bg-primary">

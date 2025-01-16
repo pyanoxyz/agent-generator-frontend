@@ -66,8 +66,8 @@ export const AgentDetails: React.FC<AgentDetailsProps> = ({ agent, onClose, isMo
             <div>
               <h2 className="text-lg md:text-2xl font-bold text-black">{character.name}</h2>
               <div className="flex items-center gap-2 mt-1">
-                <GoDotFill className={isRunning ? "text-green-400" : "text-gray-500"} />
-                <span className={`text-sm ${isRunning ? "text-green-400" : "text-gray-500"}`}>
+                <GoDotFill className={isRunning ? "text-primary" : "text-gray-500"} />
+                <span className={`text-sm ${isRunning ? "text-primary" : "text-gray-500"}`}>
                   {isRunning ? "Running" : "Stopped"}
                 </span>
               </div>
@@ -191,10 +191,10 @@ export const AgentDetails: React.FC<AgentDetailsProps> = ({ agent, onClose, isMo
                   {new Date(agent.created_at).toLocaleDateString()}
                 </span>
               </div>
-              <div className="flex justify-between py-2 border-b border-gray-800">
+              {/* <div className="flex justify-between py-2 border-b border-gray-800">
                 <span className="text-black">Agent ID</span>
                 <span className="text-black break-all">{agent.agent_id}</span>
-              </div>
+              </div> */}
             </div>
           </div>
 

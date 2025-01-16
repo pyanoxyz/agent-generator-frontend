@@ -15,7 +15,7 @@ const ChatNavigationCards = () => {
     {
       title: "Eliza OS",
       description:
-        "An intelligent agent specializing in system-level interactions and technical support",
+        "ElizaOs a multi agent framework specializing in system-level interactions and technical support",
       path: "/chat/eliza",
       icon: "🤖",
     },
@@ -37,7 +37,7 @@ const ChatNavigationCards = () => {
     <div className="px-4 py-12 bg-gradient-to-t  !m-0 w-full ">
       <div className="max-w-screen-2xl flex flex-col items-center justify-self-center">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-white ">
-          Chat with Docs
+          Chat with AI Agents
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {chatCards.map((card) => (

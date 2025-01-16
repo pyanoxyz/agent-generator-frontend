@@ -1,5 +1,5 @@
 import { FaTwitter, FaTelegram } from "react-icons/fa";
-import { FaRegCalendarAlt as CalenderIcon } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import logo from "../assets/PyanoLogoGreen.svg";
 import VerticalBars from "./SpacedBars";
 
@@ -22,23 +22,23 @@ const Footer = () => {
             >
               <FaTelegram className="size-10 text-primary" />
             </a>
-            <a
+            {/* <a
               href="https://calendly.com/pyano-fun/15min"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary transition-colors"
             >
               <CalenderIcon className="size-10 text-primary" />
-            </a>
-            {/* <a
-              href="https://github.com/pyanoxyz/pyano-framework"
+            </a> */}
+            <a
+              href="https://github.com/pyanoxyz"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg transition-all"
               aria-label="GitHub"
             >
-              <FaGithub className="size-8 text-primary" />
-            </a> */}
+              <FaGithub className="size-10 text-primary" />
+            </a>
           </div>
 
           {/* Brand Section */}

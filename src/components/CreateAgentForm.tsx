@@ -27,7 +27,7 @@ const RobotDiv = () => {
 
   return (
     <div className="flex h-full w-full">
-      <div className="flex w-full flex-col gap-4 items-center relative justify-center">
+      <div className="flex w-full flex-col gap-4 items-center relative justify-center overflow-hidden">
         <div className="w-64 h-64">
           <BrainVisualisation />
         </div>
@@ -196,11 +196,11 @@ const CreateAgentForm = () => {
   }, [searchParams]);
 
   return (
-    <div className="min-h-screen  text-white font-mono">
+    <div className="min-h-screen  text-white font-mono ">
       <div className="pt-4">
         <NavBar />
       </div>
-      <div className="flex flex-col-reverse mt-2 lg:flex-row bg-secondary text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto h-[calc(100vh-64px)]">
+      <div className="flex flex-col-reverse mt-2 lg:flex-row bg-secondary text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto min-h-[calc(100vh-64px)] px-4">
         {/* Left Sidebar */}
         <div className="p-4 border border-borderPrimary rounded-lg justify-start flex flex-col lg:sticky top-0 lg:max-w-80">
           <div className="gap-1 lg:gap-7 flex flex-col justify-evenly">
@@ -334,7 +334,7 @@ const CreateAgentForm = () => {
         </div>
 
         {/* Main Content */}
-        <div className="w-full bg-secondary from-blue-900/20 relative  to-purple-900/20 pl-4">
+        <div className="w-full bg-secondary from-blue-900/20 relative  to-purple-900/20 pl-4 ">
           {agentJson ? (
             <div className="flex-1">
               <CharacterConfigEditor initialConfig={agentJson} />

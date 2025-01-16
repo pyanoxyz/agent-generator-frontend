@@ -14,7 +14,7 @@ export const DevrelDocsChat = ({ clientType }: DevrelDocsChatProps) => {
 
   useEffect(() => {
     initializeClient(clientType);
-  }, [clientType, initializeClient]);
+  }, [clientType]);
 
   if (isConnecting) {
     return (

@@ -37,7 +37,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, disabled })
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
-      <div className="relative bg-gray-100 rounded-3xl shadow-sm">
+      <div className="relative bg-bgCards rounded-3xl shadow-sm">
         <div className="flex items-center min-h-12 p-2 px-4">
           <textarea
             ref={textareaRef}
@@ -54,7 +54,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, disabled })
           />
         </div>
 
-        <div className="flex items-center justify-end p-2 bg-gray-100 rounded-b-3xl">
+        <div className="flex items-center justify-end p-2 bg-bgCards rounded-b-3xl">
           <button
             onClick={handleSubmit}
             disabled={!inputText.trim() || disabled}

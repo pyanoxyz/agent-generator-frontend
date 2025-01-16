@@ -48,7 +48,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({ clientType }) => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)] bg-white items-center relative">
+    <div className="flex flex-col h-[calc(100vh-64px)] bg-secondary items-center relative">
       <div
         ref={scrollRef}
         className="flex-1 overflow-y-auto overflow-x-hidden w-full max-w-4xl break-words mx-auto"
