@@ -61,7 +61,7 @@ const ProductFeatures: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 relative overflow-hidden max-w-screen-2xl  px-4 !m-0 bg-bgPrimary !m-0 w-full">
+    <section className="py-16 relative overflow-hidden px-4 !m-0 bg-bgPrimary w-full">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-12">
         What Your DevRel agent can do?
       </h2>

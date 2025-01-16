@@ -1,10 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo, memo } from "react";
 import CharacterConfigEditor from "./Editor/CharacterConfigEditor";
 import BrainVisualisation from "./BrainVisualisation";
 import NavBar from "./layout/NavBar";
 import { useSearchParams } from "react-router-dom";
 import BalanceNotice from "./BalanceNotice";
 import { API_BASE_URL } from "../api/agents";
+import { CrossSvg, FadeBorder, FadeBorderHorizontal } from "./LandingPage";
+import VerticalBars from "./SpacedBars";
 
 // API endpoint
 const API_URL = import.meta.env.DEV
@@ -17,6 +19,25 @@ interface Toast {
   message: string;
   type: ToastType;
 }
+
+const MemoizedVerticalBars = memo(VerticalBars);
+
+const RobotDiv = () => {
+  const verticalBars = useMemo(() => <MemoizedVerticalBars key="vertical" />, []);
+
+  return (
+    <div className="flex h-full w-full">
+      <div className="flex w-full flex-col gap-4 items-center relative justify-center">
+        <div className="w-64 h-64">
+          <BrainVisualisation />
+        </div>
+        <div className="flex align-bottom w-[99%] absolute bottom-0 rounded-b-lg pb-0.25">
+          {verticalBars}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const generateAgent = async (prompt: string) => {
   const response = await fetch(API_URL, {
@@ -176,36 +197,50 @@ const CreateAgentForm = () => {
 
   return (
     <div className="min-h-screen  text-white font-mono">
-      <NavBar />
-      <div className="flex flex-col-reverse lg:flex-row bg-secondary text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto h-[calc(100vh-64px)]">
+      <div className="pt-4">
+        <NavBar />
+      </div>
+      <div className="flex flex-col-reverse mt-2 lg:flex-row bg-secondary text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto h-[calc(100vh-64px)]">
         {/* Left Sidebar */}
         <div className="p-4 border border-borderPrimary rounded-lg justify-start flex flex-col lg:sticky top-0 lg:max-w-80">
           <div className="gap-1 lg:gap-7 flex flex-col justify-evenly">
             {/* Generate Section */}
             <h1 className="text-lg lg:text-2xl font-bold lg:mb-4 text-primary">
-              Create your DevRel Agent with AI
+              Create your <br /> DevRel Agent <br /> with AI
             </h1>
             <div>
               <h2 className="text-sm font-bold mb-2 text-textHeading">Generate Agent Character</h2>
-              <form onSubmit={handleSubmit}>
-                <textarea
-                  value={prompt}
-                  onChange={(e) => setPrompt(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      if (e.metaKey || e.ctrlKey) {
-                        setPrompt((prev) => prev + "\n");
-                      } else {
-                        e.preventDefault();
-                        handleSubmit(e);
+              <form onSubmit={handleSubmit} className="relative">
+                <div className="relative">
+                  <CrossSvg className="absolute -top-3 -left-3" />
+                  <CrossSvg className="absolute -top-3 -right-3" />
+                  <CrossSvg className="absolute -bottom-3 -left-3" />
+                  <CrossSvg className="absolute -bottom-3 -right-3" />
+
+                  <FadeBorder className="absolute left-0 top-0 h-full" height=" h-[12rem]" />
+                  <FadeBorder className="absolute right-0 top-0 h-full" height=" h-[12rem]" />
+                  <FadeBorderHorizontal className="absolute top-0  w-full" />
+                  <FadeBorderHorizontal className="absolute bottom-0  w-full" />
+                  <textarea
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        if (e.metaKey || e.ctrlKey) {
+                          setPrompt((prev) => prev + "\n");
+                        } else {
+                          e.preventDefault();
+                          handleSubmit(e);
+                        }
                       }
-                    }
-                  }}
-                  placeholder="Describe your character in detail..."
-                  className="w-full h-32 bg-black border border-zinc-800 p-3 text-sm resize-none mb-2 outline-none"
-                />
+                    }}
+                    placeholder="Describe your character in detail..."
+                    className="w-full h-32  text-black placeholder-gray-400 p-3 text-sm resize-none mb-2 outline-none bg-secondary  bg-opacity-50 border-none"
+                  />
+                </div>
+
                 {validationError.length > 0 && (
-                  <div className="mb-4 p-3 border border-red-500 rounded bg-red-500/10 text-sm">
+                  <div className="mb-4 mt-4 p-3 border border-red-500 rounded bg-red-500/10 text-sm">
                     <p className="text-red-400 mb-2">Missing required fields:</p>
                     <ul className="list-disc list-inside text-red-300">
                       {validationError.map((key) => (
@@ -225,11 +260,11 @@ const CreateAgentForm = () => {
                   </div>
                 )}
                 {agentJson ? (
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 mt-4">
                     <button
                       disabled={isLoading}
                       onClick={handleReset}
-                      className="flex-1 bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm transition-colors disabled:opacity-50"
+                      className="flex-1 bg-primary rounded-full  px-4 py-2 text-sm transition-colors disabled:opacity-50"
                     >
                       Create New
                     </button>
@@ -239,9 +274,9 @@ const CreateAgentForm = () => {
                     type="submit"
                     disabled={isLoading}
                     // className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 px-4 py-2 w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-12"
-                    className="w-full bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm transition-colors disabled:opacity-50"
+                    className="w-full mt-4 bg-primary rounded-full  px-4 py-2 text-sm transition-colors disabled:opacity-50"
                   >
-                    {isLoading ? "Generating..." : "Generate Character"}
+                    {isLoading ? "Generating..." : "Compose Agent"}
                   </button>
                 )}
               </form>
@@ -250,26 +285,38 @@ const CreateAgentForm = () => {
             {/* Load Character Section */}
             <div>
               <h2 className="text-sm font-bold mb-2 text-textHeading">Load Character</h2>
-              <div
-                className="border border-dashed border-zinc-700 rounded p-4 text-center text-sm text-zinc-400 cursor-pointer hover:border-zinc-600 transition-colors"
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={handleDrop}
-              >
-                Drop and drop a character JSON file here
-                <span className="block text-zinc-500 mt-1">or</span>
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                  accept="application/json"
-                  className="hidden"
-                />
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="mt-2 text-blue-500 hover:text-blue-400"
+              <div className="relative">
+                <CrossSvg className="absolute -top-3 -left-3" />
+                <CrossSvg className="absolute -top-3 -right-3" />
+                <CrossSvg className="absolute -bottom-3 -left-3" />
+                <CrossSvg className="absolute -bottom-3 -right-3" />
+
+                <FadeBorder className="absolute left-0 top-0 h-full" height=" h-[12rem]" />
+                <FadeBorder className="absolute right-0 top-0 h-full" height=" h-[12rem]" />
+                <FadeBorderHorizontal className="absolute top-0  w-full" />
+                <FadeBorderHorizontal className="absolute bottom-0  w-full" />
+
+                <div
+                  className="border-none  border-zinc-700 rounded p-4 text-center text-sm text-zinc-400 cursor-pointer hover:border-zinc-600 transition-colors"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={handleDrop}
                 >
-                  Browse Files
-                </button>
+                  Drop and drop a character JSON file here
+                  <span className="block text-zinc-500 mt-1">or</span>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept="application/json"
+                    className="hidden"
+                  />
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="mt-2 text-blue-500 hover:text-blue-400"
+                  >
+                    Browse Files
+                  </button>
+                </div>
               </div>
             </div>
             {/* <div className="mt-8 p-4 border border-zinc-700 rounded bg-zinc-900">
@@ -287,7 +334,7 @@ const CreateAgentForm = () => {
         </div>
 
         {/* Main Content */}
-        <div className="w-full bg-secondary from-blue-900/20  to-purple-900/20 pl-4">
+        <div className="w-full bg-secondary from-blue-900/20 relative  to-purple-900/20 pl-4">
           {agentJson ? (
             <div className="flex-1  mt-4">
               <CharacterConfigEditor initialConfig={agentJson} />
@@ -300,11 +347,7 @@ const CreateAgentForm = () => {
                   <span className="text-black">Generating character configuration...</span>
                 </div>
               ) : (
-                <div className="flex flex-col gap-4 items-center relative justify-center">
-                  <div className="w-64 h-64">
-                    <BrainVisualisation />
-                  </div>
-                </div>
+                <RobotDiv />
               )}
             </div>
           )}

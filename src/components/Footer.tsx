@@ -1,10 +1,11 @@
 import { FaTwitter, FaTelegram } from "react-icons/fa";
 import { FaRegCalendarAlt as CalenderIcon } from "react-icons/fa";
 import logo from "../assets/PyanoLogoGreen.svg";
+import VerticalBars from "./SpacedBars";
 
 const Footer = () => {
   return (
-    <footer className="pt-8 bg-gradient-to-t from-bgPrimary via-secondary to-secondary">
+    <footer className="pt-8 bg-gradient-to-t from-bgPrimary via-secondary to-80% to-secondary relative">
       <div className="container mx-auto px-6">
         <div className="flex flex-col  justify-between items-center gap-6">
           {/* Social Links */}
@@ -42,11 +43,19 @@ const Footer = () => {
 
           {/* Brand Section */}
 
-          <h3 className="text-3xl font-bold bg-primary bg-clip-text text-transparent font-sans">
+          <h3 className="text-3xl font-bold bg-primary bg-clip-text text-transparent font-sans z-10">
             Pyano.fun
           </h3>
-          <img src={logo} alt="Pyano Logo" className="h-32 sm:h-32 md:h-36 w-auto object-fit" />
+          <img
+            src={logo}
+            alt="Pyano Logo"
+            className="h-32 sm:h-32 md:h-36 w-auto object-fit z-10"
+          />
         </div>
+      </div>
+      <div className="h-16"></div>
+      <div className="absolute bottom-0 w-full mt-10">
+        <VerticalBars />
       </div>
     </footer>
   );

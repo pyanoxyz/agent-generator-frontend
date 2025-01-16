@@ -22,7 +22,7 @@ function App() {
         <RainbowKitProvider theme={midnightTheme()}>
           <GradioProvider>
             <Router>
-              <div className="bg-secondary">
+              <div className="bg-secondary overflow-auto">
                 <div className="min-h-screen ">
                   <Routes>
                     <Route path="/" element={<LandingPage />} />

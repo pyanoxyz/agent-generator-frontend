@@ -38,11 +38,11 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
 
   return (
     <nav
-      className={`top-0 left-0 h-12 sm:h-14 md:h-16 my-2 sm:my-4 mx-2 sm:mx-8 rounded-xl right-0 bg-opacity-80 backdrop-blur-sm border border-borderPrimary z-50 bg-secondary${
+      className={`top-0 left-0 h-16 mx-2 sm:mx-8 right-0 backdrop-blur-sm z-50  ${
         sticky ? " sticky" : ""
       }`}
     >
-      <div className="h-full max-w-[1440px] mx-auto px-3 md:px-6">
+      <div className="h-full max-w-[1440px] border border-borderPrimary  bg-secondary rounded-xl  mx-auto px-3 md:px-6">
         <div className="flex items-center justify-between h-full">
           {/* Left Section - Logo */}
           <div className="flex items-center">
@@ -86,9 +86,9 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
           <div className="flex items-center justify-between h-full">
             <Link
               to="/agents"
-              className="flex items-center gap-1 px-2 sm:px-3 py-1.5 border-x border-primary hover:bg-primary/5 transition-colors h-full"
+              className="flex items-center justify-center gap-3 px-2 sm:px-3 py-1.5 border-x border-primary hover:bg-primary/5 transition-colors h-full"
             >
-              <FaRobot className="w-5 h-5 text-primary" />
+              <FaRobot className="w-7 h-7 text-primary" />
               <span className="hidden sm:inline text-sm font-bold text-black">Agents</span>
             </Link>
             <Link
