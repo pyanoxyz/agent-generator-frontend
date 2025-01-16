@@ -31,14 +31,7 @@ function RoadmapPhase({
   return (
     <div
       className={`
-      rounded-lg border bg-card text-card-foreground shadow-sm
-      relative transition-all duration-300 
-      hover:scale-105 hover:shadow-xl
-      ${
-        isActive
-          ? "border-blue-500 bg-blue-900/10"
-          : "border-gray-800 bg-transparent"
-      }
+      rounded-lg relative transition-all duration-300 bg-bgCards
     `}
     >
       <div className="p-6 space-y-4 relative">
@@ -46,32 +39,32 @@ function RoadmapPhase({
           <div
             className={`
             p-3 rounded-full 
-            ${isActive ? "bg-blue-500 text-white" : "bg-gray-800 text-gray-400"}
+            bg-iconColorCards
           `}
           >
             {icon}
           </div>
           <div>
-            <p className="text-sm text-gray-400">{phase}</p>
-            <h3 className="text-xl font-bold text-white">{title}</h3>
+            <p className="text-sm text-black">{phase}</p>
+            <h3 className="text-xl font-bold text-textHeading">{title}</h3>
           </div>
         </div>
-        <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
+        <p className="text-textHeading text-sm leading-relaxed">{description}</p>
         {partnership && (
           <a
             href={partnership.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 pt-2 mt-2 border-t border-gray-800 hover:opacity-80 transition-opacity"
+            className="inline-flex items-center gap-2 pt-2 mt-2 border-t border-white hover:opacity-80 transition-opacity"
           >
-            <span className="text-xs text-gray-500">Powered by</span>
-            <div className="w-24 sm:w-32">{partnership.logo}</div>
+            <span className="text-xs text-textHeading">Powered by</span>
+            <div className="w-24 sm:w-32 text-iconColorCards">{partnership.logo}</div>
           </a>
         )}
       </div>
-      {isActive && (
+      {/* {isActive && (
         <div className="absolute -top-0.5 -right-0.5 z-10 w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-      )}
+      )} */}
     </div>
   );
 }
@@ -115,15 +108,14 @@ const RoadMap = () => {
       icon: <Cpu className="h-6 w-6" />,
       phase: "Phase 2",
       title: "Edge AI",
-      description:
-        "Run agents locally with open-source models using our Rust runtime",
+      description: "Run agents locally with open-source models using our Rust runtime",
       isActive: false,
     },
   ];
 
   return (
     <div className="pb-16 sm:pb-20 space-y-12">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent px-4">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center bg-primary bg-clip-text text-transparent px-4">
         Development Roadmap
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 max-w-7xl mx-auto">

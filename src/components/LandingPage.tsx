@@ -5,6 +5,7 @@ import { useState } from "react";
 import Footer from "./Footer";
 import ProductFeatures from "./ProductFeatures";
 import PlatformIntegrations from "./PlatformIntegrations";
+import ChatNavigationCards from "./ChatNavigationCards";
 // import VSCodeStatsButton from "./ExtensionButton";
 
 const LandingPage = () => {
@@ -15,30 +16,13 @@ const LandingPage = () => {
       {/* Top Navigation Bar */}
       <NavBar sticky />
       {/* Hero Section */}
-      <header className="min-h-[70vh] py-20 sm:py-28 flex flex-col items-center justify-center relative px-4">
-        {/* Vertical Lines */}
-        {/* <div className="absolute inset-0 flex justify-center items-center">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className={`
-                h-96 w-px bg-gradient-to-b from-transparent via-gray-500 to-transparent mx-8
-                animate-[float_3s_ease-in-out_infinite]
-                ${i === 0 && "opacity-40 rotate-[-10deg] animate-delay-[0ms]"}
-                ${i === 1 && "opacity-70 rotate-[-5deg] animate-delay-[600ms]"}
-                ${i === 2 && "opacity-100 rotate-0 animate-delay-[1200ms]"}
-                ${i === 3 && "opacity-70 rotate-[5deg] animate-delay-[1800ms]"}
-                ${i === 4 && "opacity-40 rotate-[10deg] animate-delay-[2400ms]"}
-              `}
-            />
-          ))}
-        </div> */}
+      <header className="min-h-[70vh] pt-20 sm:pt-28 flex flex-col items-center justify-center relative ">
         {/* Hero Content */}
         {/* <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 relative z-10 text-center bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 text-transparent bg-clip-text leading-tight">
           Automate DevRel with AI Agents
         </h1> */}
-        <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 relative z-10 text-center leading-tight">
-          <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent">
+        <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 relative z-10 text-center leading-tight text-primary">
+          {/* <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent">
             Automate{" "}
           </span>
           <span className="relative inline-block">
@@ -54,16 +38,16 @@ const LandingPage = () => {
             <span className="bg-gradient-to-r from-rose-500 via-pink-500 to-[#e68ea7] bg-clip-text text-transparent">
               AI Agents
             </span>
-          </span>
+          </span> */}
+          Automate DevRel with AI Agents
         </h1>
 
         {/* <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-center text-gray-200 mb-6 sm:mb-10 tracking-wider z-10 px-4">
         Your Ideas → AI Agents, Instantly
         </p> */}
-        <p className="text-sm sm:text-base md:text-lg text-center text-gray-300 mb-12 sm:mb-16 tracking-wide z-10 max-w-3xl px-4">
-          Turn your DevRel chaos into harmony. Meet your AI-powered team that
-          replies to GitHub issues in seconds, reviews PRs like a pro, and keeps
-          your docs pitch-perfect.
+        <p className="text-sm sm:text-base md:text-lg text-center text-textHeading mb-12 sm:mb-16 tracking-wide z-10 max-w-3xl px-4">
+          Turn your DevRel chaos into harmony. Meet your AI-powered team that replies to GitHub
+          issues in seconds, reviews PRs like a pro, and keeps your docs pitch-perfect.
         </p>
 
         <div className="w-full max-w-3xl mx-auto px-4 mb-8 z-10">
@@ -103,6 +87,8 @@ const LandingPage = () => {
           </div>
         </section>
 
+        <ChatNavigationCards />
+
         <ProductFeatures />
         {/* Integration Status Bar */}
         {/* <div className="flex gap-2 flex-col lg:flex-row lg:gap-4 z-10 mb-16">
@@ -126,7 +112,11 @@ const LandingPage = () => {
           </div>
         </div> */}
 
-        <PlatformIntegrations />
+        {/* Phases Section */}
+        <section className=" relative overflow-hidden max-w-screen-2xl mx-auto bg-gradient-to-b from-bgPrimary via-secondary to-secondary !m-0 w-full">
+          <PlatformIntegrations />
+          <RoadMap />
+        </section>
         {/* Statistics */}
         {/* <div className="flex flex-col lg:flex-row gap-2 lg:gap-16 z-10">
           <div className="text-center">
@@ -158,11 +148,6 @@ const LandingPage = () => {
           </div>
         </div> */}
       </header>
-
-      {/* Phases Section */}
-      <section className="mt-10 relative overflow-hidden max-w-screen-2xl mx-auto">
-        <RoadMap />
-      </section>
 
       {/* Footer */}
       <Footer />
