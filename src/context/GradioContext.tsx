@@ -20,6 +20,7 @@ export const GradioProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<Error | null>(null);
 
   const initializeClient = async (agent: ClientType) => {
+    console.log("loading configs");
     setIsConnecting(true);
     setError(null);
     try {

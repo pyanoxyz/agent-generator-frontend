@@ -8,7 +8,7 @@ interface MessageListProps {
 
 export const MessageList: React.FC<MessageListProps> = ({ messages }) => {
   return (
-    <div className="space-y-4 p-2">
+    <div className="space-y-4 p-4">
       {messages.map((message) => (
         <div key={message.id}>
           {message.isStreaming && !message.hasStreamed ? (

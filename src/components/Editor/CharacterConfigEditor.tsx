@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useToast } from "../../hooks/useToast";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
 import { AUTH_MESSAGE, useAuth } from "../../hooks/useAuth";
 import ClientCredentialsForm from "./ClientCredentialsForm";
 import KnowledgeProcessor from "./KnowledgeUpload";
@@ -16,8 +16,14 @@ import CharacterFields from "./Chracterfields";
 const CharacterConfigEditor = ({ initialConfig }: { initialConfig: Character }) => {
   const [config, setConfig] = useState<Character>(initialConfig);
   const showToast = useToast((state) => state.showToast);
-  const { isConnected } = useAccount();
-  const { signIn, isNetworkSupported } = useAuth();
+  // <<<<<<< Updated upstream
+  //   const { isConnected } = useAccount();
+  //   const { signIn, isNetworkSupported } = useAuth();
+  // =======
+  // const { isConnected } = useAccount();
+
+  const { signIn, isNetworkSupported, isConnected, publicKey } = useAuth();
+  // >>>>>>> Stashed changes
   const [showClientCredentials, setShowClientCredentials] = useState(false);
   const [isDeploying, setIsDeploying] = useState(false);
   const [deploymentSignature, setDeploymentSignature] = useState<string | null>(null);
@@ -39,7 +45,7 @@ const CharacterConfigEditor = ({ initialConfig }: { initialConfig: Character }) 
     if (isDeploying) return;
 
     if (!isConnected) {
-      showToast("Connect wallet and switch to Base network", "error");
+      showToast("Connect wallet and switch to solana network", "error");
       return;
     }
 
@@ -68,6 +74,10 @@ const CharacterConfigEditor = ({ initialConfig }: { initialConfig: Character }) 
       showToast("No signature found. Please try again.", "error");
       return;
     }
+    if (!publicKey) {
+      showToast("No public key found. Please connect your wallet.", "error");
+      return;
+    }
 
     try {
       const formData = new FormData();
@@ -86,6 +96,8 @@ const CharacterConfigEditor = ({ initialConfig }: { initialConfig: Character }) 
       // Add authentication data
       formData.append("signature", deploymentSignature);
       formData.append("message", AUTH_MESSAGE);
+
+      formData.append("public_key", publicKey.toString());
 
       // In handleCredentialsSubmit:
       if (credentials.client_twitter) {

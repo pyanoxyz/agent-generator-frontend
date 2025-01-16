@@ -4,28 +4,29 @@ import { AgentDetails } from "./AgentDetails";
 import Loader from "../common/Loader";
 import { ErrorState } from "../common/ErrorState";
 import { fetchAgents } from "../../api/agents";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
 import { Agent, AgentListResponse } from "./agents";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export const AgentsDisplay: React.FC = () => {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [agents, setAgents] = useState<AgentListResponse>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { address } = useAccount();
+  const { publicKey } = useAuth();
 
   const loadAgents = async () => {
     try {
       setIsLoading(true);
       setError(null);
 
-      if (!address) {
+      if (!publicKey) {
         setError("Please connect your wallet");
         return;
       }
 
-      const data = await fetchAgents(address);
+      const data = await fetchAgents(publicKey.toString());
       setAgents(data);
     } catch (error) {
       setError(
@@ -83,13 +84,13 @@ export const AgentsDisplay: React.FC = () => {
   };
 
   useEffect(() => {
-    if (address) {
+    if (publicKey) {
       loadAgents();
     } else {
       setError("Please connect your wallet");
       setIsLoading(false);
     }
-  }, [address]);
+  }, [publicKey]);
 
   // Lock body scroll when details are open on mobile
   useEffect(() => {
@@ -103,7 +104,7 @@ export const AgentsDisplay: React.FC = () => {
     };
   }, [selectedAgent]);
 
-  if (!address) {
+  if (!publicKey) {
     return (
       <div className="container mx-auto p-4 sm:p-6 h-[calc(100vh-64px)] flex items-center justify-center">
         <div className="text-center">
