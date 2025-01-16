@@ -32,9 +32,9 @@ const generateAgent = async (prompt: string) => {
   }
 
   const data = await response.json();
-  data.modelProvider="together";
-  data.plugins= [];
-  data.clients=["twitter"];
+  data.modelProvider = "together";
+  data.plugins = [];
+  data.clients = ["twitter"];
   return data.character_json;
 };
 
@@ -59,9 +59,7 @@ const validateAndProcessAgent = (agentData: any) => {
   const validation = validateAgentData(agentData);
 
   if (!validation.isValid) {
-    throw new Error(
-      `Missing required fields: ${validation.missingKeys.join(", ")}`
-    );
+    throw new Error(`Missing required fields: ${validation.missingKeys.join(", ")}`);
   }
 
   // Add default values
@@ -107,17 +105,11 @@ const CreateAgentForm = () => {
       setAgentJson(processedAgent);
     } catch (error) {
       console.error("Failed to generate agent:", error);
-      if (
-        error instanceof Error &&
-        error.message.includes("Missing required fields")
-      ) {
+      if (error instanceof Error && error.message.includes("Missing required fields")) {
         const missingKeys = error.message.split(": ")[1].split(", ");
         setValidationError(missingKeys);
       }
-      showToast(
-        error instanceof Error ? error.message : "Failed to generate character",
-        "error"
-      );
+      showToast(error instanceof Error ? error.message : "Failed to generate character", "error");
     } finally {
       setIsLoading(false);
     }
@@ -135,10 +127,7 @@ const CreateAgentForm = () => {
         setAgentJson(processedAgent);
         showToast("Character loaded successfully!", "success");
       } catch (error) {
-        showToast(
-          error instanceof Error ? error.message : "Invalid JSON file format",
-          "error"
-        );
+        showToast(error instanceof Error ? error.message : "Invalid JSON file format", "error");
       }
     };
     reader.readAsText(file);
@@ -162,10 +151,7 @@ const CreateAgentForm = () => {
           setAgentJson(json);
           showToast("Character loaded successfully!", "success");
         } catch (error) {
-          showToast(
-            "Invalid JSON file format. Please check the file.",
-            "error"
-          );
+          showToast("Invalid JSON file format. Please check the file.", "error");
         }
       };
       reader.readAsText(file);
@@ -191,18 +177,16 @@ const CreateAgentForm = () => {
   return (
     <div className="min-h-screen  text-white font-mono">
       <NavBar />
-      <div className="flex flex-col-reverse lg:flex-row bg-black text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto">
+      <div className="flex flex-col-reverse lg:flex-row bg-secondary text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto h-[calc(100vh-64px)]">
         {/* Left Sidebar */}
-        <div className="p-4 border-x border-zinc-800 justify-start flex flex-col lg:h-screen lg:sticky top-0 lg:max-w-80">
-          <div className="gap-5 lg:gap-10 flex flex-col justify-evenly">
+        <div className="p-4 border border-borderPrimary rounded-lg justify-start flex flex-col lg:sticky top-0 lg:max-w-80">
+          <div className="gap-1 lg:gap-7 flex flex-col justify-evenly">
             {/* Generate Section */}
-            <h1 className="text-lg lg:text-2xl font-bold lg:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            <h1 className="text-lg lg:text-2xl font-bold lg:mb-4 text-primary">
               Create your DevRel Agent with AI
             </h1>
             <div>
-              <h2 className="text-sm font-medium mb-2">
-                Generate Agent Character
-              </h2>
+              <h2 className="text-sm font-bold mb-2 text-textHeading">Generate Agent Character</h2>
               <form onSubmit={handleSubmit}>
                 <textarea
                   value={prompt}
@@ -222,9 +206,7 @@ const CreateAgentForm = () => {
                 />
                 {validationError.length > 0 && (
                   <div className="mb-4 p-3 border border-red-500 rounded bg-red-500/10 text-sm">
-                    <p className="text-red-400 mb-2">
-                      Missing required fields:
-                    </p>
+                    <p className="text-red-400 mb-2">Missing required fields:</p>
                     <ul className="list-disc list-inside text-red-300">
                       {validationError.map((key) => (
                         <li key={key}>{key}</li>
@@ -267,7 +249,7 @@ const CreateAgentForm = () => {
 
             {/* Load Character Section */}
             <div>
-              <h2 className="text-sm font-medium mb-2">Load Character</h2>
+              <h2 className="text-sm font-bold mb-2 text-textHeading">Load Character</h2>
               <div
                 className="border border-dashed border-zinc-700 rounded p-4 text-center text-sm text-zinc-400 cursor-pointer hover:border-zinc-600 transition-colors"
                 onDragOver={(e) => e.preventDefault()}
@@ -305,17 +287,17 @@ const CreateAgentForm = () => {
         </div>
 
         {/* Main Content */}
-        <div className="w-full bg-gradient-to-br from-blue-900/20  to-purple-900/20 pl-4">
+        <div className="w-full bg-secondary from-blue-900/20  to-purple-900/20 pl-4">
           {agentJson ? (
             <div className="flex-1  mt-4">
               <CharacterConfigEditor initialConfig={agentJson} />
             </div>
           ) : (
-            <div className="flex-1 flex items-center justify-center text-zinc-500 h-full">
+            <div className="flex-1 flex items-center justify-center h-full bg-secondary border border-borderPrimary rounded-lg ">
               {isLoading ? (
                 <div className="flex items-center gap-3">
                   <div className="w-5 h-5 border-t-2 border-blue-500 rounded-full animate-spin" />
-                  <span>Generating character configuration...</span>
+                  <span className="text-black">Generating character configuration...</span>
                 </div>
               ) : (
                 <div className="flex flex-col gap-4 items-center relative justify-center">

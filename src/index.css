@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-brand-dark text-white;
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ececec;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #d3d2d2;
 }

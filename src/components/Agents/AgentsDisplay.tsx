@@ -32,8 +32,8 @@ export const AgentsDisplay: React.FC = () => {
         typeof error === "string"
           ? error
           : error instanceof Error
-          ? error.message
-          : "Failed to fetch agents"
+            ? error.message
+            : "Failed to fetch agents"
       );
     } finally {
       setIsLoading(false);
@@ -48,10 +48,7 @@ export const AgentsDisplay: React.FC = () => {
     setSelectedAgent(null);
   };
 
-  const handleStatusChange = (
-    agentId: string,
-    newStatus: "running" | "stopped"
-  ) => {
+  const handleStatusChange = (agentId: string, newStatus: "running" | "stopped") => {
     // Update agents list
     setAgents((prev) => {
       if (!prev) return prev;
@@ -110,12 +107,8 @@ export const AgentsDisplay: React.FC = () => {
     return (
       <div className="container mx-auto p-4 sm:p-6 h-[calc(100vh-64px)] flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">
-            Connect Wallet
-          </h2>
-          <p className="text-gray-400">
-            Please connect your wallet to view your agents
-          </p>
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Connect Wallet</h2>
+          <p className="text-gray-400">Please connect your wallet to view your agents</p>
         </div>
       </div>
     );
@@ -125,12 +118,8 @@ export const AgentsDisplay: React.FC = () => {
     <div className="container mx-auto p-4 sm:p-6 h-[calc(100vh-64px)] flex flex-col relative">
       <div className="flex justify-between items-center mb-6 sm:mb-8">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            My Agents
-          </h2>
-          <p className="text-sm sm:text-base text-gray-400 mt-1">
-            Manage your deployed AI agents
-          </p>
+          <h2 className="text-xl sm:text-2xl font-bold text-primary">My Agents</h2>
+          <p className="text-sm sm:text-base text-black mt-1">Manage your deployed AI agents</p>
         </div>
       </div>
 
@@ -144,7 +133,7 @@ export const AgentsDisplay: React.FC = () => {
         <div className="flex items-center justify-center h-64 text-gray-400">
           No agents found.
           <Link to="/generate" className="text-blue-400 hover:underline">
-          &nbsp;Deploy&nbsp;
+            &nbsp;Deploy&nbsp;
           </Link>
           one to get started!
         </div>
@@ -167,11 +156,7 @@ export const AgentsDisplay: React.FC = () => {
             >
               <div
                 className={`grid gap-4 sm:gap-6
-                  ${
-                    selectedAgent
-                      ? "grid-cols-1"
-                      : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                  }
+                  ${selectedAgent ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"}
                 `}
               >
                 {agents?.agents.map((agent) => (
@@ -191,17 +176,14 @@ export const AgentsDisplay: React.FC = () => {
               <div
                 className={`
                   fixed md:relative inset-0 md:inset-auto
-                  md:col-span-2 bg-black md:bg-black/30 
-                  border-t md:border md:border-gray-800 
+                  md:col-span-2 bg-secondary 
+                  border-t md:border md:border-borderPrimary 
                   md:rounded-lg overflow-hidden 
                   transition-all duration-300 z-50
                   ${selectedAgent ? "translate-y-0" : "translate-y-full"}
                 `}
               >
-                <div
-                  className="h-full overflow-y-auto"
-                  style={{ scrollbarWidth: "none" }}
-                >
+                <div className="h-full overflow-y-auto" style={{ scrollbarWidth: "none" }}>
                   <AgentDetails
                     agent={selectedAgent}
                     onClose={handleCloseDetails}

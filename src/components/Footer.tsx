@@ -1,54 +1,51 @@
-import { FaTwitter, FaDiscord, FaGithub, FaTelegram } from 'react-icons/fa';
+import { FaTwitter, FaTelegram } from "react-icons/fa";
+import { FaRegCalendarAlt as CalenderIcon } from "react-icons/fa";
+import logo from "../assets/PyanoLogoGreen.svg";
 
 const Footer = () => {
   return (
-    <footer className="py-8 border-t border-gray-800">
+    <footer className="pt-8 bg-gradient-to-t from-bgPrimary via-secondary to-secondary">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-          {/* Brand Section */}
-          <h3 className="text-xl font-bold bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            pyano.fun
-          </h3>
-
+        <div className="flex flex-col  justify-between items-center gap-6">
           {/* Social Links */}
-          <div className="flex items-center gap-4">
-            <a 
-              href="https://x.com/pyano_fun" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-blue-400 transition-all"
-              aria-label="Twitter"
-            >
-              <FaTwitter className="size-5" />
+          <div className="flex items-center gap-4 mb-10">
+            <a href="https://x.com/pyano_fun" target="_blank" aria-label="Twitter">
+              <FaTwitter className="size-10 text-primary" />
             </a>
-            {/* <a 
-              href="https://discord.gg/pyano" 
-              target="_blank" 
+            <a
+              href="https://t.me/+ScRjg1m1h_JlZGJl"
+              target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-indigo-400 transition-all"
-              aria-label="Discord"
-            >
-              <FaDiscord className="size-5" />
-            </a> */}
-            <a 
-              href="https://t.me/+ScRjg1m1h_JlZGJl" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-sky-400 transition-all"
+              className="p-2 rounded-lg  transition-all"
               aria-label="Telegram"
             >
-              <FaTelegram className="size-5" />
+              <FaTelegram className="size-10 text-primary" />
             </a>
-            <a 
-              href="https://github.com/pyanoxyz/pyano-framework" 
-              target="_blank" 
+            <a
+              href="https://calendly.com/pyano-fun/15min"
+              target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition-all"
+              className="text-primary transition-colors"
+            >
+              <CalenderIcon className="size-10 text-primary" />
+            </a>
+            {/* <a
+              href="https://github.com/pyanoxyz/pyano-framework"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg transition-all"
               aria-label="GitHub"
             >
-              <FaGithub className="size-5" />
-            </a>
+              <FaGithub className="size-8 text-primary" />
+            </a> */}
           </div>
+
+          {/* Brand Section */}
+
+          <h3 className="text-3xl font-bold bg-primary bg-clip-text text-transparent font-sans">
+            Pyano.fun
+          </h3>
+          <img src={logo} alt="Pyano Logo" className="h-32 sm:h-32 md:h-36 w-auto object-fit" />
         </div>
       </div>
     </footer>
