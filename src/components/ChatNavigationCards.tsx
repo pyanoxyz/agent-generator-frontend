@@ -34,7 +34,7 @@ const ChatNavigationCards = () => {
   ];
 
   return (
-    <div className="px-4 py-12 bg-gradient-to-t  !m-0 w-full ">
+    <div className="px-4 py-12 bg-gradient-to-t  !m-0 w-full flex items-center justify-center ">
       <div className="max-w-screen-2xl flex flex-col items-center justify-self-center">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-white ">
           Chat with AI Agents
