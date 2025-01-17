@@ -19,7 +19,7 @@ export enum ClientType {
 }
 
 export const AGENT_URLS = {
-  [ClientType.ELIZA]: "https://52.207.112.17",
-  [ClientType.LANGCHAIN]: "https://44.194.59.7",
-  [ClientType.LANGGRAPH]: "https://44.198.9.179",
+  [ClientType.ELIZA]: "http://52.207.112.17",
+  [ClientType.LANGCHAIN]: "http://44.194.59.7",
+  [ClientType.LANGGRAPH]: "http://44.198.9.179",
 };
