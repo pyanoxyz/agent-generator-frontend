@@ -9,7 +9,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import DeployAgents from "./pages/DeployAgents";
 import AgentsPage from "./components/Agents/AgentsPage";
 import { ToastContainer } from "./components/common/ToastContainer";
-import { GradioProvider } from "./context/GradioContext";
+import { DevrelChatProvider } from "./context/DevrelChatContext";
 import DevrelDocsChat from "./components/layout/DevrelDocsChat";
 import { ClientType } from "./types";
 import { SolanaConfigProvider } from "./configs/solanaConfig";
@@ -22,7 +22,7 @@ function App() {
       {/* <WagmiConfig config={config}> */}
       {/* <RainbowKitProvider theme={midnightTheme()}> */}
       <SolanaConfigProvider>
-        <GradioProvider>
+        <DevrelChatProvider>
           <Router>
             <div className="bg-secondary overflow-auto">
               <div className="min-h-screen ">
@@ -48,7 +48,7 @@ function App() {
               </div>
             </div>
           </Router>
-        </GradioProvider>
+        </DevrelChatProvider>
       </SolanaConfigProvider>
       {/* </RainbowKitProvider> */}
       {/* </WagmiConfig> */}
