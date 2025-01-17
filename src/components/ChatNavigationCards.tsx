@@ -16,19 +16,19 @@ const ChatNavigationCards = () => {
       title: "Eliza OS",
       description:
         "ElizaOs a multi agent framework specializing in system-level interactions and technical support",
-      path: "/chat/eliza",
+      path: "/chat-eliza",
       icon: "🤖",
     },
     {
       title: "Langchain",
       description: "Advanced language model chain for complex reasoning and structured outputs",
-      path: "/chat/langchain",
+      path: "/chat-langchain",
       icon: "⚡",
     },
     {
       title: "Langgraph",
       description: "Graph-based language processing for interconnected knowledge and relationships",
-      path: "/chat/langgraph",
+      path: "/chat-langgraph",
       icon: "🌐",
     },
   ];

@@ -32,15 +32,15 @@ function App() {
                   <Route path="/deploy_agents" element={<DeployAgents />} />
                   <Route path="/agents" element={<AgentsPage />} />
                   <Route
-                    path="/chat/eliza"
+                    path="/chat-eliza"
                     element={<DevrelDocsChat clientType={ClientType.ELIZA} />}
                   />
                   <Route
-                    path="/chat/langchain"
+                    path="/chat-langchain"
                     element={<DevrelDocsChat clientType={ClientType.LANGCHAIN} />}
                   />
                   <Route
-                    path="/chat/langgraph"
+                    path="/chat-langgraph"
                     element={<DevrelDocsChat clientType={ClientType.LANGGRAPH} />}
                   />
                 </Routes>
