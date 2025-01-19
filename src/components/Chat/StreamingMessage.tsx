@@ -28,7 +28,12 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = ({
 
     const handleStreaming = async () => {
       try {
-        const response = await chat(message.apiData?.prompt, clientType);
+        if (!message.apiData?.prompt) {
+          console.warn("No prompt provided");
+          return;
+        }
+
+        const response = await chat(message.apiData.prompt, clientType);
         const reader = response.body?.getReader();
         const decoder = new TextDecoder();
         let accumulated = "";
@@ -44,22 +49,8 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = ({
           // Decode the received chunk
           const chunk = decoder.decode(value);
 
-          // Split by newlines to handle individual data events
-          const lines = chunk.split("\n");
-
-          for (const line of lines) {
-            // Check if line starts with "data: "
-            if (line.startsWith("data: ")) {
-              // Remove the "data: " prefix
-              const content = line.slice(6);
-
-              // Skip empty lines or [DONE] messages
-              if (!content || content === "[DONE]") continue;
-
-              accumulated += content;
-              setStreamedContent(accumulated);
-            }
-          }
+          accumulated += chunk;
+          setStreamedContent(accumulated);
         }
 
         if (onStreamComplete) {
@@ -67,7 +58,9 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = ({
         }
       } catch (error) {
         console.error("Streaming error:", error);
-        setStreamedContent("An error occurred while streaming the response.");
+        setStreamedContent(
+          error instanceof Error ? error.message : "An error occurred while streaming the response."
+        );
       } finally {
         setIsLoading(false);
       }
