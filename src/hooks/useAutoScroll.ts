@@ -8,6 +8,8 @@ const useAutoScroll = () => {
   const scrollThreshold = 10;
 
   const scrollToBottom = useCallback(() => {
+    console.log("scrollToBottom");
+
     if (scrollRef.current) {
       const element = scrollRef.current;
       element.scrollTop = element.scrollHeight - element.clientHeight;
@@ -39,6 +41,7 @@ const useAutoScroll = () => {
         const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
         const isNearBottom = distanceFromBottom <= scrollThreshold;
 
+        console.log("isNearBottom", isNearBottom);
         // Update auto-scroll state based on scroll position
         setIsAutoScrolling(isNearBottom);
         setShowScrollToBottom(!isNearBottom);
