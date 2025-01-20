@@ -5,6 +5,7 @@ const useAutoScroll = () => {
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const lastScrollHeight = useRef(0);
+  const scrollThreshold = 10;
 
   const scrollToBottom = useCallback(() => {
     if (scrollRef.current) {
@@ -21,7 +22,7 @@ const useAutoScroll = () => {
 
       const observer = new MutationObserver(() => {
         if (isAutoScrolling) {
-          scrollToBottom();
+          requestAnimationFrame(scrollToBottom);
         }
       });
 
@@ -32,22 +33,29 @@ const useAutoScroll = () => {
       });
 
       const handleScroll = () => {
-        const { scrollTop, scrollHeight, clientHeight } = element;
-        const isAtBottom = Math.abs(scrollHeight - scrollTop - clientHeight) < 1;
-        // const isAtBottom = Math.abs(scrollTop) < 1;
-        setShowScrollToBottom(!isAtBottom);
-        setIsAutoScrolling(isAtBottom);
+        if (!element) return;
 
+        const { scrollTop, scrollHeight, clientHeight } = element;
+        const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+        const isNearBottom = distanceFromBottom <= scrollThreshold;
+
+        // Update auto-scroll state based on scroll position
+        setIsAutoScrolling(isNearBottom);
+        setShowScrollToBottom(!isNearBottom);
+
+        // Handle new content
         if (scrollHeight > lastScrollHeight.current) {
           lastScrollHeight.current = scrollHeight;
-          if (isAtBottom) {
-            scrollToBottom();
+          if (isNearBottom || isAutoScrolling) {
+            requestAnimationFrame(scrollToBottom);
           }
         }
       };
 
       element.addEventListener("scroll", handleScroll);
-      scrollToBottom();
+
+      // Initial scroll to bottom
+      requestAnimationFrame(scrollToBottom);
 
       return () => {
         observer.disconnect();
@@ -64,8 +72,10 @@ const useAutoScroll = () => {
   }, [isAutoScrolling, scrollToBottom]);
 
   const manualScrollToBottom = useCallback(() => {
-    scrollToBottom();
-    setIsAutoScrolling(true);
+    requestAnimationFrame(() => {
+      scrollToBottom();
+      setIsAutoScrolling(true);
+    });
   }, [scrollToBottom]);
 
   return { scrollRef, manualScrollToBottom, showScrollToBottom };
