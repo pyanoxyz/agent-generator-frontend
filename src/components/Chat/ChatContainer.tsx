@@ -58,7 +58,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({ clientType }) => {
             <WelcomeScreen onClick={handleMessage} clientType={clientType} />
           ) : (
             <>
-              <MessageList messages={messages} />
+              <MessageList messages={messages} clientType={clientType} />
               <ScrollToBottomButton show={showScrollToBottom} onClick={manualScrollToBottom} />
             </>
           )}
