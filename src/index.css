@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Vertical scrollbar width */
 ::-webkit-scrollbar {
   width: 5px;
+}
+
+/* Horizontal scrollbar height */
+::-webkit-scrollbar:horizontal {
+  height: 3px; /* Reduced height for horizontal scrollbar */
 }
 
 /* Handle */
@@ -15,4 +21,9 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #d3d2d2;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { MessageType } from "../../types";
-import { useGradio } from "../../context/GradioContext";
+import { ClientType, MessageType } from "../../types";
+import { useDevrelChat } from "../../context/DevrelChatContext";
 import { MessageRole } from "../../constants/messageRoles";
 import MarkdownRenderer from "./MarkdownRenderer";
 import { LoadingDots } from "../common/LoadingDots";
@@ -8,13 +8,15 @@ import { LoadingDots } from "../common/LoadingDots";
 interface StreamingMessageProps {
   message: MessageType;
   onStreamComplete?: (content: string) => void;
+  clientType: ClientType;
 }
 
 export const StreamingMessage: React.FC<StreamingMessageProps> = ({
   message,
   onStreamComplete,
+  clientType,
 }) => {
-  const { chat } = useGradio();
+  const { chat } = useDevrelChat();
   const [streamedContent, setStreamedContent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const isUser = message.role === MessageRole.USER;
@@ -26,18 +28,29 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = ({
 
     const handleStreaming = async () => {
       try {
-        const response = await chat(message.apiData?.prompt);
+        if (!message.apiData?.prompt) {
+          console.warn("No prompt provided");
+          return;
+        }
+
+        const response = await chat(message.apiData.prompt, clientType);
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder();
         let accumulated = "";
 
-        for await (const output of response) {
-          if (output.data?.[0]?.[0]?.[0] === "append") {
-            const newContent = output.data[0][0][2];
-            accumulated += newContent;
-            setStreamedContent(accumulated);
-          } else if (output.data?.[0] && typeof output.data[0] === "string") {
-            accumulated = output.data[0];
-            setStreamedContent(accumulated);
-          }
+        if (!reader) {
+          throw new Error("No reader available");
+        }
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+
+          // Decode the received chunk
+          const chunk = decoder.decode(value);
+
+          accumulated += chunk;
+          setStreamedContent(accumulated);
         }
 
         if (onStreamComplete) {
@@ -45,7 +58,9 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = ({
         }
       } catch (error) {
         console.error("Streaming error:", error);
-        setStreamedContent("An error occurred while streaming the response.");
+        setStreamedContent(
+          error instanceof Error ? error.message : "An error occurred while streaming the response."
+        );
       } finally {
         setIsLoading(false);
       }
@@ -62,8 +77,8 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = ({
             <LoadingDots />
           </div>
         )}
-        <div className={`whitespace-pre-wrap markdown-content  transition-opacity`}>
-          <MarkdownRenderer content={streamedContent}></MarkdownRenderer>
+        <div className={`whitespace-pre-wrap markdown-content transition-opacity`}>
+          <MarkdownRenderer content={streamedContent} />
         </div>
       </div>
     </div>
