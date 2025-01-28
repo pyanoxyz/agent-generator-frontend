@@ -48,13 +48,13 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({ clientType }) => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)] bg-secondary items-center relative">
+    <div className="flex flex-col h-[calc(100vh-64px)] bg-secondary items-center relative max-w-6xl xl:max-w-6xl mx-auto">
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto overflow-x-hidden w-full max-w-4xl break-words mx-auto"
+        className="flex-1 overflow-y-auto overflow-x-hidden w-full  break-words mx-auto"
       >
         <div className="h-full">
-          {messages.length === 0 ? (
+          {messages.length === 1 ? (
             <WelcomeScreen onClick={handleMessage} clientType={clientType} />
           ) : (
             <>

@@ -64,7 +64,7 @@ const PlatformIntegrations: React.FC = () => {
 
   return (
     <section className="relative h-72">
-      <div className="max-w-4xl relative flex items-center z-[2] flex-col justify-center h-full mx-auto px-4  bg-gradient-to-b from-bgPrimary  to-95% to-[#a1c9a3]">
+      <div className="max-w-4xl relative flex items-center z-[2] flex-col justify-center h-full mx-auto px-4  bg-primary">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-2 bg-white bg-clip-text text-transparent">
             Seamless Integration

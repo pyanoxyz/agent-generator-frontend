@@ -1,6 +1,6 @@
 const BalanceNotice = () => {
   return (
-    <div className="bg-[#59B96A] rounded-lg p-3 text-white">
+    <div className="bg-primary rounded-lg p-3 text-gray-300">
       <div className="flex items-start gap-2.5">
         <div>
           <div className="mb-1">

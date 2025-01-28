@@ -4,7 +4,7 @@ import { AgentsDisplay } from "./AgentsDisplay";
 const AgentsPage = () => {
   return (
     <div className="min-h-screen bg-secondary">
-      <NavBar />
+      <NavBar className="mt-2" />
       <AgentsDisplay />
     </div>
   );

@@ -1,8 +1,10 @@
 import React from "react";
 import { IconType } from "react-icons";
-import { BiMessageDetail, BiGitPullRequest } from "react-icons/bi";
+import { MdDataExploration as DataIcon } from "react-icons/md";
+import { LuBrain as BrainIcon } from "react-icons/lu";
+import { IoRocketOutline as RocketIcon } from "react-icons/io5";
 
-import { BsChatDots, BsFileEarmarkText } from "react-icons/bs";
+import { BsChatDots } from "react-icons/bs";
 
 interface FeatureCardProps {
   icon: IconType;
@@ -13,16 +15,16 @@ interface FeatureCardProps {
 interface Feature {
   icon: IconType;
   title: string;
-  description: string;
+  description: string | React.ReactNode;
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, description }) => {
   return (
     <div className="h-full relative group">
-      <div className="h-full rounded-lg bg-bgCards transition-all duration-300 ">
+      <div className="h-full rounded-lg border-primary border bg-bgCards transition-all duration-300 ">
         <div className="h-full flex flex-col p-6">
           <div className="p-2 w-fit mb-4">
-            <Icon className="w-8 h-8 text-bgPrimary" />
+            <Icon className="w-8 h-8 text-primary" />
           </div>
           <h3 className="text-xl font-bold text-textHeading mb-3">{title}</h3>
           <p className="text-textHeading text-sm leading-relaxed flex-grow">{description}</p>
@@ -36,34 +38,45 @@ const ProductFeatures: React.FC = () => {
   const features: Feature[] = [
     {
       icon: BsChatDots, // Changed to chat dots for community interaction
-      title: "Never Miss Community Questions",
-      description:
-        "Our autonomous AI agents instantly respond to issues and discussions across GitHub, Twitter, Discord, and Telegram. No more frustrated contributors waiting for answers.",
+      title: "Automated Customer Support and Personalization",
+      description: (
+        <>
+          Analyzes user behavior patterns to deliver personalized recommendations while providing
+          quick responses to customer queries and issues.
+        </>
+      ),
     },
     {
-      icon: BiGitPullRequest, // Kept pull request icon for PR reviews
-      title: "Accelerate PR Reviews",
-      description:
-        "Automated code review, style checks, and constructive feedback on PRs within minutes. Keep contributors motivated with fast, meaningful responses.",
+      icon: DataIcon, // Changed to chat dots for community interaction
+      title: "Real-time Data Monitoring and Analysis",
+      description: (
+        <>
+          Tracks multiple data sources, including social media, blockchain transactions, and GitHub
+          repositories, transforming data streams into actionable insights.
+        </>
+      ),
     },
     {
-      icon: BsFileEarmarkText, // Changed to file text for documentation
-      title: "Self-Updating Documentation",
-      description:
-        "Documentation that automatically stays in sync with your code. Detect and fix broken examples, outdated API references, and confusing tutorials.",
+      icon: BrainIcon, // Changed to chat dots for community interaction
+      title: "Cross-Platform Intelligence Sharing",
+      description: (
+        <>
+          The agents collaborate and communicate with each other, creating a unified view by
+          connecting insights from both onchain and offchain data sources.
+        </>
+      ),
     },
     {
-      icon: BiMessageDetail, // Changed to message detail for issue management
-      title: "Issue Triage & Engagement",
-      description:
-        "Smart classification of issues, automatic reproduction steps validation, and keeping reporters engaged. Convert bug reports into valuable contributions.",
+      icon: RocketIcon, // Changed to chat dots for community interaction
+      title: "And much more....",
+      description: <>All you can imagine, you can do with AI agent workforce seemlessly</>,
     },
   ];
 
   return (
     <section className="py-16 relative overflow-hidden px-4 !m-0 bg-bgPrimary w-full">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-12">
-        What Your DevRel agent can do?
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-primary mb-12">
+        What Your AI agent workforce can do?
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
         {features.map((feature, index) => (

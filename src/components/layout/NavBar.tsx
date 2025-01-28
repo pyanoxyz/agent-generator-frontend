@@ -4,17 +4,19 @@ import {
   FaTelegram as TelegramIcon,
   FaRegCalendarAlt as CalenderIcon,
   FaTwitter as TwitterIcon,
+  FaGithub as GithubIcon,
 } from "react-icons/fa";
 import logo from "../../assets/PyanoLogoGreen.svg";
 // import { useAccount, useDisconnect } from "wagmi";
 import { useEffect } from "react";
 import { checkRegister, registerUser } from "../../api/register";
 import { useAuth } from "../../hooks/useAuth";
-import ConnectWallet from "../ConnectWallet";
+// import ConnectWallet from "../ConnectWallet";
 import { useWallet } from "@solana/wallet-adapter-react";
 import SolanaConnectWallet from "../SolanaConnectWallet";
+import classNames from "classnames";
 
-const NavBar = ({ sticky }: { sticky?: boolean }) => {
+const NavBar = ({ sticky, className }: { sticky?: boolean; className?: string }) => {
   // const { isConnected, address } = useAccount();
   // const { disconnect } = useDisconnect();
   const { disconnect } = useWallet(); // Add this line to get disconnect function
@@ -42,11 +44,12 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
 
   return (
     <nav
-      className={`top-2 left-0 h-16 mx-2 sm:mx-8 right-0 backdrop-blur-sm z-50  ${
-        sticky ? " sticky" : ""
-      }`}
+      className={classNames(
+        `top-2 left-0 h-16 mx-2 sm:mx-8 right-0 backdrop-blur-sm z-50  ${sticky ? " sticky" : ""}`,
+        className
+      )}
     >
-      <div className="h-full max-w-[1440px] border border-borderPrimary  bg-secondary rounded-xl  mx-auto  overflow-hidden">
+      <div className="h-full container max-w-[1500px] border border-borderPrimary  bg-secondary rounded-xl  mx-auto  overflow-hidden">
         <div className="flex items-center justify-between h-full">
           {/* Left Section - Logo */}
           <div className="flex items-center">
@@ -98,9 +101,10 @@ const NavBar = ({ sticky }: { sticky?: boolean }) => {
             <a
               href="https://github.com/pyanoxyz"
               target="_blank"
-              className="flex items-center px-2 sm:px-3 py-1.5 border-r border-primary hover:bg-primary/5 transition-colors h-full"
+              className="flex items-center justify-center gap-3 px-2 sm:px-3 py-1.5 border-r border-primary hover:bg-primary/5 transition-colors h-full"
             >
-              <span className="text-sm font-bold text-black">Docs</span>
+              <GithubIcon className="w-6 h-6 text-primary" />
+              <span className="text-sm font-bold text-black">Github</span>
             </a>
 
             {/* <Link

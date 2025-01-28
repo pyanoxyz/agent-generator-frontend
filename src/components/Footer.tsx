@@ -42,19 +42,20 @@ const Footer = () => {
           </div>
 
           {/* Brand Section */}
-
-          <h3 className="text-3xl font-bold bg-primary bg-clip-text text-transparent font-sans z-10">
-            Pyano.fun
-          </h3>
-          <img
-            src={logo}
-            alt="Pyano Logo"
-            className="h-32 sm:h-32 md:h-36 w-auto object-fit z-10"
-          />
+          <div className="flex items-center gap-3">
+            <img
+              src={logo}
+              alt="Pyano Logo"
+              className="h-10 w-auto object-fit z-10 bg-black rounded-full"
+            />
+            <h3 className="text-3xl font-bold bg-primary bg-clip-text text-transparent font-sans z-10">
+              Pyano.fun
+            </h3>
+          </div>
         </div>
       </div>
-      <div className="h-16"></div>
-      <div className="absolute bottom-0 w-full mt-10">
+      {/* <div className="h-40"></div> */}
+      <div className="bottom-0 w-full mt-10">
         <VerticalBars />
       </div>
     </footer>

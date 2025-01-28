@@ -114,7 +114,7 @@ const CharacterFields = ({ config, setConfig }: CharacterFieldsProps) => {
                 <textarea
                   value={item}
                   onChange={(e) => handleStringArrayChange(path, index, e.target.value)}
-                  className="w-full px-4 py-2 bg-secondary border border-primary rounded-lg text-black min-h-[60px] resize-y text-sm leading-relaxed focus:border-blue-500/50 outline-none transition-colors pr-12"
+                  className="w-full px-4 py-2 bg-secondary border border-primary rounded-lg text-black min-h-[60px] resize-y text-sm leading-relaxed  transition-colors pr-12"
                   placeholder={`Enter ${label.toLowerCase()} item`}
                 />
                 <button

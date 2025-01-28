@@ -108,8 +108,8 @@ export const AgentsDisplay: React.FC = () => {
     return (
       <div className="container mx-auto p-4 sm:p-6 h-[calc(100vh-64px)] flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Connect Wallet</h2>
-          <p className="text-gray-400">Please connect your wallet to view your agents</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-primary mb-4">Connect Wallet</h2>
+          <p className="text-gray-600">Please connect your wallet to view your agents</p>
         </div>
       </div>
     );

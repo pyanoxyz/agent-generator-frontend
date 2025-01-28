@@ -1,9 +1,9 @@
-import { LoadingScreen } from "../common/LoadingDots";
-import { useDevrelChat } from "../../context/DevrelChatContext";
+// import { LoadingScreen } from "../common/LoadingDots";
+// import { useDevrelChat } from "../../context/DevrelChatContext";
 import { ChatContainer } from "../Chat";
 import NavBar from "../layout/NavBar";
 import { ClientType } from "../../types";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 interface DevrelDocsChatProps {
   clientType: ClientType;
@@ -41,7 +41,9 @@ export const DevrelDocsChat = ({ clientType }: DevrelDocsChatProps) => {
 
   return (
     <div className="min-h-screen text-white font-mono">
-      <NavBar sticky />
+      <div className="w-full mx-auto flex items-center justify-center">
+        <NavBar sticky className="max-w-6xl w-full mt-2" />
+      </div>
       <ChatContainer clientType={clientType} />
     </div>
   );

@@ -6,6 +6,8 @@ import {
   // LuLock as Shield,
 } from "react-icons/lu";
 import { MarlinLogo } from "./MarlinLogo";
+import { RiTeamLine as Team } from "react-icons/ri";
+import { RiBarChartBoxAiLine as Analytics } from "react-icons/ri";
 
 interface RoadmapPhaseProps {
   icon: React.ReactNode;
@@ -31,7 +33,7 @@ function RoadmapPhase({
   return (
     <div
       className={`
-      rounded-lg relative transition-all duration-300 bg-bgCards
+      rounded-lg relative transition-all duration-300 border border-primary bg-bgCards
     `}
     >
       <div className="p-6 space-y-4 relative">
@@ -39,7 +41,7 @@ function RoadmapPhase({
           <div
             className={`
             p-3 rounded-full 
-            bg-iconColorCards
+            bg-primary
           `}
           >
             {icon}
@@ -55,10 +57,10 @@ function RoadmapPhase({
             href={partnership.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 pt-2 mt-2 border-t border-white hover:opacity-80 transition-opacity"
+            className="inline-flex items-center gap-2 pt-2 mt-2 border-t border-black hover:opacity-80 transition-opacity"
           >
             <span className="text-xs text-textHeading">Powered by</span>
-            <div className="w-24 sm:w-32 text-iconColorCards">{partnership.logo}</div>
+            <div className="w-24 sm:w-32 text-primary">{partnership.logo}</div>
           </a>
         )}
       </div>
@@ -74,9 +76,9 @@ const RoadMap = () => {
     {
       icon: <Bot className="h-6 w-6" />,
       phase: "Phase 1",
-      title: "Agent creation and deployment",
+      title: "Foundation - Core Agent Infrastructure (Live)",
       description:
-        "Create, customize, and deploy your AI DevRel agents with custom documentation and codebases in the cloud.",
+        "Basic agent capabilities with social media integration, repository analysis, and initial edge infrastructure. Rust-based LLM runtime established with fundamental resource optimization and on-device processing.",
       isActive: true,
       partnership: {
         name: "Marlin",
@@ -84,31 +86,28 @@ const RoadMap = () => {
         url: "https://www.marlin.org/",
       },
     },
-    // {
-    //   icon: <Cloud className="h-6 w-6" />,
-    //   phase: "Phase 2",
-    //   title: "Actions inside TEE",
-    //   description:
-    //     "Include actions that an agent can execute inside TEE such as on-chain txs and swaps",
-    //   isActive: false,
-    //   partnership: {
-    //     name: "Marlin",
-    //     logo: <MarlinLogo />,
-    //     url: "https://www.marlin.org/",
-    //   },
-    // },
-    // {
-    //   icon: <Shield className="h-6 w-6" />,
-    //   phase: "Phase 3",
-    //   title: "Agent communication",
-    //   description: "Private, encrypted Agent to agent communication",
-    //   isActive: false,
-    // },
+    {
+      icon: <Team className="h-6 w-6" />,
+      phase: "Phase 2",
+      title: "Agent Collaboration & Intelligence (Months 0-6)",
+      description:
+        "Introduction of advanced inter-agent communication, workforce management, and autonomous task distribution systems. Implementation of universal API connectivity and cross-platform data integration features.",
+      isActive: false,
+    },
+    {
+      icon: <Analytics className="h-6 w-6" />,
+      phase: "Phase 3",
+      title: "Edge Foundation & Analytics (Months 7-14)",
+      description:
+        "Deployment of edge-optimized models with on-device processing and advanced analytics capabilities. Integration of local fine-tuning pipeline, decentralized storage, and comprehensive monitoring systems.",
+      isActive: false,
+    },
     {
       icon: <Cpu className="h-6 w-6" />,
-      phase: "Phase 2",
-      title: "Edge AI",
-      description: "Run agents locally with open-source models using our Rust runtime",
+      phase: "Phase 4",
+      title: "Complete Edge Deployment (Months 15-21)",
+      description:
+        "Full transition to edge-based infrastructure with complete runtime, security features, and decentralized model inference. Implementation of comprehensive monitoring, automated recovery, and continuous evolution systems.",
       isActive: false,
     },
   ];

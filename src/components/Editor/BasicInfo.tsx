@@ -20,7 +20,7 @@ export const BasicInfo: React.FC<BasicInfoProps> = ({
         type="text"
         value={name}
         onChange={(e) => onNameChange(e.target.value)}
-        className="w-full px-4 py-2 bg-secondary border border-bgPrimary rounded-lg text-black focus:border-blue-500/50 outline-none transition-colors"
+        className="w-full px-4 py-2 bg-secondary border border-primary rounded-lg text-black  transition-colors"
         placeholder="Enter agent name..."
       />
     </div>

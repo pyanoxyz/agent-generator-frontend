@@ -197,19 +197,19 @@ const CreateAgentForm = () => {
 
   return (
     <div className="min-h-screen  text-white font-mono ">
-      <div className="pt-4">
+      <div className="mt-2">
         <NavBar />
       </div>
-      <div className="flex flex-col-reverse mt-2 lg:flex-row bg-secondary text-white font-mono justify-center xl:max-w-[1440px] xl:mx-auto min-h-[calc(100vh-64px)] px-4">
+      <div className="flex container flex-col-reverse mt-2 lg:flex-row bg-secondary text-white font-mono justify-center xl:mx-auto min-h-[calc(100vh-64px)] px-4">
         {/* Left Sidebar */}
         <div className="p-4 border border-borderPrimary rounded-lg justify-start flex flex-col lg:sticky top-0 lg:max-w-80">
           <div className="gap-1 lg:gap-7 flex flex-col justify-evenly">
             {/* Generate Section */}
-            <h1 className="text-lg lg:text-2xl font-bold lg:mb-4 text-primary">
-              Create your <br /> DevRel Agent <br /> with AI
+            <h1 className="text-lg lg:text-2xl font-bold lg:mb-4 md:mt-4 text-primary">
+              Create your <br /> DevRel Agent <br /> with Pyano
             </h1>
             <div>
-              <h2 className="text-sm font-bold mb-2 text-textHeading">Generate Agent Character</h2>
+              <h2 className="text-md font-bold mb-2 text-textHeading">Generate Agent Character</h2>
               <form onSubmit={handleSubmit} className="relative">
                 <div className="relative">
                   <CrossSvg className="absolute -top-3 -left-3" />
@@ -284,7 +284,7 @@ const CreateAgentForm = () => {
 
             {/* Load Character Section */}
             <div>
-              <h2 className="text-sm font-bold mb-2 text-textHeading">Load Character</h2>
+              <h2 className="text-md font-bold mb-2 text-textHeading">Load Character</h2>
               <div className="relative">
                 <CrossSvg className="absolute -top-3 -left-3" />
                 <CrossSvg className="absolute -top-3 -right-3" />
@@ -312,7 +312,7 @@ const CreateAgentForm = () => {
                   />
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="mt-2 text-blue-500 hover:text-blue-400"
+                    className="mt-2 text-blue-400 hover:text-blue-400"
                   >
                     Browse Files
                   </button>

@@ -77,7 +77,7 @@ export const AgentCard: React.FC<AgentCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`bg-bgCards border transition-all cursor-pointer
+      className={`bg-bgCards border border-primary transition-all cursor-pointer
           shadow-blue-500/20
         rounded-lg overflow-hidden `}
     >

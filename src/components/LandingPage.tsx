@@ -10,6 +10,7 @@ import classNames from "classnames";
 import horizontalLines from "../assets/hr.svg";
 
 import VerticalBars from "./SpacedBars";
+// import PianoKeys from "./PianoKeys";
 
 export const CrossSvg = ({ className = "" }) => {
   return (
@@ -21,8 +22,8 @@ export const CrossSvg = ({ className = "" }) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M10.5 0V21" stroke="#009C41" stroke-width="3" />
-        <path d="M0 10.5L21 10.5" stroke="#009C41" stroke-width="3" />
+        <path d="M10.5 0V21" stroke="#0a0e17" stroke-width="3" />
+        <path d="M0 10.5L21 10.5" stroke="#0a0e17" stroke-width="3" />
       </svg>
     </div>
   );
@@ -72,7 +73,10 @@ const MemoizedVerticalBars = memo(VerticalBars);
 
 const LandingPage = () => {
   const [agentDescription, setAgentDescription] = useState("");
-  const verticalBars = useMemo(() => <MemoizedVerticalBars key="vertical" />, []);
+  const verticalBars = useMemo(
+    () => <MemoizedVerticalBars key="vertical" height="h-[180px]" />,
+    []
+  );
 
   return (
     <div className="min-h-screen  text-white font-mono">
@@ -80,22 +84,34 @@ const LandingPage = () => {
         <NavBar sticky />
       </div>
       <div className="w-full h-full flex flex-col items-center justify-center relative ">
-        <div className="h-[calc(100vh-5rem)] flex w-full flex-col items-center justify-center relative ">
+        <div className="h-[calc(100vh-4rem)] flex w-full flex-col items-center justify-center relative ">
           <div className="relative mt-16 2xl:mt-0">
             <CrossSvg className="absolute -top-3 -left-3" />
             <CrossSvg className="absolute -bottom-3 -right-3" />
-            <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 relative z-10 text-center leading-tight text-primary">
-              Automate DevRel with AI Agents
+            <h1 className="text-xl sm:text-2xl md:text-5xl font-bold mb-2 sm:mb-4 relative z-10 text-center leading-tight text-primary">
+              Your Personalized AI Agent Workforce <br />
+              On Cloud and On-Device
             </h1>
           </div>
 
           <p className="text-sm sm:text-base md:text-lg text-center text-textHeading mb-12 sm:mb-16 tracking-wide z-10 max-w-3xl px-4">
-            Turn your DevRel chaos into harmony. Meet your AI-powered team that replies to GitHub
-            issues in seconds, reviews PRs like a pro, and keeps your docs pitch-perfect.
+            Get More Done Faster by Automating Tasks, Spotting Opportunities, and Making Smarter
+            Decisions with Your AI Agent Team
           </p>
-
-          <div className="block text-lg font-bold text-center text-black mb-2">
-            Compose Your Perfect DevRel Maestro!
+          <div className="z-10">
+            <ChatNavigationCards />
+          </div>
+          <div className="flex justify-self-end align-bottom w-full absolute bottom-0">
+            {/* <VerticalBars /> */}
+            {verticalBars}
+          </div>
+        </div>
+        {/* <div className="w-full bg-primary">
+          <ChatNavigationCards />
+        </div> */}
+        <>
+          <div className="block text-xl font-bold text-center text-black mb-2 mt-20">
+            Compose Your Perfect Social Agents!
           </div>
           <div className="w-full relative">
             <div className="w-full absolute flex overflow-hidden items-center z-0">
@@ -145,15 +161,7 @@ const LandingPage = () => {
               </div>
             </section>
           </div>
-          <div className="flex justify-self-end align-bottom w-full absolute bottom-0">
-            {/* <VerticalBars /> */}
-            {verticalBars}
-          </div>
-        </div>
-        <div className="w-full bg-primary">
-          <ChatNavigationCards />
-        </div>
-
+        </>
         <ProductFeatures />
 
         <section className="relative overflow-hidden mx-auto bg-gradient-to-b from-bgPrimary via-secondary to-secondary h-full w-full">

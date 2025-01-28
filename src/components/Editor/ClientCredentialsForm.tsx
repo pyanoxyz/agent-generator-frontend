@@ -76,7 +76,7 @@ const ClientCredentialsForm = ({ onSubmit, selectedClients }: ClientCredentialsF
         value={value}
         onChange={(e) => updateCredential(platform, field, e.target.value)}
         className="w-full px-4 py-2 bg-secondary border border-primary rounded-lg text-black
-          focus:border-blue-500/50 outline-none transition-colors"
+           transition-colors"
         placeholder={`Enter ${label.toLowerCase()}`}
         required={required}
       />

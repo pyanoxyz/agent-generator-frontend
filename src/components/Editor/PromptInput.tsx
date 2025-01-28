@@ -55,7 +55,7 @@ const DynamicPromptOverlay = ({
               }
             }}
             placeholder="Enter prompt..."
-            className="w-full px-4 py-3 bg-secondary border border-primary rounded-lg text-black text-sm focus:border-blue-500/50 outline-none resize-none min-h-[44px] leading-relaxed"
+            className="w-full px-4 py-3 bg-secondary border border-primary rounded-lg text-black text-sm  resize-none min-h-[44px] leading-relaxed"
             disabled={isLoading}
             rows={1}
           />
