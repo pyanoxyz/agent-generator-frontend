@@ -54,7 +54,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({ clientType }) => {
         className="flex-1 overflow-y-auto overflow-x-hidden w-full  break-words mx-auto"
       >
         <div className="h-full">
-          {messages.length === 1 ? (
+          {messages.length === 0 ? (
             <WelcomeScreen onClick={handleMessage} clientType={clientType} />
           ) : (
             <>
