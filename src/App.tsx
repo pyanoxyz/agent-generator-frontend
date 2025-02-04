@@ -10,8 +10,8 @@ import DeployAgents from "./pages/DeployAgents";
 import AgentsPage from "./components/Agents/AgentsPage";
 import { ToastContainer } from "./components/common/ToastContainer";
 import { DevrelChatProvider } from "./context/DevrelChatContext";
-import DevrelDocsChat from "./components/layout/DevrelDocsChat";
-import { ClientType } from "./types";
+// import DevrelDocsChat from "./components/layout/DevrelDocsChat";
+// import { ClientType } from "./types";
 import { SolanaConfigProvider } from "./configs/solanaConfig";
 
 const queryClient = new QueryClient();
@@ -31,7 +31,7 @@ function App() {
                   <Route path="/generate" element={<CreateAgentForm />} />
                   <Route path="/deploy_agents" element={<DeployAgents />} />
                   <Route path="/agents" element={<AgentsPage />} />
-                  <Route
+                  {/* <Route
                     path="/chat-eliza"
                     element={<DevrelDocsChat clientType={ClientType.ELIZA} />}
                   />
@@ -42,7 +42,7 @@ function App() {
                   <Route
                     path="/chat-langgraph"
                     element={<DevrelDocsChat clientType={ClientType.LANGGRAPH} />}
-                  />
+                  /> */}
                 </Routes>
                 <ToastContainer />
               </div>

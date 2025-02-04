@@ -101,10 +101,10 @@ const LandingPage = () => {
           <div className="z-10">
             <ChatNavigationCards />
           </div>
-          <div className="flex justify-self-end align-bottom w-full absolute bottom-0">
-            {/* <VerticalBars /> */}
+          {/* <div className="flex justify-self-end align-bottom w-full absolute bottom-0">
+         
             {verticalBars}
-          </div>
+          </div> */}
         </div>
         {/* <div className="w-full bg-primary">
           <ChatNavigationCards />
