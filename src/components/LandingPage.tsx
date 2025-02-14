@@ -22,8 +22,8 @@ export const CrossSvg = ({ className = "" }) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M10.5 0V21" stroke="#0a0e17" stroke-width="3" />
-        <path d="M0 10.5L21 10.5" stroke="#0a0e17" stroke-width="3" />
+        <path d="M10.5 0V21" stroke="#0a0e17" strokeWidth="3" />
+        <path d="M0 10.5L21 10.5" stroke="#0a0e17" strokeWidth="3" />
       </svg>
     </div>
   );
