@@ -13,6 +13,8 @@ import { DevrelChatProvider } from "./context/DevrelChatContext";
 // import DevrelDocsChat from "./components/layout/DevrelDocsChat";
 // import { ClientType } from "./types";
 import { SolanaConfigProvider } from "./configs/solanaConfig";
+import YieldAgent from "./pages/YielsAgents";
+import NotFound from "./components/common/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -28,9 +30,12 @@ function App() {
               <div className="min-h-screen ">
                 <Routes>
                   <Route path="/" element={<LandingPage />} />
+                  <Route path="*" element={<NotFound />} />
                   <Route path="/generate" element={<CreateAgentForm />} />
                   <Route path="/deploy_agents" element={<DeployAgents />} />
                   <Route path="/agents" element={<AgentsPage />} />
+                  <Route path="/yield-agent" element={<YieldAgent />} />
+
                   {/* <Route
                     path="/chat-eliza"
                     element={<DevrelDocsChat clientType={ClientType.ELIZA} />}
