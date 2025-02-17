@@ -8,6 +8,8 @@ import { API_BASE_URL } from "../api/agents";
 import { CrossSvg, FadeBorder, FadeBorderHorizontal } from "./LandingPage";
 import VerticalBars from "./SpacedBars";
 
+import { useLocation } from "react-router-dom";
+
 // API endpoint
 const API_URL = import.meta.env.DEV
   ? `${API_BASE_URL}/generate_character`
@@ -92,13 +94,15 @@ const validateAndProcessAgent = (agentData: any) => {
 };
 
 const CreateAgentForm = () => {
-  const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [agentJson, setAgentJson] = useState(null);
   const [toast, setToast] = useState<Toast | null>(null);
   const [validationError, setValidationError] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [searchParams, setUrlSearchParams] = useSearchParams();
+  const location = useLocation();
+  const initialPrompt = location.state?.initialPrompt || "";
+  const [prompt, setPrompt] = useState(initialPrompt);
 
   const showToast = (message: string, type: ToastType) => {
     setToast({ message, type });
@@ -227,7 +231,7 @@ const CreateAgentForm = () => {
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         if (e.metaKey || e.ctrlKey) {
-                          setPrompt((prev) => prev + "\n");
+                          setPrompt((prev: string) => prev + "\n");
                         } else {
                           e.preventDefault();
                           handleSubmit(e);
