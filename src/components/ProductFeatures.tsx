@@ -9,7 +9,7 @@ import { BsChatDots } from "react-icons/bs";
 interface FeatureCardProps {
   icon: IconType;
   title: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 interface Feature {
@@ -38,45 +38,50 @@ const ProductFeatures: React.FC = () => {
   const features: Feature[] = [
     {
       icon: BsChatDots, // Changed to chat dots for community interaction
-      title: "Automated Customer Support and Personalization",
+      title: "Smart Documentation Interface",
       description: (
         <>
-          Analyzes user behavior patterns to deliver personalized recommendations while providing
-          quick responses to customer queries and issues.
+          Transform complex technical content into interactive conversations. Seamlessly integrate
+          knowledge from documentation, GitHub repositories, PDFs, and more.
         </>
       ),
     },
     {
       icon: DataIcon, // Changed to chat dots for community interaction
-      title: "Real-time Data Monitoring and Analysis",
+      title: "Automated Community Support",
       description: (
         <>
-          Tracks multiple data sources, including social media, blockchain transactions, and GitHub
-          repositories, transforming data streams into actionable insights.
+          Provide consistent, accurate responses across all platforms 24/7, reducing response times
+          and maintaining high-quality technical discussions.
         </>
       ),
     },
     {
       icon: BrainIcon, // Changed to chat dots for community interaction
-      title: "Cross-Platform Intelligence Sharing",
+      title: "Community Intelligence",
       description: (
         <>
-          The agents collaborate and communicate with each other, creating a unified view by
-          connecting insights from both onchain and offchain data sources.
+          Track user sentiment, identify trending topics, and gather actionable insights from
+          conversations across all your community channels.
         </>
       ),
     },
     {
       icon: RocketIcon, // Changed to chat dots for community interaction
       title: "And much more....",
-      description: <>All you can imagine, you can do with AI agent workforce seemlessly</>,
+      description: (
+        <>
+          Deploy your intelligent agents across documentation sites, community platforms, and custom
+          interfaces while maintaining consistent knowledge and responses.
+        </>
+      ),
     },
   ];
 
   return (
     <section className="py-16 relative overflow-hidden px-4 !m-0 bg-bgPrimary w-full">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-primary mb-12">
-        What Your AI agent workforce can do?
+        What Your AI agents workforce can do?
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
         {features.map((feature, index) => (

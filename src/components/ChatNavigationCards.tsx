@@ -21,6 +21,27 @@ const ChatNavigationCards = () => {
       path: "https://mode.pyano.fun",
       icon: <img src={ModeSvg} className="bg-black size-8" />,
     },
+    {
+      title: "Sui",
+      description:
+        "Sui is a high-performance Layer 1 blockchain designed for fast, secure, and scalable decentralized applications with unique object-centric data model.",
+      path: "https://sui.pyano.fun",
+      icon: (
+        <img
+          src={
+            "https://cdn.prod.website-files.com/6425f546844727ce5fb9e5ab/65690e5e73e9e2a416e3502f_sui-mark.svg"
+          }
+          className="bg-black size-8"
+        />
+      ),
+    },
+    {
+      title: "Mantle Network",
+      description:
+        "Mantle is a modular Ethereum L2 scaling solution combining optimistic rollups with EigenDA for efficient, low-cost transactions while maintaining EVM compatibility and Ethereum's security.",
+      path: "https://mantle.pyano.fun",
+      icon: <img src={"https://www.mantle.xyz/logo-light.svg"} className="bg-black size-8" />,
+    },
     // {
     //   title: "Langchain",
     //   description: "Advanced language model chain for complex reasoning and structured outputs",
@@ -39,7 +60,7 @@ const ChatNavigationCards = () => {
     <div className="px-4 py-12 bg-gradient-to-t !m-0 w-full flex items-center justify-center ">
       <div className="max-w-screen-2xl flex flex-col items-center justify-self-center">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-primary ">
-          Chat with Knowledge Agents
+          Chat with AI Agents
         </h2>
         <div className="flex gap-6">
           {chatCards.map((card) => (

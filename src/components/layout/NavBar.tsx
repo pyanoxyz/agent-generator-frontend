@@ -1,46 +1,46 @@
 import { Link } from "react-router-dom";
 import {
-  FaRobot,
+  // FaRobot,
   FaTelegram as TelegramIcon,
-  FaRegCalendarAlt as CalenderIcon,
+  // FaRegCalendarAlt as CalenderIcon,
   FaTwitter as TwitterIcon,
   FaGithub as GithubIcon,
 } from "react-icons/fa";
 import logo from "../../assets/PyanoLogoGreen.svg";
 // import { useAccount, useDisconnect } from "wagmi";
-import { useEffect } from "react";
-import { checkRegister, registerUser } from "../../api/register";
-import { useAuth } from "../../hooks/useAuth";
+// import { useEffect } from "react";
+// import { checkRegister, registerUser } from "../../api/register";
+// import { useAuth } from "../../hooks/useAuth";
 // import ConnectWallet from "../ConnectWallet";
-import { useWallet } from "@solana/wallet-adapter-react";
-import SolanaConnectWallet from "../SolanaConnectWallet";
+// import { useWallet } from "@solana/wallet-adapter-react";
+// import SolanaConnectWallet from "../SolanaConnectWallet";
 import classNames from "classnames";
 
 const NavBar = ({ sticky, className }: { sticky?: boolean; className?: string }) => {
   // const { isConnected, address } = useAccount();
   // const { disconnect } = useDisconnect();
-  const { disconnect } = useWallet(); // Add this line to get disconnect function
+  // const { disconnect } = useWallet(); // Add this line to get disconnect function
 
-  const { signIn, isConnected, publicKey } = useAuth();
+  // const { signIn, isConnected, publicKey } = useAuth();
 
-  useEffect(() => {
-    if (isConnected && publicKey) {
-      checkRegister(publicKey.toString()).then(async (registered) => {
-        if (!registered) {
-          const signature = await signIn().catch(async (error) => {
-            console.log("Failed to sign in:", error);
-            disconnect();
-          });
-          if (signature) {
-            await registerUser(signature, publicKey.toString()).catch(async (error) => {
-              console.log("Failed to register user:", error);
-              disconnect();
-            });
-          }
-        }
-      });
-    }
-  }, [isConnected]);
+  // useEffect(() => {
+  //   if (isConnected && publicKey) {
+  //     checkRegister(publicKey.toString()).then(async (registered) => {
+  //       if (!registered) {
+  //         const signature = await signIn().catch(async (error) => {
+  //           console.log("Failed to sign in:", error);
+  //           disconnect();
+  //         });
+  //         if (signature) {
+  //           await registerUser(signature, publicKey.toString()).catch(async (error) => {
+  //             console.log("Failed to register user:", error);
+  //             disconnect();
+  //           });
+  //         }
+  //       }
+  //     });
+  //   }
+  // }, [isConnected]);
 
   return (
     <nav
@@ -91,13 +91,13 @@ const NavBar = ({ sticky, className }: { sticky?: boolean; className?: string })
 
           {/* Right Section - Navigation Links and Connect Button */}
           <div className="flex items-center justify-between h-full">
-            <Link
+            {/* <Link
               to="/agents"
               className="flex items-center justify-center gap-3 px-2 sm:px-3 py-1.5 border-x border-primary hover:bg-primary/5 transition-colors h-full"
             >
               <FaRobot className="w-7 h-7 text-primary" />
               <span className="hidden sm:inline text-sm font-bold text-black">Agents</span>
-            </Link>
+            </Link> */}
             <a
               href="https://github.com/pyanoxyz"
               target="_blank"
@@ -113,10 +113,10 @@ const NavBar = ({ sticky, className }: { sticky?: boolean; className?: string })
             >
               <span className="text-sm font-bold text-black">Docs</span>
             </Link> */}
-            <div className=" h-full">
-              {/* <ConnectWallet /> */}
+            {/* <div className=" h-full">
+      
               <SolanaConnectWallet />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

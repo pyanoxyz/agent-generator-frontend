@@ -13,7 +13,7 @@ interface RoadmapPhaseProps {
   icon: React.ReactNode;
   phase: string;
   title: string;
-  description: string;
+  description: React.ReactNode;
   isActive: boolean;
   partnership?: {
     name: string;
@@ -76,9 +76,13 @@ const RoadMap = () => {
     {
       icon: <Bot className="h-6 w-6" />,
       phase: "Phase 1",
-      title: "Foundation - Core Agent Infrastructure (Live)",
-      description:
-        "Basic agent capabilities with social media integration, repository analysis, and initial edge infrastructure. Rust-based LLM runtime established with fundamental resource optimization and on-device processing.",
+      title: "Knowledge Foundation (Live)",
+      description: (
+        <>
+          Advanced RAG implementation, Multi-source knowledge integration, Interactive chat
+          interface, Base analytics dashboard,
+        </>
+      ),
       isActive: true,
       partnership: {
         name: "Marlin",
@@ -89,25 +93,37 @@ const RoadMap = () => {
     {
       icon: <Team className="h-6 w-6" />,
       phase: "Phase 2",
-      title: "Agent Collaboration & Intelligence (Months 0-6)",
-      description:
-        "Introduction of advanced inter-agent communication, workforce management, and autonomous task distribution systems. Implementation of universal API connectivity and cross-platform data integration features.",
+      title: "Community Intelligence  (Months 2-5)",
+      description: (
+        <>
+          Platform integrations (Discord, Slack), Sentiment analysis engine, Community insights
+          dashboard, Advanced query handling
+        </>
+      ),
       isActive: false,
     },
     {
       icon: <Analytics className="h-6 w-6" />,
       phase: "Phase 3",
-      title: "Edge Foundation & Analytics (Months 7-14)",
-      description:
-        "Deployment of edge-optimized models with on-device processing and advanced analytics capabilities. Integration of local fine-tuning pipeline, decentralized storage, and comprehensive monitoring systems.",
+      title: "Analytics & Insights (Months 6-9)",
+      description: (
+        <>
+          Enhanced sentiment tracking, User journey analytics, Cross-platform metrics, Custom
+          reporting tools,
+        </>
+      ),
       isActive: false,
     },
     {
       icon: <Cpu className="h-6 w-6" />,
       phase: "Phase 4",
-      title: "Complete Edge Deployment (Months 15-21)",
-      description:
-        "Full transition to edge-based infrastructure with complete runtime, security features, and decentralized model inference. Implementation of comprehensive monitoring, automated recovery, and continuous evolution systems.",
+      title: "Advanced features (Months 15-21)",
+      description: (
+        <>
+          Edge AI processing, Custom knowledge adaptation, Advanced security features, Enterprise
+          compliance tools,
+        </>
+      ),
       isActive: false,
     },
   ];

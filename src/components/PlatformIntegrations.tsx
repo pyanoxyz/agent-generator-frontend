@@ -1,6 +1,8 @@
 import React from "react";
 import { BsGithub, BsDiscord, BsTelegram, BsCode } from "react-icons/bs";
 import { FaXTwitter } from "react-icons/fa6";
+import { SlDocs } from "react-icons/sl";
+import { FaSlack } from "react-icons/fa";
 
 interface IntegrationItemProps {
   Icon: React.ElementType;
@@ -41,30 +43,31 @@ const IntegrationItem: React.FC<IntegrationItemProps> = ({ Icon, name }) => {
 const PlatformIntegrations: React.FC = () => {
   const platforms = [
     {
-      Icon: BsGithub,
-      name: "GitHub",
+      Icon: SlDocs,
+      name: "Docs",
     },
     {
-      Icon: FaXTwitter,
-      name: "Twitter",
+      Icon: BsGithub,
+      name: "GitHub",
     },
     {
       Icon: BsDiscord,
       name: "Discord",
     },
+    { Icon: FaSlack, name: "Slack" },
     {
       Icon: BsTelegram,
       name: "Telegram",
     },
-    {
-      Icon: BsCode,
-      name: "API",
-    },
+    // {
+    //   Icon: BsCode,
+    //   name: "API",
+    // },
   ];
 
   return (
     <section className="relative h-72">
-      <div className="max-w-4xl relative flex items-center z-[2] flex-col justify-center h-full mx-auto px-4  bg-primary">
+      <div className="max-w-5xl relative flex items-center z-[2] flex-col justify-center h-full mx-auto px-4  bg-primary">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-2 bg-white bg-clip-text text-transparent">
             Seamless Integration
