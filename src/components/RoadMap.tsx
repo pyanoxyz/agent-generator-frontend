@@ -1,13 +1,25 @@
 import React from "react";
-
-import { LuBot as Bot, LuCloud as Cloud, LuCpu as Cpu } from "react-icons/lu";
+import {
+  LuBot as Bot,
+  // LuCloud as Cloud,
+  LuCpu as Cpu,
+  // LuLock as Shield,
+} from "react-icons/lu";
+import { MarlinLogo } from "./MarlinLogo";
+import { RiTeamLine as Team } from "react-icons/ri";
+import { RiBarChartBoxAiLine as Analytics } from "react-icons/ri";
 
 interface RoadmapPhaseProps {
   icon: React.ReactNode;
   phase: string;
   title: string;
-  description: string;
+  description: React.ReactNode;
   isActive: boolean;
+  partnership?: {
+    name: string;
+    logo: React.ReactNode;
+    url: string;
+  };
 }
 
 function RoadmapPhase({
@@ -16,18 +28,12 @@ function RoadmapPhase({
   title,
   description,
   isActive,
+  partnership,
 }: RoadmapPhaseProps) {
   return (
     <div
       className={`
-      rounded-lg border bg-card text-card-foreground shadow-sm
-      relative transition-all duration-300 
-      hover:scale-105 hover:shadow-xl
-      ${
-        isActive
-          ? "border-blue-500 bg-blue-900/10"
-          : "border-gray-800 bg-transparent"
-      }
+      rounded-lg relative transition-all duration-300 border border-primary bg-bgCards
     `}
     >
       <div className="p-6 space-y-4 relative">
@@ -35,21 +41,32 @@ function RoadmapPhase({
           <div
             className={`
             p-3 rounded-full 
-            ${isActive ? "bg-blue-500 text-white" : "bg-gray-800 text-gray-400"}
+            bg-primary
           `}
           >
             {icon}
           </div>
           <div>
-            <p className="text-sm text-gray-400">{phase}</p>
-            <h3 className="text-xl font-bold text-white">{title}</h3>
+            <p className="text-sm text-black">{phase}</p>
+            <h3 className="text-xl font-bold text-textHeading">{title}</h3>
           </div>
         </div>
-        <p className="text-gray-400">{description}</p>
+        <p className="text-textHeading text-sm leading-relaxed">{description}</p>
+        {partnership && (
+          <a
+            href={partnership.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 pt-2 mt-2 border-t border-black hover:opacity-80 transition-opacity"
+          >
+            <span className="text-xs text-textHeading">Powered by</span>
+            <div className="w-24 sm:w-32 text-primary">{partnership.logo}</div>
+          </a>
+        )}
       </div>
-      {isActive && (
+      {/* {isActive && (
         <div className="absolute -top-0.5 -right-0.5 z-10 w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-      )}
+      )} */}
     </div>
   );
 }
@@ -59,34 +76,64 @@ const RoadMap = () => {
     {
       icon: <Bot className="h-6 w-6" />,
       phase: "Phase 1",
-      title: "Agent Creation",
-      description:
-        "Create and customize your AI agents with our intuitive interface",
+      title: "Knowledge Foundation (Live)",
+      description: (
+        <>
+          Advanced RAG implementation, Multi-source knowledge integration, Interactive chat
+          interface, Base analytics dashboard,
+        </>
+      ),
       isActive: true,
+      partnership: {
+        name: "Marlin",
+        logo: <MarlinLogo />,
+        url: "https://www.marlin.org/",
+      },
     },
     {
-      icon: <Cloud className="h-6 w-6" />,
+      icon: <Team className="h-6 w-6" />,
       phase: "Phase 2",
-      title: "Cloud Integration",
-      description: "Run your bots on the cloud with integrated payment systems",
+      title: "Community Intelligence  (Months 2-5)",
+      description: (
+        <>
+          Platform integrations (Discord, Slack), Sentiment analysis engine, Community insights
+          dashboard, Advanced query handling
+        </>
+      ),
+      isActive: false,
+    },
+    {
+      icon: <Analytics className="h-6 w-6" />,
+      phase: "Phase 3",
+      title: "Analytics & Insights (Months 6-9)",
+      description: (
+        <>
+          Enhanced sentiment tracking, User journey analytics, Cross-platform metrics, Custom
+          reporting tools,
+        </>
+      ),
       isActive: false,
     },
     {
       icon: <Cpu className="h-6 w-6" />,
-      phase: "Phase 3",
-      title: "Edge AI",
-      description:
-        "Run agents locally with opensource models using our Rust runtime",
+      phase: "Phase 4",
+      title: "Advanced features (Months 15-21)",
+      description: (
+        <>
+          Edge AI processing, Custom knowledge adaptation, Advanced security features, Enterprise
+          compliance tools,
+        </>
+      ),
       isActive: false,
     },
   ];
 
   return (
-    <div className="p-8 space-y-8">
-      <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+    <div className="pb-16 sm:pb-20 space-y-12">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center bg-primary bg-clip-text text-transparent px-4">
         Development Roadmap
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 max-w-7xl mx-auto">
         {phases.map((phase, index) => (
           <RoadmapPhase key={index} {...phase} />
         ))}

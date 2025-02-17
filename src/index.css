@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-brand-dark text-white;
+/* Vertical scrollbar width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Horizontal scrollbar height */
+::-webkit-scrollbar:horizontal {
+  height: 3px; /* Reduced height for horizontal scrollbar */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ececec;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #d3d2d2;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
 }
